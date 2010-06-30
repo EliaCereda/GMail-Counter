@@ -1,0 +1,42 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+	<script src="bar.js" />
+	<link rel="stylesheet" rev="stylesheet" href="bar.css" type="text/css" />
+</head>
+<body onclick="next();" onload="init();" id="body">
+	<div id="container_1" class="container" onclick="openInTab(document.getElementById('link_1').textContent);">
+		<span id="link_1" style="display: none;">https://mail.google.com/mail/</span>
+		<span id="background_1" style="display: none;">;#000</span>
+		<span class="quotes">&#x201c;</span>
+		<span id="content_1" class="content">Loading...</span>
+		<span class="quotes">&#x201d;</span>
+		<span class="sender-box"> &#x2015;
+			<span id="sender_1" class="sender">GMail Counter</span>
+		</span>
+	</div>
+	<div id="container_2" class="container" onclick="openInTab(document.getElementById('link_2').textContent);">
+		<span id="link_2" style="display: none;">https://mail.google.com/mail/</span>
+		<span id="background_2" style="display: none;">;#000</span>
+		<span class="quotes">&#x201c;</span>
+		<span id="content_2" class="content">Loading...</span>
+		<span class="quotes">&#x201d;</span>
+		<span class="sender-box"> &#x2015;
+			<span id="sender_2" class="sender">GMail Counter</span>
+		</span>
+	</div>
+	
+	<div id="messageNumber_1">
+		<span id="current_1">-</span>
+		of
+		<span id="total_1">-</span>
+	</div>
+	<div id="messageNumber_2">
+		<span id="current_2">-</span>
+		of
+		<span id="total_2">-</span>
+	</div>
+	
+	<span class="close" title="Close all Extension Bars" onclick="hideBars(document.getElementById('link_'+a).innerText)"></span>
+</body>
+</html>

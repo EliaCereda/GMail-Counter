@@ -1,0 +1,88 @@
+.quotes
+{
+	text-align: inherit;
+	font-size: 28pt;
+	vertical-align: top;
+	color: inherit;
+	position: relative;
+	top: -8px;
+}
+
+.sender-box
+{
+	text-align: inherit;
+	color: inherit;
+}
+
+#container_1
+{
+	position: fixed;
+	text-align: center;
+	-webkit-transition: -webkit-transform 0.5s ease-out;
+	cursor: pointer;
+}
+
+#container_2
+{
+	position: fixed;
+	text-align: right;
+	-webkit-transition: -webkit-transform 0.5s ease-out;
+	-webkit-transform: translate(0,-40px);
+	z-index: 10000;
+	cursor: pointer;
+}
+
+.container:hover .content, .container:hover .sender { text-decoration: underline; }
+body { -webkit-transition: all 0.5s ease-out; }
+
+#messageNumber_1
+{
+	position: fixed;
+	right: 10px;
+	bottom: 3px;
+	text-align: center;
+	-webkit-transition: -webkit-transform 0.5s ease-out;
+	font-size: 6pt;
+}
+
+#messageNumber_2
+{
+	position: fixed;
+	right: 10px;
+	bottom: 3px;
+	text-align: center;
+	-webkit-transition: -webkit-transform 0.5s ease-out;
+	-webkit-transform: translate(0,40px);
+	z-index: 10000;
+	font-size: 6pt;
+}
+
+.close
+{
+	padding: 0;
+	margin: 0 5px;
+	text-align: center;
+	-webkit-box-align: center;
+	display: inline-block;
+	font: -webkit-small-control;
+	width: 14px;
+	height: 14px;
+	-webkit-border-radius: 1em;
+	color: rgba(0,0,0, 0.8);
+	line-height: normal;
+	background: transparent url(close.png) top left;
+}
+
+.close:hover
+{
+	text-shadow: none;
+	background-position: 14px 0;
+	background-color: transparent;
+}
+
+.close:active
+{
+	background-position: 28px 0;
+	background-color: transparent;
+	-webkit-box-shadow: none;
+}
