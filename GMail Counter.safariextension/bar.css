@@ -71,6 +71,7 @@ body { -webkit-transition: all 0.5s ease-out; }
 	color: rgba(0,0,0, 0.8);
 	line-height: normal;
 	background: transparent url(close.png) top left;
+	cursor: pointer;
 }
 
 .close:hover
@@ -100,6 +101,7 @@ body { -webkit-transition: all 0.5s ease-out; }
 	color: rgba(0,0,0, 0.8);
 	line-height: normal;
 	background: transparent url(new.png) 14px 0;
+	cursor: pointer;
 }
 
 .new:hover
