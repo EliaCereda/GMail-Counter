@@ -1,0 +1,26 @@
+   _____ __  __       _ _    _____                   _             
+  / ____|  \/  |     (_) |  / ____|                 | |            
+ | |  __| \  / | __ _ _| | | |      ___  _   _ _ __ | |_  ___ _ __ 
+ | | |_ | |\/| |/ _` | | | | |     / _ \| | | | '_ \| __|/ _ \ '__|
+ | |__| | |  | | (_| | | | | |____| (_) | |_| | | | | |_|  __/ |   
+  \_____|_|  |_|\__,_|_|_|  \_____|\___/ \__,_|_| |_|\__|\___|_|   
+                                                     by Elia Cereda
+
+This is my first experiment of useful Safari 5 Extension. It's build using only CSS3, Javascript, HTML5 and the Apple's Safari Extension API.
+
+Features:
+ * Toolbar button with a badge showing the number of unread mails.
+ * Extension bar showing the subject of the latest twenty mails in your Inbox
+ * Click on a subject to read the mail or in the other part of the bar to see the next subject
+ * Write a new mail from a button in the Extension Bar
+ * You can select only a label or all (i.e. "Inbox", "Draft", "Work", "All") to be shown in the mail count and in the bar
+
+Changes Log:
+ * 0.5: First public release
+ * 0.5.1: Minor update - bug fixes
+ * 0.5.1b: First release on GitHub
+ * 0.6: Still on GitHub beta - added the extension bar
+
+Known issues:
+ * Once you logged-in there isn't a way to log-out or change account - if someone can help...
+ * On Windows XP and 7 (and maybe Vista, too) sometimes it fails the installation - unknown causes, maybe a Safari bug or a certificate issue
