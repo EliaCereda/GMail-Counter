@@ -145,7 +145,7 @@
 			}
 		}
 		
-		function editMessage() {
+		function newMessage() {
 			openInTab("https://mail.google.com/mail/#compose");
 		}
 		

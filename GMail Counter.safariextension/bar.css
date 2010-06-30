@@ -86,3 +86,32 @@ body { -webkit-transition: all 0.5s ease-out; }
 	background-color: transparent;
 	-webkit-box-shadow: none;
 }
+
+.new
+{
+	position: fixed;
+	right: 70px;
+	text-align: center;
+	-webkit-box-align: center;
+	display: inline-block;
+	font: -webkit-small-control;
+	width: 14px;
+	height: 14px;
+	color: rgba(0,0,0, 0.8);
+	line-height: normal;
+	background: transparent url(new.png) 14px 0;
+}
+
+.new:hover
+{
+	text-shadow: none;
+	background-position: 28px 0;
+	background-color: transparent;
+}
+
+.new:active
+{
+	background-position: 0 0;
+	background-color: transparent;
+	-webkit-box-shadow: none;
+}
