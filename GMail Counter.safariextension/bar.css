@@ -100,14 +100,16 @@ body { -webkit-transition: all 0.5s ease-out; }
 	height: 14px;
 	color: rgba(0,0,0, 0.8);
 	line-height: normal;
-	background: transparent url(new.png) 14px 0;
+	background: transparent url(new.png) 42px 0;
 	cursor: pointer;
+	-webkit-transition: width 0.3s ease-out;
 }
 
 .new:hover
 {
 	text-shadow: none;
-	background-position: 28px 0;
+	width: 42px;
+	background-position: 84px 0;
 	background-color: transparent;
 }
 
@@ -115,5 +117,6 @@ body { -webkit-transition: all 0.5s ease-out; }
 {
 	background-position: 0 0;
 	background-color: transparent;
+	width: 42px;
 	-webkit-box-shadow: none;
 }
