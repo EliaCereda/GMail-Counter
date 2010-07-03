@@ -10,16 +10,16 @@ This is my first experiment of useful Safari 5 Extension. It's build using only 
 
 Features:
  * Toolbar button with a badge showing the number of unread mails.
- * Extension bar showing the subject of the latest twenty mails in your Inbox
- * Click on a subject to read the mail or in the other part of the bar to see the next subject
- * Write a new mail from a button in the Extension Bar
+ * GMail Head Viewer, an extension bar showing the subject of the latest twenty mails in your Inbox
+ * Click on a subject to read the mail or in the others parts of the bar to see the next message
+ * Write a new mail from a button in the Head Viewer
  * You can select only a label or all (i.e. "Inbox", "Draft", "Work", "All") to be shown in the mail count and in the bar
 
 Changes Log:
- * 0.5: First public release
- * 0.5.1: Minor update - bug fixes
+ * 0.6: added the GMail Head Viewer
  * 0.5.1b: First release on GitHub
- * 0.6: Still on GitHub beta - added the extension bar
+ * 0.5.1: Minor update - bug fixes
+ * 0.5: First public release
 
 Known issues:
  * Once you logged-in there isn't a way to log-out or change account - if someone can help...
