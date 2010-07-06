@@ -113,14 +113,11 @@ function updateBars() {
 			++currentIndex;
 		}
 		
-		bars = safari.extension.bars;
-		for ( i = 0; i < bars.length; i++ ) {
-			if(bars[i].contentWindow.update)
-				bars[i].contentWindow.update(mails[currentIndex]);
-		}
+		safari.extension.bars.forEach(function(bar) {
+			if(bar.contentWindow.update)
+				bar.contentWindow.update(mails[currentIndex]);
+		})
 	} else {
-		bars = safari.extension.bars;
-		
 		currentIndex = -1;
 		
 		noMail = new Array;
@@ -133,10 +130,10 @@ function updateBars() {
 		noMail["total"] = "0";
 
 		
-		for ( i = 0; i < bars.length; i++ ) {
-			if(bars[i].contentWindow.update)
-				bars[i].contentWindow.update(noMail);
-		}
+		safari.extension.bars.forEach(function(bar) {
+			if(bar.contentWindow.update)
+				bar.contentWindow.update(noMail);
+		})
 	}
 	
 	if (mails.length != 0) {
