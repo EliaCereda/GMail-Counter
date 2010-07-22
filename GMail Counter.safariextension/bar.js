@@ -1,5 +1,4 @@
 		var active = "1";
-		var newTab;
 		
 		function init() {
 			repositionate();
@@ -133,6 +132,8 @@
 		
 		function openInTab(link) {
 			a = active;
+			newTab = safari.extension.globalPage.contentWindow.newTab;
+			
 			
 			if (safari.extension.settings.getItem("tab")) {
 				if (typeof(newTab) == 'undefined' || typeof(newTab.url) == 'undefined') {
@@ -146,7 +147,8 @@
 		}
 		
 		function newMessage() {
-			openInTab("https://mail.google.com/mail/#compose");
+			baseURL = safari.extension.globalPage.contentWindow.getGmailUrl(false);
+			openInTab(baseURL+"#compose");
 		}
 		
 		function hideBars() {

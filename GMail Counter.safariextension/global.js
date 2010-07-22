@@ -6,6 +6,36 @@ var atom;
 var mails;
 var currentIndex = -1;
 var timeout;
+var delay;
+
+var loggedIn = true;
+
+function getGmailUrl(withFeed) {
+  var url = "https://mail.google.com";
+  var domain = safari.extension.settings.getItem("appsDomain");
+  var label = safari.extension.settings.getItem("label");
+  
+  if (domain) {
+    url += "/a/" + domain + ((domain[domain.length - 1] != "/") ? "/" : "");
+  } else {
+    url += "/mail/";
+  }
+  
+  if(withFeed){
+  	url += "feed/atom/";
+  	if(label) {
+	  	url += label;
+	  }
+  }
+  
+  return url;
+}
+
+function gmailNSResolver(prefix) {
+  if(prefix == 'gmail') {
+	return 'http://purl.org/atom/ns#';
+  }
+}
 
 function performCommand(event) {
     if (event.command === "button") {
@@ -13,10 +43,10 @@ function performCommand(event) {
 			if (typeof(newTab) == 'undefined' || typeof(newTab.url) == 'undefined') {
 				newTab = safari.application.activeBrowserWindow.openTab();
 			}
-			newTab.url = 'https://mail.google.com/mail/';
+			newTab.url = getGmailUrl(false);
 			newTab.activate();
 		} else {
-			safari.application.activeBrowserWindow.activeTab.url = 'https://mail.google.com/mail/';
+			safari.application.activeBrowserWindow.activeTab.url = getGmailUrl(false);
 		}
     }
 
@@ -25,48 +55,76 @@ function performCommand(event) {
 function validateCommand(event) {
 
     if (event.command === "button") {
-
+		
 		eventVar=event;
 		event.target.toolTip = "GMail Counter - Loading...";
-        xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function () {
-        	if (xhr.readyState==4 && xhr.status==200 && xhr.responseXML) {
-				xmlData = xhr.responseXML;
-				atom = xmlData;
-				fullCountSet = xmlData.evaluate("/gmail:feed/gmail:fullcount", xmlData, gmailNSResolver, XPathResult.ANY_TYPE, null);
-				unread = fullCountSet.iterateNext();
-				if(unread.textContent != 0) {
-					message = (unread.textContent==1)?"message":"messages";
-					event.target.toolTip = "GMail Counter - "+unread.textContent+" new "+message;
-					event.target.badge = unread.textContent;
+		xhr1 = new XMLHttpRequest();
+	    xhr1.onreadystatechange = function () {
+	    	if (xhr1.readyState==4) {
+		    	if (xhr1.responseText.indexOf("<!DOCTYPE html>") != -1) {
+		    		console.log("ok");
+		    		
+			        xhr = new XMLHttpRequest();
+			        xhr.onreadystatechange = function () {
+			        	if (xhr.readyState==4 && xhr.status==200 && xhr.responseXML) {
+							xmlData = xhr.responseXML;
+							atom = xmlData;
+							fullCountSet = xmlData.evaluate("/gmail:feed/gmail:fullcount", xmlData, gmailNSResolver, XPathResult.ANY_TYPE, null);
+							unread = fullCountSet.iterateNext();
+							if(unread.textContent != 0) {
+								message = (unread.textContent==1)?"message":"messages";
+								event.target.toolTip = "GMail Counter - "+unread.textContent+" new "+message;
+								event.target.badge = unread.textContent;
+							} else {
+								event.target.toolTip = "GMail Counter - No new messages";
+								event.target.badge = unread.textContent;
+							}
+							
+							updateBarsData();
+							if(currentIndex == -1) {
+								updateBars();
+							}
+							
+							if(!loggedIn) {
+			    				updateBars();
+			    			}
+			    										
+						}
+					}
+					xhr.open("GET",getGmailUrl(true),true);
+					xhr.send();
 				} else {
-					event.target.toolTip = "GMail Counter - No new messages";
-					event.target.badge = unread.textContent;
-					//event.target.image = safari.extension.baseURI + "status-unread.png";
-				}
-				
-				updateBarsData();
-				if(currentIndex == -1) {
+					console.log("no");
+					loggedIn = false;
+					
+					event.target.toolTip = "GMail Counter - Not logged-in";
+					event.target.badge = 0;
+					
+					mails = new Array;
+					mails[0] = new Array;
+			
+					mails[0]["content"] = "Click here to login";
+					mails[0]["sender"] = "GMail Counter";
+					mails[0]["background"] = ";#000";
+					mails[0]["link"] = getGmailUrl(false);
+			
+					mails[0]["current"] = "-";
+					mails[0]["total"] = "0";
 					updateBars();
 				}
 			}
 		}
-		label = safari.extension.settings.getItem("label");
-		xhr.open("GET","https://mail.google.com/mail/feed/atom/"+label,true);
-		xhr.send();
+		xhr1.open("GET",getGmailUrl(false),true);
+		xhr1.send();
     }
 }
 
 function changedCommand(event) {
 	if (event.key == "label") {
 		updateBarsData();
+	} else if(event.key == "delay") {
+		setDelay(event.newValue);
 	}
-}
-
-function gmailNSResolver(prefix) {
-  if(prefix == 'gmail') {
-	return 'http://purl.org/atom/ns#';
-  }
 }
 
 function updateBarsData() {
@@ -103,7 +161,7 @@ return mails;
 function updateBars() {
 	clearTimeout(timeout);
 	if(mails.length != 0) {
-		if(currentIndex > mails.length-2) {
+		if(currentIndex > mails.length-2) { //length-1(the index starts from 0 and length from 1)-1(I want to know if this is the last element)
 			currentIndex = -1;
 		}
 		
@@ -124,7 +182,7 @@ function updateBars() {
 		noMail["content"] = "No new mails";
 		noMail["sender"] = "GMail Counter";
 		noMail["background"] = ";#000";
-		noMail["link"] = "https://mail.google.com/mail/";
+		noMail["link"] = getGmailUrl(false);
 		
 		noMail["current"] = "-"
 		noMail["total"] = "0";
@@ -136,8 +194,8 @@ function updateBars() {
 		})
 	}
 	
-	if (mails.length != 0) {
-		timeout = setTimeout("updateBars()",10000);
+	if (mails.length != 0 && loggedIn) {
+		timeout = setTimeout("updateBars()",delay*1000);
 	}
 }
 
@@ -163,7 +221,7 @@ function stringToColor( string ) {
 	false_negative = new RGB (225,229,58);
 	
 	if (RGB_.r == false_positive.r && RGB_.g == false_positive.g && RGB_.b == false_positive.b) {
-		HSV_.v = 89
+		HSV_.v = 89;
 	}
 	
 	if (RGB_.r == false_negative.r && RGB_.g == false_negative.g && RGB_.b == false_negative.b) {
@@ -179,8 +237,16 @@ function stringToColor( string ) {
 	return color;
 }
 
+function setDelay(d){
+	d=parseInt(d);
+	delay=(d>0)?d:10;
+	updateBars();
+}
+
 function hex2dec( s ) { return parseInt( s, 16 ); }
 
 safari.application.addEventListener("validate", validateCommand, false);
 safari.application.addEventListener("command", performCommand, false);
 safari.extension.settings.addEventListener("change", changedCommand, false);
+
+setDelay(safari.extension.settings.getItem("delay"));
