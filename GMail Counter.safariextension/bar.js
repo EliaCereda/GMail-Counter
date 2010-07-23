@@ -1,4 +1,5 @@
 		var active = "1";
+		var newTab;
 		
 		function init() {
 			repositionate();
@@ -132,8 +133,6 @@
 		
 		function openInTab(link) {
 			a = active;
-			newTab = safari.extension.globalPage.contentWindow.newTab;
-			
 			
 			if (safari.extension.settings.getItem("tab")) {
 				if (typeof(newTab) == 'undefined' || typeof(newTab.url) == 'undefined') {
@@ -141,6 +140,7 @@
 				}
 				newTab.url = link;
 				newTab.activate();
+				newTab.browserWindow.activate();
 			} else {
 				safari.application.activeBrowserWindow.activeTab.url = link;
 			}
@@ -154,5 +154,5 @@
 		function hideBars() {
 			safari.extension.globalPage.contentWindow.hideBars();
 		}
-		
+
 		window.onresize = repositionate;

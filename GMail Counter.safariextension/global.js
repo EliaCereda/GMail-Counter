@@ -45,6 +45,7 @@ function performCommand(event) {
 			}
 			newTab.url = getGmailUrl(false);
 			newTab.activate();
+			newTab.browserWindow.activate();
 		} else {
 			safari.application.activeBrowserWindow.activeTab.url = getGmailUrl(false);
 		}
