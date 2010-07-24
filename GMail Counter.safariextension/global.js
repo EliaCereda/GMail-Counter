@@ -106,7 +106,7 @@ function validateCommand(event) {
 			
 					mails[0]["content"] = "Click here to login";
 					mails[0]["sender"] = "GMail Counter";
-					mails[0]["background"] = ";#000";
+					mails[0]["background"] = ";#000;1";
 					mails[0]["link"] = getGmailUrl(false);
 			
 					mails[0]["current"] = "-";
@@ -182,7 +182,7 @@ function updateBars() {
 		noMail = new Array;
 		noMail["content"] = "No new mails";
 		noMail["sender"] = "GMail Counter";
-		noMail["background"] = ";#000";
+		noMail["background"] = ";#000;1";
 		noMail["link"] = getGmailUrl(false);
 		
 		noMail["current"] = "-"
@@ -230,9 +230,9 @@ function stringToColor( string ) {
 	} 
 	
 	if(HSV_.v > 90) {
-		color += ";#000"
+		color += ";#000;1"
 	} else {
-		color += ";#fff"
+		color += ";#fff;0"
 	}
 	
 	return color;

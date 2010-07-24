@@ -47,14 +47,18 @@
 			messageNumber_1 = document.getElementById('messageNumber_1');
 			messageNumber_2 = document.getElementById('messageNumber_2');
 			
+			
 			body = document.getElementById('body');
+			newButton = document.getElementById('new');
 			
 			color_1 = document.getElementById('background_1').innerHTML;
 				background_1 = color_1.split(";")[0]
 				text_1 = color_1.split(";")[1]
+				new_1 = color_1.split(";")[2]
 			color_2 = document.getElementById('background_2').innerHTML;
 				background_2 = color_2.split(";")[0]
 				text_2 = color_2.split(";")[1]
+				new_2 = color_2.split(";")[2]
 			
 			switch ( active ) {
 				case "1":
@@ -66,6 +70,14 @@
 					
 					body.style.background = background_2;
 					body.style.color = text_2;
+					
+					if(new_2 == 1) {
+						removeClass(newButton, "new_light");
+						addClass(newButton, "new_dark");
+					} else {
+						removeClass(newButton, "new_dark");
+						addClass(newButton, "new_light");
+					}
 					
 					active = "2";
 					break;
@@ -79,6 +91,14 @@
 					
 					body.style.background = background_1;
 					body.style.color = text_1;
+					
+					if(new_1 == 1) {
+						removeClass(newButton, "new_light");
+						addClass(newButton, "new_dark");
+					} else {
+						removeClass(newButton, "new_dark");
+						addClass(newButton, "new_light");
+					}
 					
 					active = "1";
 					break;
@@ -132,8 +152,7 @@
 		}
 		
 		function openInTab(link) {
-			a = active;
-			
+
 			if (safari.extension.settings.getItem("tab")) {
 				if (typeof(newTab) == 'undefined' || typeof(newTab.url) == 'undefined') {
 					newTab = safari.application.activeBrowserWindow.openTab();
@@ -154,5 +173,22 @@
 		function hideBars() {
 			safari.extension.globalPage.contentWindow.hideBars();
 		}
+
+//Thanks to www.OpenJS.com for this code
+		function hasClass(ele,cls) {
+			return ele.className.match(new RegExp('(\\s|^)'+cls+'(\\s|$)'));
+		}
+
+		function addClass(ele,cls) {
+			if (!this.hasClass(ele,cls)) ele.className += " "+cls;
+		}
+		
+		function removeClass(ele,cls) {
+			if (hasClass(ele,cls)) {
+		    	var reg = new RegExp('(\\s|^)'+cls+'(\\s|$)');
+				ele.className=ele.className.replace(reg,' ');
+			}
+		}
+//END of OpenJS's code
 
 		window.onresize = repositionate;
