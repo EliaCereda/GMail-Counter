@@ -28,7 +28,7 @@ Changes Log:
 
 Known issues:
  * Once you logged-in there isn't a way to log-out or change account - FIXED IN LAST RELEASE
- * On Windows XP and 7 (and maybe Vista, too) sometimes it fails the installation - Safari/Web-Kit bug… Nothing that I can solve
+ * On Windows XP and 7 (and maybe Vista, too) sometimes it fails the installation - Safari/Web-Kit bug... Nothing that I can solve
 
 TODO:
  * Localisation when Safari API will implement the l10n of settings
