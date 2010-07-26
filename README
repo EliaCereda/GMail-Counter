@@ -20,6 +20,7 @@ Features:
  * Support for Google Apps
 
 Changes Log:
+ * 0.7.1: No code changes. Updated to work with my new website
  * 0.7: New features and many fixes (check the wiki for more info)
  * 0.6: Added the GMail Head Viewer
  * 0.5.1b: First release on GitHub

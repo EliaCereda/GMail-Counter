@@ -11,9 +11,9 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.7</string>
+	<string>0.7.1</string>
 	<key>CFBundleVersion</key>
-	<string>7</string>
+	<string>7.1</string>
 	<key>Chrome</key>
 	<dict>
 		<key>Bars</key>
@@ -69,8 +69,8 @@
 		</dict>
 	</dict>
 	<key>Update Manifest URL</key>
-	<string>http://elix14.altervista.org/GMailCounter/update.plist</string>
+	<string>http://elix14.altervista.org/Extensions/GMail%20Counter/assets/update.plist</string>
 	<key>Website</key>
-	<string>http://elix14.altervista.org/GMailCounter/Info</string>
+	<string>http://elix14.altervista.org/Extensions/GMail%20Counter/</string>
 </dict>
 </plist>
