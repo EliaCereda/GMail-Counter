@@ -125,6 +125,11 @@ function changedCommand(event) {
 		updateBarsData();
 	} else if(event.key == "delay") {
 		setDelay(event.newValue);
+	} else if(event.key == "gradient") {
+		safari.extension.bars.forEach(function(bar) {
+			if(bar.contentWindow.repositionate)
+				bar.contentWindow.repositionate();
+		});
 	}
 }
 
@@ -239,7 +244,7 @@ function stringToColor( string ) {
 }
 
 function setDelay(d){
-	d=parseInt(d);
+	d=parseInt(d, 10);
 	delay=(d>0)?d:10;
 	updateBars();
 }

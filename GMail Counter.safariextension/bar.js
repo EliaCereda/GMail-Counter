@@ -9,8 +9,12 @@
 				background_1 = color_1.split(";")[0]
 				text_1 = color_1.split(";")[1]
 			
-			body.style.background = background_1;
+			body.style.backgroundColor = background_1;
 			body.style.color = text_1;
+			
+			if (safari.extension.settings.getItem("gradient")) {
+				addClass(body, "withGradient")
+			}
 			
 			data = getLatestDatas();
 			update(data);
@@ -36,6 +40,14 @@
 			
 			container_1.style.left = container_1_position+"px";
 			container_2.style.left = container_2_position+"px";
+			
+			body = document.getElementById('body');
+			
+			if (safari.extension.settings.getItem("gradient")) {
+				addClass(body, "withGradient");
+			} else {
+				removeClass(body, "withGradient");
+			}
 			
 			return 1;
 			
@@ -68,7 +80,7 @@
 					messageNumber_2.style.webkitTransform='translate(0,0)';
 					messageNumber_1.style.webkitTransform='translate(0,40px)';
 					
-					body.style.background = background_2;
+					body.style.backgroundColor = background_2;
 					body.style.color = text_2;
 					
 					if(new_2 == 1) {
@@ -89,7 +101,7 @@
 					messageNumber_1.style.webkitTransform='translate(0,0)';
 					messageNumber_2.style.webkitTransform='translate(0,40px)';
 					
-					body.style.background = background_1;
+					body.style.backgroundColor = background_1;
 					body.style.color = text_1;
 					
 					if(new_1 == 1) {

@@ -33,7 +33,16 @@
 }
 
 .container:hover .content, .container:hover .sender { text-decoration: underline; }
-body { -webkit-transition: all 0.5s ease-out; }
+
+body
+{
+	-webkit-transition: all 0.5s ease-out;
+}
+
+.withGradient
+{
+	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, rgba(0, 0, 0, 0)), color-stop(0.61, rgba(255, 255, 255, 0.4)));
+}
 
 #messageNumber_1
 {
