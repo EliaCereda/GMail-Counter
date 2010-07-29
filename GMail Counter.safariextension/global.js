@@ -130,6 +130,8 @@ function changedCommand(event) {
 			if(bar.contentWindow.repositionate)
 				bar.contentWindow.repositionate();
 		});
+	} else if(event.key == "autoHide" && event.newValue == false && safari.extension.settings.getItem("hidedByMe")) {
+		showBars();
 	}
 }
 
@@ -219,6 +221,13 @@ function hideBars(  ) {
 	bars = safari.extension.bars;
 	for ( i = 0; i < bars.length; i++ ) {
 		bars[i].hide();
+	}
+}
+
+function showBars() {
+	bars = safari.extension.bars;
+	for ( i = 0; i < bars.length; i++ ) {
+		bars[i].show();
 	}
 }
 
