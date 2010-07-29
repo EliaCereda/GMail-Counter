@@ -52,7 +52,7 @@
 		<key>Key</key>
 		<string>tab</string>
 		<key>Title</key>
-		<string>Open in new tab?</string>
+		<string>Open in messages new tab?</string>
 		<key>Type</key>
 		<string>CheckBox</string>
 	</dict>
@@ -65,6 +65,22 @@
 		<string>Enable gradient in Head Viewer?</string>
 		<key>Type</key>
 		<string>CheckBox</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<false/>
+		<key>Key</key>
+		<string>autoHide</string>
+		<key>Title</key>
+		<string>Auto-hide the Head Viewer when there's no new mails?</string>
+		<key>Type</key>
+		<string>CheckBox</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<false/>
+		<key>Key</key>
+		<string>hidedByMe</string>
 	</dict>
 </array>
 </plist>

@@ -178,6 +178,10 @@ function updateBars() {
 		}
 		
 		safari.extension.bars.forEach(function(bar) {
+			if (safari.extension.settings.getItem("hidedByMe")) {
+				bar.show();
+				safari.extension.settings.hidedByMe = false;
+			}
 			if(bar.contentWindow.update)
 				bar.contentWindow.update(mails[currentIndex]);
 		})
@@ -195,8 +199,14 @@ function updateBars() {
 
 		
 		safari.extension.bars.forEach(function(bar) {
-			if(bar.contentWindow.update)
-				bar.contentWindow.update(noMail);
+			if (safari.extension.settings.getItem("autoHide")) {
+				safari.extension.settings.hidedByMe = true;
+				bar.hide();
+			} else {
+				if(bar.contentWindow.update) {
+					bar.contentWindow.update(noMail);
+				}
+			}
 		})
 	}
 	
