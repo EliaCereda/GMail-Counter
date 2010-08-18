@@ -99,9 +99,11 @@ body
 
 .new
 {
-	position: fixed;
-	right: 70px;
-	text-align: center;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	
+	text-align: right;
 	-webkit-box-align: center;
 	display: inline-block;
 	font: -webkit-small-control;
@@ -139,4 +141,56 @@ body
 .new_dark
 {
 	background-image: url(new_dark.png);
+}
+
+.hide
+{
+	position: absolute;
+	top: 0px;
+	right: 52px;
+	
+	text-align: left;
+	-webkit-box-align: center;
+	display: inline-block;
+	font: -webkit-small-control;
+	width: 14px;
+	height: 14px;
+	color: rgba(0,0,0, 0.8);
+	line-height: normal;
+	background-position: 42px 0;
+	background-color: transparent;
+	cursor: pointer;
+	-webkit-transition: width 0.3s ease-out;
+}
+
+.hide:hover
+{
+	text-shadow: none;
+	width: 42px;
+	background-position: 84px 0;
+	background-color: transparent;
+}
+
+.hide:active
+{
+	background-position: 0 0;
+	background-color: transparent;
+	width: 42px;
+	-webkit-box-shadow: none;
+}
+
+.hide_light
+{
+	background-image: url(hide_light.png);
+}
+
+.hide_dark
+{
+	background-image: url(hide_dark.png);
+}
+
+#buttons {
+	position: fixed;
+	right: 70px;
+	display: block;
 }

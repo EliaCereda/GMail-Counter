@@ -59,9 +59,12 @@
 			messageNumber_1 = document.getElementById('messageNumber_1');
 			messageNumber_2 = document.getElementById('messageNumber_2');
 			
+			state_1 = document.getElementById('state_1');
+			state_2 = document.getElementById('state_2');
 			
 			body = document.getElementById('body');
 			newButton = document.getElementById('new');
+			hideButton = document.getElementById('hide');
 			
 			color_1 = document.getElementById('background_1').innerHTML;
 				background_1 = color_1.split(";")[0]
@@ -86,9 +89,21 @@
 					if(new_2 == 1) {
 						removeClass(newButton, "new_light");
 						addClass(newButton, "new_dark");
+						
+						removeClass(hideButton, "hide_light");
+						addClass(hideButton, "hide_dark");
 					} else {
 						removeClass(newButton, "new_dark");
 						addClass(newButton, "new_light");
+						
+						removeClass(hideButton, "hide_dark");
+						addClass(hideButton, "hide_light");
+					}
+					
+					if(state_2.innerHTML == "ok") {
+						hideButton.style.display = "block";
+					} else {
+						hideButton.style.display = "none";
 					}
 					
 					active = "2";
@@ -107,9 +122,21 @@
 					if(new_1 == 1) {
 						removeClass(newButton, "new_light");
 						addClass(newButton, "new_dark");
+						
+						removeClass(hideButton, "hide_light");
+						addClass(hideButton, "hide_dark");
 					} else {
 						removeClass(newButton, "new_dark");
 						addClass(newButton, "new_light");
+						
+						removeClass(hideButton, "hide_dark");
+						addClass(hideButton, "hide_light");
+					}
+					
+					if(state_1.innerHTML == "ok") {
+						hideButton.style.display = "block";
+					} else {
+						hideButton.style.display = "none";
 					}
 					
 					active = "1";
@@ -123,6 +150,7 @@
 			sender = data['sender'];
 			background = data['background'];
 			link = data['link'];
+			state = data['state'];
 			
 			current = data["current"];
 			total = data["total"]
@@ -133,6 +161,7 @@
 			sender_span = document.getElementById("sender_"+a);
 			background_span = document.getElementById("background_"+a);
 			link_span = document.getElementById("link_"+a);
+			state_span = document.getElementById("state_"+a);
 			
 			current_span = document.getElementById("current_"+a);
 			total_span = document.getElementById("total_"+a);
@@ -141,6 +170,7 @@
 			sender_span.innerHTML = sender;
 			background_span.innerHTML = background;
 			link_span.innerText = link;
+			state_span.innerText = state;
 			
 			current_span.innerHTML = current;
 			total_span.innerHTML = total;
@@ -175,11 +205,20 @@
 			} else {
 				safari.application.activeBrowserWindow.activeTab.url = link;
 			}
+			
+			i = safari.extension.globalPage.contentWindow.currentIndex;
+			hideCurrentMessage(false);
+			
 		}
 		
 		function newMessage() {
 			baseURL = safari.extension.globalPage.contentWindow.getGmailUrl(false);
 			openInTab(baseURL+"#compose");
+		}
+		
+		function hideCurrentMessage(autoUpdate) {
+			i = safari.extension.globalPage.contentWindow.currentIndex;
+			safari.extension.globalPage.contentWindow.hideMessage(i, autoUpdate);
 		}
 		
 		function hideBars() {

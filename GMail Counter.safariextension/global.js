@@ -9,6 +9,7 @@ var timeout;
 var delay;
 
 var loggedIn = true;
+var showNoMails = false;
 
 function getGmailUrl(withFeed) {
   var url = "https://mail.google.com";
@@ -78,7 +79,7 @@ function validateCommand(event) {
 								event.target.badge = unread.textContent;
 							} else {
 								event.target.toolTip = "GMail Counter - No new messages";
-								event.target.badge = unread.textContent;
+								event.target.badge = 0;
 							}
 							
 							updateBarsData();
@@ -108,6 +109,8 @@ function validateCommand(event) {
 					mails[0]["sender"] = "GMail Counter";
 					mails[0]["background"] = ";#000;1";
 					mails[0]["link"] = getGmailUrl(false);
+					mails[0]["state"] = "notLoggedIn";
+					mails[0]["UMId"] = "000-000";
 			
 					mails[0]["current"] = "-";
 					mails[0]["total"] = "0";
@@ -153,22 +156,28 @@ function updateBarsData() {
 		allLinks = xmlData.evaluate('/gmail:feed/gmail:entry['+(i+1)+']/gmail:link/@href', xmlData, gmailNSResolver, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null );
 		link = allLinks.snapshotItem(0).textContent;
 		
+		allUMIds = xmlData.evaluate('/gmail:feed/gmail:entry['+(i+1)+']/gmail:id', xmlData, gmailNSResolver, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null );
+		UMId = allUMIds.snapshotItem(0).textContent;
+		
 		mails[i] = new Array;
 		
 		mails[i]["content"] = title;
 		mails[i]["sender"] = author;
 		mails[i]["background"] = stringToColor(mails[i]["sender"]);
 		mails[i]["link"] = link;
+		mails[i]["state"] = "ok";
+		mails[i]["UMId"] = UMId; //The Unique Message Identificator
 		
 		mails[i]["current"] = i+1;
 		mails[i]["total"] = allEntries.snapshotLength;
+		
 	}
 return mails;
 }
 
 function updateBars() {
 	clearTimeout(timeout);
-	if(mails.length != 0) {
+	if(mails.length != 0 && !showNoMails) {
 		if(currentIndex > mails.length-2) { //length-1(the index starts from 0 and length from 1)-1(I want to know if this is the last element)
 			currentIndex = -1;
 		}
@@ -180,21 +189,38 @@ function updateBars() {
 		}
 		
 		safari.extension.bars.forEach(function(bar) {
-			if (safari.extension.settings.getItem("hidedByMe")) {
-				bar.show();
-				safari.extension.settings.hidedByMe = false;
+			if(getViewState(mails[currentIndex]["UMId"])) {
+				if (safari.extension.settings.getItem("hidedByMe")) {
+					bar.show();
+					safari.extension.settings.hidedByMe = false;
+				}
+				if(bar.contentWindow.update)
+					bar.contentWindow.update(mails[currentIndex]);
+			} else {
+				hiddenMails = 0;
+				mails.forEach(function(m) {
+					if(!getViewState(m["UMId"])) {
+						hiddenMails++;
+					}
+				});
+				
+				if(mails.length-hiddenMails <= 0) {
+					showNoMails = true;
+				}
+				updateBars();
 			}
-			if(bar.contentWindow.update)
-				bar.contentWindow.update(mails[currentIndex]);
 		})
 	} else {
 		currentIndex = -1;
+		showNoMails = false;
 		
 		noMail = new Array;
 		noMail["content"] = "No new mails";
 		noMail["sender"] = "GMail Counter";
 		noMail["background"] = ";#000;1";
 		noMail["link"] = getGmailUrl(false);
+		noMail["state"] = "noMails";
+		noMail["UMId"] = "000-000";
 		
 		noMail["current"] = "-"
 		noMail["total"] = "0";
@@ -268,10 +294,20 @@ function setDelay(d){
 	updateBars();
 }
 
+function hideMessage(i, autoUpdate) {
+	setAsViewed(mails[i]["UMId"]);
+	
+	if(autoUpdate) {
+		updateBars();
+	}
+}
+
 function hex2dec( s ) { return parseInt( s, 16 ); }
 
 safari.application.addEventListener("validate", validateCommand, false);
 safari.application.addEventListener("command", performCommand, false);
 safari.extension.settings.addEventListener("change", changedCommand, false);
+
+initViewController();
 
 setDelay(safari.extension.settings.getItem("delay"));

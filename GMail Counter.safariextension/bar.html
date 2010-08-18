@@ -8,6 +8,7 @@
 	<div id="container_1" class="container" onclick="openInTab(document.getElementById('link_1').textContent);">
 		<span id="link_1" style="display: none;">https://mail.google.com/mail/</span>
 		<span id="background_1" style="display: none;">;#000</span>
+		<span id="state_1" style="display: none;">loading</span>
 		<span class="quotes">&#x201c;</span>
 		<span id="content_1" class="content">Loading...</span>
 		<span class="quotes">&#x201d;</span>
@@ -18,6 +19,7 @@
 	<div id="container_2" class="container" onclick="openInTab(document.getElementById('link_2').textContent);">
 		<span id="link_2" style="display: none;">https://mail.google.com/mail/</span>
 		<span id="background_2" style="display: none;">;#000</span>
+		<span id="state_2" style="display: none;">loading</span>
 		<span class="quotes">&#x201c;</span>
 		<span id="content_2" class="content">Loading...</span>
 		<span class="quotes">&#x201d;</span>
@@ -25,7 +27,12 @@
 			<span id="sender_2" class="sender">GMail Counter</span>
 		</span>
 	</div>
-	<span class="new" id="new" title="Compose a new message" onclick="newMessage()"></span>
+	
+	<span id="buttons">
+		<span class="new" id="new" title="Compose a new message" onclick="newMessage()"></span>
+		<span class="hide" id="hide" title="Hide this message from the Head Viewer" onclick="hideCurrentMessage(true)" style="display: none;"></span>
+	</span>
+	
 	<div id="messageNumber_1">
 		<span id="current_1">-</span>
 		of

@@ -82,5 +82,11 @@
 		<key>Key</key>
 		<string>hidedByMe</string>
 	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<string>null</string>
+		<key>Key</key>
+		<string>viewArray</string>
+	</dict>
 </array>
 </plist>
