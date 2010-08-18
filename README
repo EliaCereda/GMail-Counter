@@ -10,16 +10,19 @@ This is my first experiment of useful Safari 5 Extension. It's build using only 
 
 Features:
  * Toolbar button with a badge showing the number of unread mails.
- * GMail Head Viewer, an extension bar showing the subject of the latest twenty mails in your Inbox
+ * Head Viewer, an extension bar showing the subject of the latest twenty mails in your Inbox
  * Color of the Head Viewer calculated from the sender of the message
  * Click on a subject to read the mail or in the others parts of the bar to see the next message
  * Click the "New" button to compose a new message
+ * Click the "Hide" button to hide the current message from the bar (YOU STILL HAVE TO READ THE MESSAGE IN GMAIL TO MARK IT AS READ DUE TO FEED LIMITATIONS)
  * Click the "X" button to close all bars
  * You can select only a label or all (i.e. "Inbox", "Draft", "Work", "All") to be shown in the mail count and in the bar
  * Login state in sync with main GMail page
  * Support for Google Apps
 
 Changes Log:
+ * 0.7.3: Integrate the 0.7.2 and add the "hide" button to the Head Viewer
+ * 0.7.2: Added Piwik Track code and Auto-Hide feature to Head Viewer **NOT RELEASED VERSION**
  * 0.7.1: No code changes. Updated to work with my new website
  * 0.7: New features and many fixes (check the wiki for more info)
  * 0.6: Added the GMail Head Viewer
