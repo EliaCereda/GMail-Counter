@@ -22,7 +22,7 @@ Features:
 
 Changes Log:
  * 0.7.3: Integrate the 0.7.2 and add the "hide" button to the Head Viewer
- * 0.7.2: Added Piwik Track code and Auto-Hide feature to Head Viewer **NOT RELEASED VERSION**
+ * 0.7.2: Added Piwik Track code and Auto-Hide feature to Head Viewer **NEVER RELEASED**
  * 0.7.1: No code changes. Updated to work with my new website
  * 0.7: New features and many fixes (check the wiki for more info)
  * 0.6: Added the GMail Head Viewer
@@ -31,8 +31,6 @@ Changes Log:
  * 0.5: First public release
 
 Known issues:
- * Once you logged-in there isn't a way to log-out or change account - FIXED IN LAST RELEASE
- * On Windows XP and 7 (and maybe Vista, too) sometimes it fails the installation - Safari/Web-Kit bug... Nothing that I can solve
 
 TODO:
  * Localisation when Safari API will implement the l10n of settings
