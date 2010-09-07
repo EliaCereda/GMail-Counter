@@ -10,6 +10,7 @@ var delay;
 
 var loggedIn = true;
 var showNoMails = false;
+var shouldSetTimeout = true;
 
 function getGmailUrl(withFeed) {
   var url = "https://mail.google.com";
@@ -176,6 +177,7 @@ return mails;
 }
 
 function updateBars() {
+	console.log("Cleared a Timeout!");
 	clearTimeout(timeout);
 	if(mails.length != 0 && !showNoMails) {
 		if(currentIndex > mails.length-2) { //length-1(the index starts from 0 and length from 1)-1(I want to know if this is the last element)
@@ -188,28 +190,32 @@ function updateBars() {
 			++currentIndex;
 		}
 		
-		safari.extension.bars.forEach(function(bar) {
-			if(getViewState(mails[currentIndex]["UMId"])) {
-				if (safari.extension.settings.getItem("hidedByMe")) {
-					bar.show();
-					safari.extension.settings.hidedByMe = false;
-				}
-				if(bar.contentWindow.update)
-					bar.contentWindow.update(mails[currentIndex]);
-			} else {
-				hiddenMails = 0;
-				mails.forEach(function(m) {
-					if(!getViewState(m["UMId"])) {
-						hiddenMails++;
+		if(getViewState(mails[currentIndex]["UMId"])) {
+			safari.extension.bars.forEach(function(bar) {
+					if (safari.extension.settings.getItem("hidedByMe")) {
+						bar.show();
+						safari.extension.settings.hidedByMe = false;
 					}
-				});
-				
-				if(mails.length-hiddenMails <= 0) {
-					showNoMails = true;
+					if(bar.contentWindow.update)
+						bar.contentWindow.update(mails[currentIndex]);
+			})
+		} else {
+			hiddenMails = 0;
+			mails.forEach(function(m) {
+				if(!getViewState(m["UMId"])) {
+					hiddenMails++;
 				}
-				updateBars();
+			});
+			
+			if(mails.length-hiddenMails <= 0) {
+				showNoMails = true;
 			}
-		})
+			console.log(["This mail is hidden, showing the next!",mails[currentIndex]]);
+			console.log("Prevented one timeout");
+			shouldSetTimeout = false;
+			updateBars();
+		}
+		
 	} else {
 		currentIndex = -1;
 		showNoMails = false;
@@ -223,7 +229,7 @@ function updateBars() {
 		noMail["UMId"] = "000-000";
 		
 		noMail["current"] = "-"
-		noMail["total"] = "0";
+		noMail["total"] = mails.length;
 
 		
 		safari.extension.bars.forEach(function(bar) {
@@ -238,8 +244,12 @@ function updateBars() {
 		})
 	}
 	
-	if (mails.length != 0 && loggedIn) {
+	if (mails.length != 0 && loggedIn && shouldSetTimeout) {
+		console.log("Set a Timeout of "+delay+" sec!");
 		timeout = setTimeout("updateBars()",delay*1000);
+	} else {
+		console.log("Timeout has been prevented");
+		shouldSetTimeout = true;
 	}
 }
 
@@ -269,9 +279,14 @@ function stringToColor( string ) {
 	HSV_ = ColorConverter.toHSV(RGB_);
 	
 	false_positive = new RGB (50,26,249);
+	false_positive_2 = new RGB (142, 11, 244);
 	false_negative = new RGB (225,229,58);
 	
 	if (RGB_.r == false_positive.r && RGB_.g == false_positive.g && RGB_.b == false_positive.b) {
+		HSV_.v = 89;
+	}
+	
+	if (RGB_.r == false_positive_2.r && RGB_.g == false_positive_2.g && RGB_.b == false_positive_2.b) {
 		HSV_.v = 89;
 	}
 	
@@ -291,6 +306,7 @@ function stringToColor( string ) {
 function setDelay(d){
 	d=parseInt(d, 10);
 	delay=(d>0)?d:10;
+	console.log("Setted a delay of "+delay+" sec");
 	updateBars();
 }
 
@@ -307,6 +323,8 @@ function hex2dec( s ) { return parseInt( s, 16 ); }
 safari.application.addEventListener("validate", validateCommand, false);
 safari.application.addEventListener("command", performCommand, false);
 safari.extension.settings.addEventListener("change", changedCommand, false);
+
+checkInstalledVersion();
 
 initViewController();
 

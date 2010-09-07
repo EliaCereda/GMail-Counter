@@ -21,6 +21,7 @@ Features:
  * Support for Google Apps
 
 Changes Log:
+ * 0.7.4: Improved some code and added the what's new page
  * 0.7.3: Integrate the 0.7.2 and add the "hide" button to the Head Viewer
  * 0.7.2: Added Piwik Track code and Auto-Hide feature to Head Viewer **NEVER RELEASED**
  * 0.7.1: No code changes. Updated to work with my new website

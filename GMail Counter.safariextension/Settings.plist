@@ -88,5 +88,17 @@
 		<key>Key</key>
 		<string>viewArray</string>
 	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<real>0.0</real>
+		<key>Key</key>
+		<string>installedVersion</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<string>0.7.4</string>
+		<key>Key</key>
+		<string>version</string>
+	</dict>
 </array>
 </plist>
