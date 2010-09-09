@@ -11,9 +11,9 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.8</string>
+	<string>0.7.4</string>
 	<key>CFBundleVersion</key>
-	<string>8</string>
+	<string>7.4</string>
 	<key>Chrome</key>
 	<dict>
 		<key>Bars</key>
@@ -22,7 +22,7 @@
 				<key>Filename</key>
 				<string>bar.html</string>
 				<key>Identifier</key>
-				<string>bar</string>
+				<string>gmail</string>
 				<key>Label</key>
 				<string>GMail Head Viewer</string>
 			</dict>

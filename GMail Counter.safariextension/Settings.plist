@@ -9,8 +9,6 @@
 		<string>Group</string>
 	</dict>
 	<dict>
-		<key>DefaultValue</key>
-		<string></string>
 		<key>Key</key>
 		<string>appsDomain</string>
 		<key>Title</key>
@@ -24,81 +22,13 @@
 	</dict>
 	<dict>
 		<key>DefaultValue</key>
-		<string>Inbox</string>
+		<string>inbox</string>
 		<key>Key</key>
 		<string>label</string>
 		<key>Title</key>
 		<string>Label (one label at time, write "All" for all labels)</string>
 		<key>Type</key>
 		<string>TextField</string>
-	</dict>
-	<dict>
-		<key>DefaultValue</key>
-		<real>10</real>
-		<key>Key</key>
-		<string>delay</string>
-		<key>MaximumValue</key>
-		<real>60</real>
-		<key>MinimumValue</key>
-		<real>5</real>
-		<key>Title</key>
-		<string>Head Viewer delay (sec)</string>
-		<key>Type</key>
-		<string>TextField</string>
-	</dict>
-	<dict>
-		<key>DefaultValue</key>
-		<true/>
-		<key>Key</key>
-		<string>tab</string>
-		<key>Title</key>
-		<string>Open in messages new tab?</string>
-		<key>Type</key>
-		<string>CheckBox</string>
-	</dict>
-	<dict>
-		<key>DefaultValue</key>
-		<false/>
-		<key>Key</key>
-		<string>gradient</string>
-		<key>Title</key>
-		<string>Enable gradient in Head Viewer?</string>
-		<key>Type</key>
-		<string>CheckBox</string>
-	</dict>
-	<dict>
-		<key>DefaultValue</key>
-		<false/>
-		<key>Key</key>
-		<string>autoHide</string>
-		<key>Title</key>
-		<string>Auto-hide the Head Viewer when there's no new mails?</string>
-		<key>Type</key>
-		<string>CheckBox</string>
-	</dict>
-	<dict>
-		<key>DefaultValue</key>
-		<false/>
-		<key>Key</key>
-		<string>hidedByMe</string>
-	</dict>
-	<dict>
-		<key>DefaultValue</key>
-		<string>null</string>
-		<key>Key</key>
-		<string>viewArray</string>
-	</dict>
-	<dict>
-		<key>DefaultValue</key>
-		<real>0.0</real>
-		<key>Key</key>
-		<string>installedVersion</string>
-	</dict>
-	<dict>
-		<key>DefaultValue</key>
-		<string>0.7.4</string>
-		<key>Key</key>
-		<string>version</string>
 	</dict>
 </array>
 </plist>
