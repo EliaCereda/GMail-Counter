@@ -22,7 +22,7 @@
 	</dict>
 	<dict>
 		<key>DefaultValue</key>
-		<string>inbox</string>
+		<string>Inbox</string>
 		<key>Key</key>
 		<string>label</string>
 		<key>Title</key>

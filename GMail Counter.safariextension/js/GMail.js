@@ -4,22 +4,25 @@ GMail = {
 	
 	atomFeed: null,			//This will be the container for unparsed data from feed
 	mails: null,			//This will be the container for mails' array
+	mailsCount: null,
 	latestReadMail: null, 	//This will contain the id of the latest mail when user click hide button
 	
 	debug: true,			//If this is true "logThis" will output debug informations to console
 	
-	GMailBaseURL: function(feed) {
+	GMailBaseURL: function(feed, suffix) {
 		if (feed === "gmail") {
 			return 'http://purl.org/atom/ns#'; //This is for using with XMLDocument.evaluate, it's the NameSpaceResolver
 		}
 		
 		base = "https://mail.google.com";
-		domain = "" //safari.extension.settings.getItem("appsDomain");
-		label = "" //safari.extension.settings.getItem("label");
+		domain = safari.extension.settings.getItem("appsDomain");
+		label = safari.extension.settings.getItem("label");
 		
 		url=base;
 		url += (domain) ? ("/a/"+ domain + ((domain[domain.length - 1] != "/") ? "/" : "")) : "/mail/";
 		url += (feed) ? "feed/atom/" + ((label)? label : "") : "";
+		
+		url += (suffix) ? suffix : "";
 		
 		this.logThis(0, "GMailBaseURL", "I've generated an URL", url);
 		
@@ -31,7 +34,19 @@ GMail = {
 		xhr = new XMLHttpRequest();
 			xhr.onreadystatechange = function() {
 				if (this.readyState==4) {
-					if (xhr.responseText.indexOf("<!DOCTYPE html>") != -1) {	//For some strange reason Login page still use HTML 4 and then HTML 5: this is a freaky method to know if you're logged in or not
+					if (xhr.status == 404) {	//New method to determine if you're logged in or not, based on GMail handling of "404" errors: if you are logged you get a normal 404 error, else you get redirected to login page
+						GMail.setStatus("logged");
+						GMail.logThis(0, "checkLogin", "You're logged-in!", 0);
+						(typeof callback == "function")?callback("checkLogin", true):"";
+					} else {
+						GMail.setStatus("notLogged");
+						GMail.logThis("WaRnInG", "checkLogin", "You're NOT logged-in!", 0);
+						(typeof callback == "function")?callback("checkLogin", false):"";
+					}
+					
+					//OLD LOGIN CHECK METHOD
+					
+					/*if (xhr.responseText.indexOf("<!DOCTYPE html>") != -1) {	//For some strange reason Login page still use HTML 4 and then HTML 5: this is a freaky method to know if you're logged in or not
 						GMail.setStatus("logged");
 						GMail.logThis(0, "checkLogin", "You're logged-in!", 0);
 						(typeof callback == "function")?callback("checkLogin", true):"";
@@ -39,10 +54,10 @@ GMail = {
 						GMail.setStatus("notLogged");
 						GMail.logThis(1, "checkLogin", "You're NOT logged-in!", 0);
 						(typeof callback == "function")?callback("checkLogin", false):"";
-					}
+					}*/
 				}
 			};
-		xhr.open("GET", this.GMailBaseURL(false));
+		xhr.open("GET", this.GMailBaseURL(false, "?view=loginCheck"));
 		xhr.send();
 		
 		return "STARTED";
@@ -62,10 +77,10 @@ GMail = {
 						GMail.atomFeed = null;
 						GMail.setStatus("error", "Error while downloading feed");
 						GMail.logThis(1, "updateFeed", "I can't download new feed");
-						(typeof callback == "function")?callback("error", null):"";
+						(typeof callback == "function")?callback("updateFeed", "error"):"";
 					}
 				}
-			}
+			};
 		xhr.open("GET", this.GMailBaseURL(true));
 		xhr.send();
 		
@@ -90,10 +105,12 @@ GMail = {
 				current : i+1,
 				total : length
 			}
-			
-			this.mails[i].color = this.string2Color(this.mails[i].author); //COLOR IS SETTED RIGHT HERE
+								//COLOR IS SETTED RIGHT HERE
+			this.mails[i].color = this.string2Color(this.mails[i].author); 
 			
 		}
+		
+		this.mailsCount = length;
 		
 		if(this.mails.length == 0) {
 			this.setStatus("noMails");
@@ -131,8 +148,9 @@ GMail = {
 		return this.getStatus();
 	},
 	
-	getMailArray: function() {
+	getMailsArray: function() {
 		if(this.getStatus() == "notLogged") {
+			GMail.logThis(0, "getMailsArray", "I've returned an array", "notLogged");
 			return [{
 				title : "Click here to login",
 				author : "GMail Counter",
@@ -145,6 +163,7 @@ GMail = {
 				total : "0"
 			}]
 		} else if(this.getStatus() == "error" || this.getStatus() == "notInited" || this.mails == null) {
+			GMail.logThis(0, "getMailsArray", "I've returned an array", "error");
 			return [{
 				title : "An error occurred, please contact me",
 				author : "GMail Counter",
@@ -157,10 +176,17 @@ GMail = {
 				total : "0"
 			}]
 		} else if(this.getStatus() == "noNewMails") {
+			GMail.logThis(0, "getMailsArray", "I've returned an array", "noNewMails");
 			return "noNewMails";
 		} else {
+			GMail.logThis(0, "getMailsArray", "I've returned an array", this.mails);
 			return this.mails;
 		}
+	},
+	
+	getMailsCount: function() {
+		GMail.logThis(0, "getMailsCount", "There is/are "+this.mailsCount+" unread mail(s)");
+		return (typeof this.mailsCount != "null")?this.mailsCount:0;
 	},
 	
 	readAll: function() {
@@ -196,7 +222,9 @@ GMail = {
 	logThis: function(isError, sender, message, data) {
 		if(this.debug) {
 			console.group(sender+"() says: ")
-			if(isError) {
+			if(isError === "WaRnInG") {
+				console.warn(message);
+			} else if (isError) {
 				console.error(message);
 			} else {
 				console.log(message);

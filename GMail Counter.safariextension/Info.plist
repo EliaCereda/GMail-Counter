@@ -5,15 +5,15 @@
 	<key>Author</key>
 	<string>Elia Cereda</string>
 	<key>CFBundleDisplayName</key>
-	<string>GMail Counter</string>
+	<string>GMail Counter Alpha</string>
 	<key>CFBundleIdentifier</key>
-	<string>it.eliacereda.gmailcounter</string>
+	<string>it.eliacereda.gmailcounter.alpha</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.8</string>
+	<string>0.8 Alpha</string>
 	<key>CFBundleVersion</key>
-	<string>8</string>
+	<string>8a</string>
 	<key>Chrome</key>
 	<dict>
 		<key>Bars</key>
@@ -32,16 +32,18 @@
 		<key>Toolbar Items</key>
 		<array>
 			<dict>
+				<key>Command</key>
+				<string>button</string>
 				<key>Identifier</key>
 				<string>button</string>
 				<key>Image</key>
-				<string>status.png</string>
+				<string>img/button.png</string>
 				<key>Label</key>
 				<string>GMail Counter</string>
 				<key>Palette Label</key>
 				<string>GMail Counter</string>
 				<key>Tool Tip</key>
-				<string>GMail Counter - No new messages</string>
+				<string>GMail Counter - Loading...</string>
 			</dict>
 		</array>
 	</dict>
