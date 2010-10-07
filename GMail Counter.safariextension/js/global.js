@@ -11,7 +11,7 @@ Global = {
 	},
 	
 	command: function(event) {
-		openLink(GMail.GMailBaseURL(false));
+		Global.openLink(GMail.GMailBaseURL(false));
 	},
 	
 	callback: function (sender, message) {
@@ -69,7 +69,39 @@ Global = {
 	},
 
 	openLink: function(link) {
+		openIn = safari.extension.settings.getItem("openIn");
 		
+		var _tab = null;
+		
+		switch ( openIn ) {
+			case "newTab":
+				_tab = safari.application.activeBrowserWindow.openTab();
+			break;
+	
+			case "GMailTab":
+				var _window = null;
+				
+				safari.application.browserWindows.forEach(function(a) {
+					a.tabs.forEach(function(b) {
+						if(GMail.isGMailURL(b.url)) {
+							_window=a;
+							_tab=b;
+						}
+					});
+				});
+				
+				_window = (_window === null) ? safari.application.activeBrowserWindow : _window;
+				_tab =  (_tab === null) ? safari.application.activeBrowserWindow.openTab() : _tab;
+				
+				_window.activate();
+				_tab.activate();
+			break;
+			
+			case "activeTab":
+				_tab = safari.application.activeBrowserWindow.activeTab;
+			break;
+		}
+		_tab.url=link;
 	}
 }
 

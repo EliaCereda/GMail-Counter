@@ -30,5 +30,27 @@
 		<key>Type</key>
 		<string>TextField</string>
 	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<string>GMailTab</string>
+		<key>Key</key>
+		<string>openIn</string>
+		<key>Title</key>
+		<string>Open links in</string>
+		<key>Titles</key>
+		<array>
+			<string>new tab every time</string>
+			<string>an open GMail tab</string>
+			<string>active tab</string>
+		</array>
+		<key>Type</key>
+		<string>PopUpButton</string>
+		<key>Values</key>
+		<array>
+			<string>newTab</string>
+			<string>GMailTab</string>
+			<string>activeTab</string>
+		</array>
+	</dict>
 </array>
 </plist>

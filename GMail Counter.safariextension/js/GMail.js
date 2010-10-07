@@ -9,7 +9,7 @@ GMail = {
 	
 	debug: true,			//If this is true "logThis" will output debug informations to console
 	
-	GMailBaseURL: function(feed, suffix) {
+	GMailBaseURL: function(feed, query) {
 		if (feed === "gmail") {
 			return 'http://purl.org/atom/ns#'; //This is for using with XMLDocument.evaluate, it's the NameSpaceResolver
 		}
@@ -22,11 +22,16 @@ GMail = {
 		url += (domain) ? ("/a/"+ domain + ((domain[domain.length - 1] != "/") ? "/" : "")) : "/mail/";
 		url += (feed) ? "feed/atom/" + ((label)? label : "") : "";
 		
-		url += (suffix) ? suffix : "";
+		url += (query) ? "?"+query : "";
 		
 		this.logThis(0, "GMailBaseURL", "I've generated an URL", url);
 		
 		return url;
+	},
+	
+	isGMailURL: function(url) {
+		var regexp = /(http|https):\/\/(mail\.google\.com)(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+		return regexp.test(url);
 	},
 	
 	checkLogin: function(callback) {
@@ -34,18 +39,18 @@ GMail = {
 		xhr = new XMLHttpRequest();
 			xhr.onreadystatechange = function() {
 				if (this.readyState==4) {
-					if (xhr.status == 404) {	//New method to determine if you're logged in or not, based on GMail handling of "404" errors: if you are logged you get a normal 404 error, else you get redirected to login page
-						GMail.setStatus("logged");
-						GMail.logThis(0, "checkLogin", "You're logged-in!", 0);
-						(typeof callback == "function")?callback("checkLogin", true):"";
-					} else {
-						GMail.setStatus("notLogged");
-						GMail.logThis("WaRnInG", "checkLogin", "You're NOT logged-in!", 0);
-						(typeof callback == "function")?callback("checkLogin", false):"";
-					}
-					
+					try {
+						if (xhr.status == 404) {	//New method to determine if you're logged in or not, based on GMail handling of "404" errors: if you are logged you get a normal 404 error, else you get redirected to login page
+							GMail.setStatus("logged");
+							GMail.logThis(0, "checkLogin", "You're logged-in!", 0);
+							(typeof callback == "function")?callback("checkLogin", true):"";
+						} else {
+							GMail.setStatus("notLogged");
+							GMail.logThis("WaRnInG", "checkLogin", "You're NOT logged-in!", 0);
+							(typeof callback == "function")?callback("checkLogin", false):"";
+						}
+					} catch (e) {}
 					//OLD LOGIN CHECK METHOD
-					
 					/*if (xhr.responseText.indexOf("<!DOCTYPE html>") != -1) {	//For some strange reason Login page still use HTML 4 and then HTML 5: this is a freaky method to know if you're logged in or not
 						GMail.setStatus("logged");
 						GMail.logThis(0, "checkLogin", "You're logged-in!", 0);
@@ -57,7 +62,7 @@ GMail = {
 					}*/
 				}
 			};
-		xhr.open("GET", this.GMailBaseURL(false, "?view=loginCheck"));
+		xhr.open("GET", this.GMailBaseURL(false, "view=loginCheck"));
 		xhr.send();
 		
 		return "STARTED";
@@ -110,7 +115,7 @@ GMail = {
 			
 		}
 		
-		this.mailsCount = length;
+		this.mailsCount = this.XMLEvaluate(this.atomFeed, '/gmail:feed/gmail:fullcount').snapshotItem(0).textContent;
 		
 		if(this.mails.length == 0) {
 			this.setStatus("noMails");

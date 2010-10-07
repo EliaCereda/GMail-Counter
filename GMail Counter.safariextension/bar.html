@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<script src="js/bar.js"></script>
+		<link rel="stylesheet" rev="stylesheet" href="css/bar.css" type="text/css" />
+	</head>
+	<body onload="ExtensionBar.init()">
+		<div id="container">
+			<div id="mail_1" class="mail high">
+					<span class="mailId" style="display: none;">-</span>
+				
+					<span class="quotes">&#x201c;</span>
+						<span class="content">If you see this there's something wrong!!!</span>
+					<span class="quotes">&#x201d;</span>
+					
+					<span class="sender-box"> &#x2015;
+						<span class="sender">GMail Counter</span>
+					</span>
+			</div>
+			
+			<div id="mail_2" class="mail low">
+					<span class="mailId" style="display: none;">-</span>
+					
+					<span class="quotes">&#x201c;</span>
+						<span class="content">Loading...</span>
+					<span class="quotes">&#x201d;</span>
+					
+					<span class="sender-box"> &#x2015;
+						<span class="sender">GMail Counter</span>
+					</span>
+			</div>
+		</div>
+		<div id="actions" class="plus" onclick="ExtensionBar.toggleMenu()" title="Open menu...">&nbsp;</div>
+		
+		<div id="overlay" class="overlayInactive">&nbsp;</div>
+		
+		<div id="previous" onclick="ExtensionBar.previous()" title="Previous">&nbsp;</div>
+		<div id="next" onclick="ExtensionBar.next()" title="Next">&nbsp;</div>
+		
+		<a href="javascript:false;" onclick='document.getElementById("mail_2").className="mail low";document.getElementById("mail_1").className="mail high";'>Scambia 1</a>
+		<a href="javascript:false;" onclick='document.getElementById("mail_1").className="mail low";document.getElementById("mail_2").className="mail high";'>Scambia 2</a>
+	</body>
+</html>

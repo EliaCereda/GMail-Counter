@@ -5,7 +5,7 @@
 	<key>Author</key>
 	<string>Elia Cereda</string>
 	<key>CFBundleDisplayName</key>
-	<string>GMail Counter Alpha</string>
+	<string>GMail Counter</string>
 	<key>CFBundleIdentifier</key>
 	<string>it.eliacereda.gmailcounter.alpha</string>
 	<key>CFBundleInfoDictionaryVersion</key>
