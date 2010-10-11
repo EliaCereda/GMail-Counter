@@ -3,6 +3,23 @@ Global = {
 	mailsCount: 0, //Number of unreaded mails
 	mailsArray: [], //Array of latest 20 unreaded mails
 	
+	currentIndex: 0, //The current mail index in the mailsArray
+	
+	init: function () {
+		safari.extension.bars.forEach(function(item) {
+			ExtensionBar = item.contentWindow.ExtensionBar;
+			
+			if (typeof(ExtensionBar) != 'undefined' || typeof(ExtensionBar.activate) != 'undefined') {
+				ExtensionBar.activate();
+			}
+		});
+	},
+	
+	processActivation: function (caller) {
+		console.warn(caller)
+		caller.activate()
+	},
+	
 	validate: function(event) {
 		if (event.command === "button") {
 			
@@ -107,4 +124,6 @@ Global = {
 
 safari.application.addEventListener("validate", Global.validate, false);
 safari.application.addEventListener("command", Global.command, false);
+
+window.onload=Global.init;
 //safari.extension.settings.addEventListener("change", change, false);

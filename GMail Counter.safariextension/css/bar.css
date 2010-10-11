@@ -10,6 +10,8 @@
 	-webkit-transition: -webkit-transform 0.5s ease-out;
 }
 
+#container:hover .content, #container:hover .sender { text-decoration: underline; }
+
 .high
 {
 	-webkit-transform: translate(0,-90px);
@@ -69,7 +71,7 @@ body:hover .plus { display: block; }
 	pointer-events: none;
 }
 
-.overlayActive { opacity: 0.7; }
+.overlayActive { opacity: 0.8; }
 
 #previous
 {
@@ -79,7 +81,7 @@ body:hover .plus { display: block; }
 	position: absolute;
 	left: 20px;
 	top: 5px;
-	z-index: 1001;
+	z-index: 0;
 	cursor: pointer;
 	opacity: 0.7;
 	display: none;
@@ -97,7 +99,7 @@ body:hover #previous { display: block; }
 	position: absolute;
 	left: 52px;
 	top: 5px;
-	z-index: 1001;
+	z-index: 0;
 	cursor: pointer;
 	opacity: 0.7;
 	display: none;
@@ -106,4 +108,83 @@ body:hover #previous { display: block; }
 #next:hover { opacity: 1; }
 #next:active { opacity: 1 !important; }
 body:hover #next { display: block; }
-.dontHide { display: block !important; }
+.hide { display: none !important; }
+
+#buttonContainer
+{
+	position: absolute;
+	top: 5px;
+}
+
+#reload
+{
+	background-image: url(../img/reload.png);
+	height: 18px;
+	width: 18px;
+	position: absolute;
+	left: 20px;
+	top: 5px;
+	z-index: 1001;
+	cursor: pointer;
+	opacity: 0.7;
+}
+
+#reload:hover { opacity: 1; }
+#reload:active { opacity: 1 !important; }
+
+.reloadSpinning
+{
+	-webkit-animation-name: spin;
+	-webkit-animation-duration: 1s;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-timing-function: linear;
+	cursor: default !important;
+}
+
+@-webkit-keyframes    spin {
+ from {
+   -webkit-transform: rotate(0deg);
+ }
+ to {
+   -webkit-transform: rotate(360deg);
+ }
+}
+
+#compose
+{
+	background-image: url(../img/compose.png);
+	height: 18px;
+	width: 20px;
+	position: absolute;
+	left: 0px;
+	z-index: 1001;
+	cursor: pointer;
+	opacity: 0.7;
+}
+
+#compose:hover { opacity: 1; }
+#compose:active { opacity: 1 !important; }
+
+#hide
+{
+	height: 34px;
+	width: 18px;
+	position: absolute;
+	left: 30px;
+	z-index: 1001;
+	cursor: pointer;
+	opacity: 0.7;
+	-webkit-transition: -webkit-transform 0.5s ease-out;
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	background-image: url(../img/hide.png);
+}
+
+#hide:hover
+{
+	opacity: 1;
+	-webkit-transform: translate(0px, -16px);
+	-webkit-transition-timing-function: ease-in;
+}
+
+#hide:active { opacity: 1 !important; }

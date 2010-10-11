@@ -9,7 +9,7 @@ GMail = {
 	
 	debug: true,			//If this is true "logThis" will output debug informations to console
 	
-	GMailBaseURL: function(feed, query) {
+	GMailBaseURL: function(feed, query, anchor) {
 		if (feed === "gmail") {
 			return 'http://purl.org/atom/ns#'; //This is for using with XMLDocument.evaluate, it's the NameSpaceResolver
 		}
@@ -23,6 +23,8 @@ GMail = {
 		url += (feed) ? "feed/atom/" + ((label)? label : "") : "";
 		
 		url += (query) ? "?"+query : "";
+		
+		url += (anchor) ? anchor : "";
 		
 		this.logThis(0, "GMailBaseURL", "I've generated an URL", url);
 		

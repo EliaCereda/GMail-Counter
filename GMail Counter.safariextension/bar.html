@@ -10,11 +10,11 @@
 					<span class="mailId" style="display: none;">-</span>
 				
 					<span class="quotes">&#x201c;</span>
-						<span class="content">If you see this there's something wrong!!!</span>
+						<span class="title">If you see this there's something wrong!!!</span>
 					<span class="quotes">&#x201d;</span>
 					
 					<span class="sender-box"> &#x2015;
-						<span class="sender">GMail Counter</span>
+						<span class="author">GMail Counter</span>
 					</span>
 			</div>
 			
@@ -22,17 +22,23 @@
 					<span class="mailId" style="display: none;">-</span>
 					
 					<span class="quotes">&#x201c;</span>
-						<span class="content">Loading...</span>
+						<span class="title">Loading...</span>
 					<span class="quotes">&#x201d;</span>
 					
 					<span class="sender-box"> &#x2015;
-						<span class="sender">GMail Counter</span>
+						<span class="author">GMail Counter</span>
 					</span>
 			</div>
 		</div>
 		<div id="actions" class="plus" onclick="ExtensionBar.toggleMenu()" title="Open menu...">&nbsp;</div>
 		
-		<div id="overlay" class="overlayInactive">&nbsp;</div>
+		<div id="overlay" class="overlayInactive">
+			<div id="reload" class="reloadSpinning" title="GMail Counter is loading...">&nbsp;</div>
+			<div id="buttonContainer">
+				<div id="compose" title="Compose a new message..." onclick="ExtensionBar.compose()">&nbsp;</div>
+				<div id="hide" title="Hide Head Viewer until you receive a new mail...">&nbsp;</div>
+			</div>
+		</div>
 		
 		<div id="previous" onclick="ExtensionBar.previous()" title="Previous">&nbsp;</div>
 		<div id="next" onclick="ExtensionBar.next()" title="Next">&nbsp;</div>
