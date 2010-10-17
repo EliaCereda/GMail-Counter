@@ -1,3 +1,22 @@
+/*
+--------------------------------
+	GMail.js
+	Author: Elia Cereda
+	© 2010 All rights reserved.
+	
+	The GMail class. Needed to interface with GMail webmail
+--------------------------------
+
+This file is part of Safari's Extension "GMail Counter", developed by Elia Cereda <cereda.extensions@yahoo.it>
+
+If you redestribute, edit or share this file you MUST INCLUDE THIS NOTICE and you cannot remove it without prior written permission by Elia Cereda.
+If you use this file or its derivates in your projects you MUST release it with this or any other compatible license.
+
+This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/3.0/ or send a letter to
+	Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
+*/
+
 GMail = {
 	status: "notInited",	//This can be "notInited", "loading", "notLogged", "logged", "error", "updated", "parsing", "noMails", "noNewMails", "newMails"
 	error: 0,				//Only setted if status is "error", "0" means "all is ok"
@@ -130,7 +149,7 @@ GMail = {
 				link : this.GMailBaseURL(false),
 				id : "000-000",
 				
-				color: ["", "#000", "dark"],
+				color: ["", "#000"],
 				
 				current : "-",
 				total : "0"
@@ -164,7 +183,7 @@ GMail = {
 				link : this.GMailBaseURL(false),
 				id : "000-000",
 				
-				color: ["", "#000", "dark"],
+				color: ["", "#000"],
 				
 				current : "-",
 				total : "0"
@@ -177,7 +196,7 @@ GMail = {
 				link : "mailto: cereda.extensions@yahoo.it",
 				id : "000-000",
 				
-				color: ["", "#000", "dark"],
+				color: ["", "#000"],
 				
 				current : "-",
 				total : "0"
@@ -276,10 +295,8 @@ GMail = {
 		
 		if(HSV[2] > 90) {
 			array[1] = "#000";
-			array[2] = "dark";
 		} else {
 			array[1] = "#fff";
-			array[2] = "light";
 		}
 		
 		return array;
