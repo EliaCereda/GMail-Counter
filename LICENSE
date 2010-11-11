@@ -1,10 +1,10 @@
-This is the license of Safari's Extension "GMail Counter", developed by Elia Cereda <cereda.extensions@yahoo.it>
+﻿This is the license of Safari's Extension "GMail Counter", developed by Elia Cereda <cereda.extensions@yahoo.it>
 
 PRIVACY:
 •	GMail Counter doesn't and will never save Your personal datas nor share them with any third party. Any communication between Your computer and GMail's server is secured, encrypted and authenticated with the SSL standard.
 •	Any login procedure is handled remotely on Google's secure servers.
 •	If you have any doubt about how GMail Counter treat your datas, you're welcome to write at <cereda.extensions@yahoo.it> and I will to answer to all of Your questions.
-•	Source code is publicly available at "http://www.GitHub.com/MrMagic/GMail-Counter/". You can check it any time for more security.
+•	Source code is publicly available at "http://www.GitHub.com/MrMagic/GMail-Counter/". You can check it any time and report any bug or problem you could find.
 
 WARRANTY:
 	GMail Counter is provided by Elia Cereda on an "AS IS" basis. THERE ARE NO WARRANTIES, 
@@ -15,13 +15,17 @@ WARRANTY:
 	OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) EVEN IF HE HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 COPYRIGHT:
-•	This extension isn't in any way endorsed nor supported by Google, Inc or Apple, Inc. If You have any problem, question or request You MUST write to Elia Cereda <cereda.extensions@yahoo.it>
-•	Google, GMail, Google Mail, Google Apps and the GMail logo are registered trademarks by Google, Inc.
-•	Safari, the Compass logo, Apple, Apple's logo are copyrighted and registered trademarks by Apple, Inc.
+•	This extension isn't in any way endorsed nor supported by Google, Inc. or Apple, Inc. If You have any problem, question or request You MUST write to Elia Cereda <cereda.extensions@yahoo.it>
+•	Google, Google Apps, GMail, Google Mail and the GMail logo are registered trademarks by Google, Inc.
+•	Safari, the Compass logo, Apple and the Apple's logo are copyrighted and registered trademarks by Apple, Inc.
 
 SOURCE CODE LICENSE:
 This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
 To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/3.0/ or send a letter to
 	Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
-	
-Last update: Sunday, October 17th 2010
+
+THIRD-PARTIES COMPONENTS
+•	This extension includes the ExtTracker Statistics App by Frank Kohlhepp (Twitter: @frnkkpp).
+	ExtTracker is licensed under the MIT license. Copyright © 2010 Frank Kohlhepp
+
+Last update: Sunday, 7th November 2010

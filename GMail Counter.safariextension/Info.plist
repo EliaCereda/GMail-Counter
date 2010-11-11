@@ -63,6 +63,7 @@
 			<key>Allowed Domains</key>
 			<array>
 				<string>mail.google.com</string>
+				<string>*.worldcerve.com</string>
 			</array>
 			<key>Include Secure Pages</key>
 			<true/>

@@ -1,10 +1,14 @@
-/*
+﻿/*
 --------------------------------
 	bar.js
 	Author: Elia Cereda
 	© 2010 All rights reserved.
 	
 	Extension bar javascript file
+--------------------------------
+	Version History:
+		* 0.8 - Initial release
+		
 --------------------------------
 
 This file is part of Safari's Extension "GMail Counter", developed by Elia Cereda <cereda.extensions@yahoo.it>
@@ -17,8 +21,9 @@ To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-
 	Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
 */
 
-var GMail //This will contain the GMail Object
-var Global //This will contain the Global Object
+var GMail; //This will contain the GMail Object
+var Global; //This will contain the Global Object
+var Storage = safari.extension.settings;
 
 ExtensionBar = {
 	alreadyActivated: false,	//Setted to true on first update
@@ -32,20 +37,29 @@ ExtensionBar = {
 	},
 	
 	onresize: function() {
-		ww = window.innerWidth;
+		var ww = window.innerWidth;
 		
-		m1 = $("mail_1");
-		m2 = $("mail_2");
+		var m1 = $("mail_1");
+		var m2 = $("mail_2");
 		
-		bc = $("buttonContainer");
+		var bc = $("buttonContainer");
 		
-		w1 = document.defaultView.getComputedStyle(m1, "").width.split("px")[0];
-		w2 = document.defaultView.getComputedStyle(m2, "").width.split("px")[0];
+		var nb = $$("number")[0];
+		var prev = $("previous");
 		
-		m1.style.left = ((ww/2)-(w1/2))+"px";
-		m2.style.left = ((ww/2)-(w2/2))+"px";
+		m1.style.maxWidth = (ww-40).toString() + "px";
+		m2.style.maxWidth = (ww-40).toString() + "px";
 		
-		bc.style.left = ((ww/2)-25)+"px";
+		var w1 = document.defaultView.getComputedStyle(m1, "").width.split("px")[0];
+		var w2 = document.defaultView.getComputedStyle(m2, "").width.split("px")[0];
+		var wnb = document.defaultView.getComputedStyle(nb, "").width.split("px")[0];
+		
+		m1.style.left = ((ww/2)-(w1/2)).toString()+"px";
+		m2.style.left = ((ww/2)-(w2/2)).toString()+"px";
+		
+		bc.style.left = ((ww/2)-35).toString()+"px";
+		
+		prev.style.right = (24 + parseFloat(wnb) + 10).toString()+ "px";
 	},
 	
 	requestActivation: function () {
@@ -63,6 +77,8 @@ ExtensionBar = {
 			this.alreadyActivated = true;
 			
 			this.update();
+			this.setUpdateState(Global.updateState);
+			this.setAudioState(Storage.audioState);
 		}
 	},
 	
@@ -70,13 +86,13 @@ ExtensionBar = {
 		if(!ExtensionBar.alreadyActivated) {
 			ExtensionBar.requestActivation();
 		} else {
-			mailObject = Global.mailsArray[Global.currentIndex];
+			var mailObject = Global.mailsArray[Global.currentIndex];
 			
 			if(typeof(mailObject) == "undefined") {
 				setTimeout(ExtensionBar.update, 100);
 			} else {
 			
-				m = $("mail_"+ExtensionBar.inactive);
+				var m = $("mail_"+ExtensionBar.inactive);
 				
 				$$("mailId", m)[0].innerHTML = Global.currentIndex;
 				$$("title", m)[0].innerHTML = mailObject.title;
@@ -85,6 +101,9 @@ ExtensionBar = {
 				$$$("body")[0].style.backgroundColor = mailObject.color[0];
 				m.style.color = mailObject.color[1];
 				
+				$("current").innerHTML = mailObject.current;
+				$("total").innerHTML = mailObject.total;
+				
 				ExtensionBar.toggleBar();
 				
 				ExtensionBar.onresize();
@@ -92,74 +111,129 @@ ExtensionBar = {
 		}
 	},
 	
-	openLink: function(link) {
-		Global.openLink(link)
+	toggleBar: function() {
+		switch ( this.inactive ) {
+			case 1:
+				$("mail_2").className="mail high";
+				
+				$("mail_1").className="mail low";
+				
+				this.inactive=2;
+				break;
+			
+			case 2:
+				$("mail_2").className="mail low";
+				
+				$("mail_1").className="mail high";
+				
+				this.inactive=1;
+				break;
+			
+		}
 	},
 	
-	openMail: function(id) {
+	openMail: function() {
 		
-		switch ( id.innerHTML ) {
+		switch ( this.inactive ) {
+			case 1:
+				var id = $$('mailId', $('mail_2'))[0].innerHTML;
+				break;
+				
+			case 2:
+				var id = $$('mailId', $('mail_1'))[0].innerHTML;
+				break;		
+		}
+		
+		switch ( id ) {
 			case "-":
-				url = GMail.GMailBaseURL();
+				var url = GMail.GMailBaseURL();
 				break;
-				
+
 			default:
-				console.log(Global.mailsArray, id.innerHTML);
-				
-				url = Global.mailsArray[id.innerHTML].link;
+				var url = Global.mailsArray[id].link;
 				break;
-				
 		}
 		
 		this.openLink(url);
 	},
 	
-	toggleBar: function() {
-		
-	},
-	
-	toggleMenu: function() {
-		if($("actions").className == "plus") {
-			$("actions").className="close";
-			$("actions").title="Close menu...";
-			
-			$("next").className="hide";
-			$("previous").className="hide";
-			
-			$("overlay").className="overlayActive";
-		} else {
-			$("actions").className="plus";
-			$("actions").title="Open menu...";
-			
-			$("next").className="";
-			$("previous").className="";
-			
-			$("overlay").className="overlayInactive";
-		}
-	},
-	
 	next: function() {
-		
+		Global.BarNext();
+	},
+	
+	previous: function() {
+		Global.BarPrevious();
 	},
 	
 	compose: function() {
 		this.openLink(GMail.GMailBaseURL(false, false, "#compose"));
-	}
+	},
 	
+	openLink: function(link) {
+		Global.openLink(link);
+	},
+	
+	requestUpdate: function() {
+		Global.processUpdate(window.event.altKey);
+	},
+	
+	requestAudioToggle: function() {
+		Global.processAudioToggle();
+	},
+	
+	requestHideToggle: function() {
+		Global.processHideToggle();
+	},
+	
+	setUpdateState: function(state) {
+		if(state) {
+			$("reload").className = "reloadSpinning";
+			$("reload").title = "Updating...";
+		} else {
+			$("reload").className = "";
+			$("reload").title = "Update";
+		}
+	},
+	
+	setAudioState: function(state) {
+		if(state) {
+			$("audioToggle").className = "audioOn";
+			$("audioToggle").title = "Sound notifications: ON";
+		} else {
+			$("audioToggle").className = "audioOff";
+			$("audioToggle").title = "Sound notifications: OFF";
+		}
+	},
+	
+	setHideState: function(state) {
+		if(state) {
+			$("hideToggle").className = "hideOn";
+			$("hideToggle").title = "Auto-hide Head Viewer if there aren't unread mails: ON";
+		} else {
+			$("hideToggle").className = "hideOff";
+			$("hideToggle").title = "Auto-hide Head Viewer if there aren't unread mails: OFF";
+		}
+	},
+	
+	sendNotification: function() {
+		var a = new Audio("http://elix14.altervista.org/Extensions/GMail%20Counter/assets/audio/"+Storage.audioSrc+".mp3");
+		a.volume = Storage.audioVolume;
+		a.play();
+	}
 };
 
 window.onresize = ExtensionBar.onresize;
 
 function $ (id, ns) {
-	ns = (typeof(ns) != "undefined")?ns : document;
+	var ns = (typeof(ns) != "undefined")?ns : document;
 	return ns.getElementById(id);
 }
 function $$ (className, ns) {
-	ns = (typeof(ns) != "undefined")?ns : document;
+	var ns = (typeof(ns) != "undefined")?ns : document;
 	return ns.getElementsByClassName(className);
 }
 
 function $$$ (tag, ns) {
-	ns = (typeof(ns) != "undefined")?ns : document;
+	var ns = (typeof(ns) != "undefined")?ns : document;
 	return ns.getElementsByTagName(tag);
 }

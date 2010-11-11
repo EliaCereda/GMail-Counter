@@ -3,6 +3,18 @@
 <plist version="1.0">
 <array>
 	<dict>
+		<key>DefaultValue</key>
+		<string>null</string>
+		<key>Key</key>
+		<string>previousMailsArray</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<true/>
+		<key>Key</key>
+		<string>hiddenByMe</string>
+	</dict>
+	<dict>
 		<key>Title</key>
 		<string>Google Apps settings (optional)</string>
 		<key>Type</key>
@@ -40,7 +52,8 @@
 		<key>Titles</key>
 		<array>
 			<string>new tab every time</string>
-			<string>an open GMail tab</string>
+			<string>new window every time</string>
+			<string>already open GMail tab</string>
 			<string>active tab</string>
 		</array>
 		<key>Type</key>
@@ -48,9 +61,86 @@
 		<key>Values</key>
 		<array>
 			<string>newTab</string>
+			<string>newWindow</string>
 			<string>GMailTab</string>
 			<string>activeTab</string>
 		</array>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Separator</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<true/>
+		<key>Key</key>
+		<string>audioState</string>
+		<key>Title</key>
+		<string>Sound notifications</string>
+		<key>Type</key>
+		<string>CheckBox</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<real>0.5</real>
+		<key>Key</key>
+		<string>audioVolume</string>
+		<key>MaximumValue</key>
+		<real>1</real>
+		<key>MinimumValue</key>
+		<real>0.10000000000000001</real>
+		<key>StepValue</key>
+		<real>0.01</real>
+		<key>Title</key>
+		<string>Volume</string>
+		<key>Type</key>
+		<string>Slider</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<string>Tritone</string>
+		<key>Key</key>
+		<string>audioSrc</string>
+		<key>Title</key>
+		<string>Sound</string>
+		<key>Titles</key>
+		<array>
+			<string>Tritone</string>
+		</array>
+		<key>Type</key>
+		<string>PopUpButton</string>
+		<key>Values</key>
+		<array>
+			<string>Tritone</string>
+		</array>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Separator</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<real>15</real>
+		<key>Key</key>
+		<string>barTimeout</string>
+		<key>Title</key>
+		<string>Extension Bar refresh interval (sec)</string>
+		<key>Type</key>
+		<string>TextField</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Separator</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<false/>
+		<key>Key</key>
+		<string>hideWhenNoMails</string>
+		<key>Title</key>
+		<string>Auto-hide Head Viewer if there aren't unread mails</string>
+		<key>Type</key>
+		<string>CheckBox</string>
 	</dict>
 </array>
 </plist>

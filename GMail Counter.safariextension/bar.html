@@ -1,10 +1,14 @@
-<!--
+﻿<!--
 --------------------------------
 	bar.html
 	Author: Elia Cereda
 	© 2010 All rights reserved.
 	
 	Main extension bar HTML file
+--------------------------------
+	Version History:
+		* 0.8 - Initial release
+		
 --------------------------------
 
 This file is part of Safari's Extension "GMail Counter", developed by Elia Cereda <cereda.extensions@yahoo.it>
@@ -20,6 +24,7 @@ To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-
 <!DOCTYPE HTML>
 <html>
 	<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
 		<script src="js/bar.js"></script>
 		<link rel="stylesheet" rev="stylesheet" href="css/bar.css" type="text/css" />
 	</head>
@@ -29,11 +34,11 @@ To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-
 					<span class="mailId" style="display: none;">-</span>
 				
 					<span class="quotes">&#x201c;</span>
-						<span class="title">If you see this there's something wrong!!!</span>
+						<span class="title">There was an error loading GMail Counter</span>
 					<span class="quotes">&#x201d;</span>
 					
 					<span class="sender-box"> &#x2015;
-						<span class="author">GMail Counter</span>
+						<span class="author">Please, write at &lt;cereda.extensions@yahoo.it&gt;</span>
 					</span>
 			</div>
 			
@@ -49,20 +54,24 @@ To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-
 					</span>
 			</div>
 		</div>
-		<div id="actions" class="plus" onclick="ExtensionBar.toggleMenu()" title="Open menu...">&nbsp;</div>
 		
-		<div id="overlay" class="overlayInactive">
-			<div id="reload" class="reloadSpinning" title="GMail Counter is loading...">&nbsp;</div>
+		<div id="overlay">
+			<div id="reload" class="reloadSpinning" title="Loading..." onclick="ExtensionBar.requestUpdate()">&nbsp;</div>
+			<div id="audioToggle" class="audioOn" title="Sound notifications: ON" onclick="ExtensionBar.requestAudioToggle()">&nbsp;</div>
+			<div id="hideToggle" class="hideOff" title="Auto-hide Head Viewer if there aren't unread mails: OFF" onclick="ExtensionBar.requestHideToggle()">&nbsp;</div>
 			<div id="buttonContainer">
+				<div id="openMail" title="Open link..." onclick="ExtensionBar.openMail()">&nbsp;</div>
 				<div id="compose" title="Compose a new message..." onclick="ExtensionBar.compose()">&nbsp;</div>
-				<div id="hide" title="Hide Head Viewer until you receive a new mail...">&nbsp;</div>
+			</div>
+			<div id="controllers">
+				<div id="previous" onclick="ExtensionBar.previous()" title="Previous">&nbsp;</div>
+				<div class="number">
+					<span id="current">-</span>
+					of
+					<span id="total">0</span>
+				</div>
+				<div id="next" onclick="ExtensionBar.next()" title="Next">&nbsp;</div>
 			</div>
 		</div>
-		
-		<div id="previous" onclick="ExtensionBar.previous()" title="Previous">&nbsp;</div>
-		<div id="next" onclick="ExtensionBar.next()" title="Next">&nbsp;</div>
-		
-		<a href="javascript:false;" onclick='document.getElementById("mail_2").className="mail low";document.getElementById("mail_1").className="mail high";'>Scambia 1</a>
-		<a href="javascript:false;" onclick='document.getElementById("mail_1").className="mail low";document.getElementById("mail_2").className="mail high";'>Scambia 2</a>
 	</body>
 </html>

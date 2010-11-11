@@ -6,6 +6,10 @@
 	
 	Extension bar CSS file
 --------------------------------
+	Version History:
+		* 0.8 - Initial release
+		
+--------------------------------
 
 This file is part of Safari's Extension "GMail Counter", developed by Elia Cereda <cereda.extensions@yahoo.it>
 
@@ -29,12 +33,7 @@ body { -webkit-transition: background-color 0.5s ease-out; }
 {
 	position: absolute;
 	-webkit-transition: -webkit-transform 0.5s ease-out;
-}
-
-#container:hover .title, #container:hover .author
-{
-	text-decoration: underline;
-	cursor: pointer;
+	overflow: hidden;
 }
 
 .high
@@ -53,31 +52,6 @@ body { -webkit-transition: background-color 0.5s ease-out; }
 	top: -8px;
 }
 
-#actions
-{
-	background-image: url(../img/plus.png);
-	height: 18px;
-	width: 18px;
-	position: absolute;
-	right: 20px;
-	top: 5px;
-	-webkit-transition: -webkit-transform 0.7s ease-in;
-	z-index: 1001;
-	cursor: pointer;
-	opacity: 0.7;
-}
-
-#actions:hover { opacity: 1; }
-
-.plus
-{
-	-webkit-transform: rotate(0deg);
-	display: none;
-}
-
-.close { -webkit-transform: rotate(-225deg); }
-body:hover .plus { display: block; }
-
 #overlay
 {
 	position: fixed;
@@ -86,59 +60,16 @@ body:hover .plus { display: block; }
 	height: 30px;
 	width: 100%;
 	background-color: #000;
-	-webkit-transition: opacity 0.7s ease-in;
+	-webkit-transition: opacity 0.2s ease-in;
 	z-index: 1000;
-}
-
-.overlayInactive
-{
 	opacity: 0;
 	pointer-events: none;
 }
 
-.overlayActive { opacity: 0.8; }
-
-#previous
+body:hover #overlay
 {
-	background-image: url(../img/previous.png);
-	height: 18px;
-	width: 22px;
-	position: absolute;
-	left: 20px;
-	top: 5px;
-	z-index: 0;
-	cursor: pointer;
-	opacity: 0.7;
-	display: none;
-}
-
-#previous:hover { opacity: 1; }
-#previous:active { opacity: 1 !important; }
-body:hover #previous { display: block; }
-
-#next
-{
-	background-image: url(../img/next.png);
-	height: 18px;
-	width: 22px;
-	position: absolute;
-	left: 52px;
-	top: 5px;
-	z-index: 0;
-	cursor: pointer;
-	opacity: 0.7;
-	display: none;
-}
-
-#next:hover { opacity: 1; }
-#next:active { opacity: 1 !important; }
-body:hover #next { display: block; }
-.hide { display: none !important; }
-
-#buttonContainer
-{
-	position: absolute;
-	top: 5px;
+	opacity: 0.8;
+	pointer-events: auto !important;
 }
 
 #reload
@@ -154,25 +85,83 @@ body:hover #next { display: block; }
 	opacity: 0.7;
 }
 
-#reload:hover { opacity: 1; }
-#reload:active { opacity: 1 !important; }
-
 .reloadSpinning
 {
 	-webkit-animation-name: spin;
-	-webkit-animation-duration: 1s;
+	-webkit-animation-duration: 0.8s;
 	-webkit-animation-iteration-count: infinite;
 	-webkit-animation-timing-function: linear;
 	cursor: default !important;
+	opacity: 1 !important;
 }
 
-@-webkit-keyframes     spin {
- from {
-   -webkit-transform: rotate(0deg);
- }
- to {
-   -webkit-transform: rotate(360deg);
- }
+@-webkit-keyframes    spin {
+ from { -webkit-transform: rotate(0deg); }
+ to { -webkit-transform: rotate(360deg); }
+}
+
+#audioToggle
+{
+	height: 18px;
+	width: 17px;
+	position: absolute;
+	left: 58px;
+	top: 5px;
+	z-index: 1001;
+	cursor: pointer;
+}
+
+.audioOn
+{
+	background-image: url(../img/audioOn.png);
+	opacity: 0.7;
+}
+
+.audioOff
+{
+	background-image: url(../img/audioOff.png);
+	opacity: 0.5;
+}
+
+#hideToggle
+{
+	height: 18px;
+	width: 18px;
+	position: absolute;
+	left: 95px;
+	top: 5px;
+	z-index: 1001;
+	cursor: pointer;
+}
+
+.hideOn
+{
+	background-image: url(../img/hideOn.png);
+	opacity: 0.7;
+}
+
+.hideOff
+{
+	background-image: url(../img/hideOff.png);
+	opacity: 0.5;
+}
+
+#buttonContainer
+{
+	position: absolute;
+	top: 5px;
+}
+
+#openMail
+{
+	background-image: url(../img/openMail.png);
+	height: 18px;
+	width: 23px;
+	position: absolute;
+	left: 0px;
+	z-index: 1001;
+	cursor: pointer;
+	opacity: 0.7;
 }
 
 #compose
@@ -181,35 +170,53 @@ body:hover #next { display: block; }
 	height: 18px;
 	width: 20px;
 	position: absolute;
-	left: 0px;
+	left: 50px;
 	z-index: 1001;
 	cursor: pointer;
 	opacity: 0.7;
 }
 
-#compose:hover { opacity: 1; }
-#compose:active { opacity: 1 !important; }
-
-#hide
+#controllers
 {
-	height: 34px;
-	width: 18px;
 	position: absolute;
-	left: 30px;
+	right: 20px;
+	top: 5px;
 	z-index: 1001;
+}
+
+#previous
+{
+	background-image: url(../img/previous.png);
+	height: 18px;
+	width: 14px;
+	position: absolute;
+	right: 69px;
+	top: 0px;
 	cursor: pointer;
 	opacity: 0.7;
-	-webkit-transition: -webkit-transform 0.5s ease-out;
-	background-repeat: no-repeat;
-	background-position: 0px 0px;
-	background-image: url(../img/hide.png);
 }
 
-#hide:hover
+.number
 {
-	opacity: 1;
-	-webkit-transform: translate(0px, -16px);
-	-webkit-transition-timing-function: ease-in;
+	position: absolute;
+	right: 24px;
+	top: 5px;
+	text-align: right;
+	font-size: 6pt;
+	opacity: 0.7;
+	color: white;
 }
 
-#hide:active { opacity: 1 !important; }
+#next
+{
+	background-image: url(../img/next.png);
+	height: 18px;
+	width: 14px;
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	cursor: pointer;
+	opacity: 0.7;
+}
+
+#reload:hover, #audioToggle:hover, #hideToggle:hover, #compose:hover, #openMail:hover, #next:hover, #previous:hover { opacity: 1 !important; }

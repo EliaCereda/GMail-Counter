@@ -1,10 +1,14 @@
-/*
+﻿/*
 --------------------------------
 	GMail.js
 	Author: Elia Cereda
 	© 2010 All rights reserved.
 	
-	The GMail class. Needed to interface with GMail webmail
+	The GMail class. Handle connections with GMail server.
+--------------------------------
+	Version History:
+		* 0.8 - Initial release
+		
 --------------------------------
 
 This file is part of Safari's Extension "GMail Counter", developed by Elia Cereda <cereda.extensions@yahoo.it>
@@ -16,15 +20,15 @@ This work is licensed under the Creative Commons Attribution-NonCommercial-Share
 To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/3.0/ or send a letter to
 	Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
 */
+var Storage = safari.extension.settings;
 
 GMail = {
-	status: "notInited",	//This can be "notInited", "loading", "notLogged", "logged", "error", "updated", "parsing", "noMails", "noNewMails", "newMails"
+	status: "notInited",	//This can be "notInited", "loading", "notLogged", "logged", "error", "updated", "parsing", "noMails", "newMails"
 	error: 0,				//Only setted if status is "error", "0" means "all is ok"
 	
 	atomFeed: null,			//This will be the container for unparsed data from feed
 	mails: null,			//This will be the container for mails' array
 	mailsCount: null,
-	latestReadMail: null, 	//This will contain the id of the latest mail when user click hide button
 	
 	debug: true,			//If this is true "logThis" will output debug informations to console
 	
@@ -33,11 +37,11 @@ GMail = {
 			return 'http://purl.org/atom/ns#'; //This is for using with XMLDocument.evaluate, it's the NameSpaceResolver
 		}
 		
-		base = "https://mail.google.com";
-		domain = safari.extension.settings.getItem("appsDomain");
-		label = safari.extension.settings.getItem("label");
+		var base = "https://mail.google.com";
+		var domain = Storage.appsDomain;
+		var label = Storage.label;
 		
-		url=base;
+		var url=base;
 		url += (domain) ? ("/a/"+ domain + ((domain[domain.length - 1] != "/") ? "/" : "")) : "/mail/";
 		url += (feed) ? "feed/atom/" + ((label)? label : "") : "";
 		
@@ -57,11 +61,11 @@ GMail = {
 	
 	checkLogin: function(callback) {
 		this.setStatus("loading");
-		xhr = new XMLHttpRequest();
+		var xhr = new XMLHttpRequest();
 			xhr.onreadystatechange = function() {
 				if (this.readyState==4) {
 					try {
-						if (xhr.status == 404) {	//New method to determine if you're logged in or not, based on GMail handling of "404" errors: if you are logged you get a normal 404 error, else you get redirected to login page
+						if (xhr.status == 404 || xhr.status == 503) {	//New method to determine if you're logged in or not, based on GMail handling of "404" errors: if you are logged you get a normal 404 error, else you get redirected to login page
 							GMail.setStatus("logged");
 							GMail.logThis(0, "checkLogin", "You're logged-in!", 0);
 							(typeof callback == "function")?callback("checkLogin", true):"";
@@ -71,16 +75,6 @@ GMail = {
 							(typeof callback == "function")?callback("checkLogin", false):"";
 						}
 					} catch (e) {}
-					//OLD LOGIN CHECK METHOD
-					/*if (xhr.responseText.indexOf("<!DOCTYPE html>") != -1) {	//For some strange reason Login page still use HTML 4 and then HTML 5: this is a freaky method to know if you're logged in or not
-						GMail.setStatus("logged");
-						GMail.logThis(0, "checkLogin", "You're logged-in!", 0);
-						(typeof callback == "function")?callback("checkLogin", true):"";
-					} else {
-						GMail.setStatus("notLogged");
-						GMail.logThis(1, "checkLogin", "You're NOT logged-in!", 0);
-						(typeof callback == "function")?callback("checkLogin", false):"";
-					}*/
 				}
 			};
 		xhr.open("GET", this.GMailBaseURL(false, "view=loginCheck"));
@@ -91,7 +85,7 @@ GMail = {
 	
 	updateFeed: function(callback) {
 		this.setStatus("loading");
-		xhr = new XMLHttpRequest();
+		var xhr = new XMLHttpRequest();
 			xhr.onreadystatechange = function() {
 				if (this.readyState==4) {
 					if (xhr.status==200 && xhr.responseXML) {
@@ -116,8 +110,10 @@ GMail = {
 	parseFeed: function(callback) {	//This function is synchronus, but for consistence it has a callback anyway. Parsed data will be also returned 
 		this.setStatus("parsing");
 		
+		Storage.previousMailsArray = this.mails;
+		
 		this.mails = [];
-		length = this.XMLEvaluate(this.atomFeed, '/gmail:feed/gmail:entry').snapshotLength;
+		var length = this.XMLEvaluate(this.atomFeed, '/gmail:feed/gmail:entry').snapshotLength;
 		
 		for ( i = 0; i < length; i++ ) {
 			this.mails[i] = {
@@ -133,6 +129,7 @@ GMail = {
 			}
 								//COLOR IS SETTED RIGHT HERE
 			this.mails[i].color = this.string2Color(this.mails[i].author); 
+			if(this.mails[i].title == "") this.mails[i].title = "[no subject]"
 			
 		}
 		
@@ -141,7 +138,7 @@ GMail = {
 		if(this.mails.length == 0) {
 			this.setStatus("noMails");
 			
-			GMail.logThis(0, "parseFeed", "There isn't unread mails");
+			GMail.logThis(0, "parseFeed", "There aren't unread mails");
 			
 			this.mails[0] = {
 				title : "No unread mails",
@@ -157,12 +154,6 @@ GMail = {
 			
 			(typeof callback == "function")?callback("parseFeed", "noMails"):"";
 			
-		} else if(this.mails[0].id == this.latestReadMail) {
-			this.setStatus("noNewMails");
-			
-			GMail.logThis(0, "parseFeed", "There isn't unread and unviewed mails");
-			
-			(typeof callback == "function")?callback("parseFeed", "noNewMails"):"";
 		} else {
 			this.setStatus("newMails");
 			
@@ -191,9 +182,9 @@ GMail = {
 		} else if(this.getStatus() == "error" || this.getStatus() == "notInited" || this.mails == null) {
 			GMail.logThis(0, "getMailsArray", "I've returned an array", "error");
 			return [{
-				title : "An error occurred, please contact me",
+				title : "An error occurred, click here to open FAQ...",
 				author : "GMail Counter",
-				link : "mailto: cereda.extensions@yahoo.it",
+				link : "mailto:cereda.extensions@yahoo.it?subject=GMail%20Counter%20Error",
 				id : "000-000",
 				
 				color: ["", "#000"],
@@ -201,9 +192,6 @@ GMail = {
 				current : "-",
 				total : "0"
 			}]
-		} else if(this.getStatus() == "noNewMails") {
-			GMail.logThis(0, "getMailsArray", "I've returned an array", "noNewMails");
-			return "noNewMails";
 		} else {
 			GMail.logThis(0, "getMailsArray", "I've returned an array", this.mails);
 			return this.mails;
@@ -212,19 +200,36 @@ GMail = {
 	
 	getMailsCount: function() {
 		GMail.logThis(0, "getMailsCount", "There is/are "+this.mailsCount+" unread mail(s)");
-		return (typeof this.mailsCount != "null")?this.mailsCount:0;
+		return (this.mailsCount != null)?this.mailsCount:0;
 	},
 	
-	readAll: function() {
-		if(typeof this.mails != null && typeof this.mails[0] != undefined && typeof this.mails[0].id != undefined) {
-			this.latestReadMail = this.mails[0].id;
-			GMail.logThis(0, "readAll", "You've read all mails: this is the latest", this.mails[0]);
-			this.setStatus("noNewMails");
-		} else {
-			GMail.logThis(0, "readAll", "There aren't new mails");
-		}
+	checkNewMails: function(excludeStatusMessages) {
+		var a = GMail.mails;
+		var b = Storage.previousMailsArray;
 		
-		return this.mails[0];
+		if (b == null) {
+			return false;
+		}
+	
+		for(i in a) {
+			flag=true;
+			for(j in b) {
+				if(a[i].id == b[j].id && a[i].id != "000-000"){
+					flag=false;
+				}
+			}
+			if(flag) {
+				
+				if(excludeStatusMessages && a[i].id == "000-000") {
+					this.logThis(false, "checkNewMails", "There are only status messages");
+					return false;
+				}
+				this.logThis(false, "checkNewMails", "There are new mails");
+				return true;
+			}
+		}
+		this.logThis(false, "checkNewMails", "There aren't any new mails");
+		return false;
 	},
 	
 	setStatus: function(newStatus, newError) {
@@ -268,35 +273,35 @@ GMail = {
 	//DEPENDENCIES
 	string2Color: function(s) {
 		
-		color = "#"+hex_md5(s).substring(0,6);
+		var color = "#"+hex_md5(s).substring(0,6);
 
-		r=this.h2d(color.substring(1,3));
-		g=this.h2d(color.substring(3,5));
-		b=this.h2d(color.substring(5,7));
+		var r=this.h2d(color.substring(1,3));
+		var g=this.h2d(color.substring(3,5));
+		var b=this.h2d(color.substring(5,7));
 		
-		HSV = this.RGB2HSV(r,g,b);
+		var HSV = this.RGB2HSV(r,g,b);
 		
-		false_positives = [[50,26,249], [142, 11, 244]];
-		false_negatives = [[225,229,58]];
+		var shouldBeWhite = ["#321AF9", "#8E0BF4", "#EC1879"];
+		var shouldBeBlack = ["#E1E53A", "#97FB14", "#2FF449", "#7AD132"];
 		
-		false_positives.forEach(function(value) {
-			if (r == value[0] && g == value[1] && b == value[2]) {
-				HSV[2] = 89;
+		shouldBeWhite.forEach(function(value) {
+			if (color.toUpperCase() == value) {
+				HSV[2] = 0.89;
 			}
 		});
 		
-		false_positives.forEach(function(value) {
-			if (r == value[0] && g == value[1] && b == value[2]) {
-				HSV[2] = 91;
+		shouldBeBlack.forEach(function(value) {
+			if (color.toUpperCase() == value) {
+				HSV[2] = 0.91;
 			}
 		});
 		
-		array = [color];
+		var array = [color];
 		
-		if(HSV[2] > 90) {
-			array[1] = "#000";
+		if(HSV[2] > 0.90) {
+			array[1] = "black";
 		} else {
-			array[1] = "#fff";
+			array[1] = "white";
 		}
 		
 		return array;
