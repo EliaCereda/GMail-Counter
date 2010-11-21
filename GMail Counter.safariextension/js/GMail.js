@@ -30,7 +30,7 @@ GMail = {
 	mails: null,			//This will be the container for mails' array
 	mailsCount: null,
 	
-	debug: true,			//If this is true "logThis" will output debug informations to console
+	debug: false,			//If this is true "logThis" will output debug informations to console
 	
 	GMailBaseURL: function(feed, query, anchor) {
 		if (feed === "gmail") {
@@ -143,7 +143,7 @@ GMail = {
 			this.mails[0] = {
 				title : "No unread mails",
 				author : "GMail Counter",
-				link : this.GMailBaseURL(false),
+				link : this.GMailBaseURL(false, false, "#inbox"),
 				id : "000-000",
 				
 				color: ["", "#000"],
@@ -182,9 +182,9 @@ GMail = {
 		} else if(this.getStatus() == "error" || this.getStatus() == "notInited" || this.mails == null) {
 			GMail.logThis(0, "getMailsArray", "I've returned an array", "error");
 			return [{
-				title : "An error occurred, click here to open FAQ...",
+				title : "An error occurred, click here to contact me...",
 				author : "GMail Counter",
-				link : "mailto:cereda.extensions@yahoo.it?subject=GMail%20Counter%20Error",
+				link : "mailto:cereda.extensions@yahoo.it?subject=GMail%20Counter%20-%20Error",
 				id : "000-000",
 				
 				color: ["", "#000"],
@@ -281,7 +281,7 @@ GMail = {
 		
 		var HSV = this.RGB2HSV(r,g,b);
 		
-		var shouldBeWhite = ["#321AF9", "#8E0BF4", "#EC1879"];
+		var shouldBeWhite = ["#321AF9", "#8E0BF4", "#EC1879", "#F92AA9"];
 		var shouldBeBlack = ["#E1E53A", "#97FB14", "#2FF449", "#7AD132"];
 		
 		shouldBeWhite.forEach(function(value) {

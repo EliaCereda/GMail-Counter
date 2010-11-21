@@ -7,13 +7,13 @@
 	<key>CFBundleDisplayName</key>
 	<string>GMail Counter</string>
 	<key>CFBundleIdentifier</key>
-	<string>it.eliacereda.gmailcounter.alpha</string>
+	<string>it.eliacereda.gmailcounter.beta</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.8 Alpha</string>
+	<string>0.8 | beta 1</string>
 	<key>CFBundleVersion</key>
-	<string>8a</string>
+	<string>8.b.1</string>
 	<key>Chrome</key>
 	<dict>
 		<key>Bars</key>
@@ -53,7 +53,7 @@
 		<dict/>
 	</dict>
 	<key>Description</key>
-	<string>Count GMail's unread messages in your toolbar</string>
+	<string>Get informed about your unread mails at the same time they arrive, without even leaving Safari.</string>
 	<key>ExtensionInfoDictionaryVersion</key>
 	<string>1.0</string>
 	<key>Permissions</key>
@@ -63,7 +63,8 @@
 			<key>Allowed Domains</key>
 			<array>
 				<string>mail.google.com</string>
-				<string>*.worldcerve.com</string>
+				<string>exttracker.appspot.com</string>
+				<string>elix14.altervista.org</string>
 			</array>
 			<key>Include Secure Pages</key>
 			<true/>
@@ -72,7 +73,7 @@
 		</dict>
 	</dict>
 	<key>Update Manifest URL</key>
-	<string>http://elix14.altervista.org/Extensions/GMail%20Counter/assets/update.plist</string>
+	<string>http://elix14.altervista.org/update.plist</string>
 	<key>Website</key>
 	<string>http://elix14.altervista.org/Extensions/GMail%20Counter/</string>
 </dict>

@@ -21,7 +21,11 @@ To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-
 	Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
 */
 
-body { -webkit-transition: background-color 0.5s ease-out; }
+body
+{
+	-webkit-transition: background-color 0.5s ease-out, all 0.2s ease-out;
+	-webkit-transition-delay: 0s, 0.2s;
+}
 
 #container
 {
@@ -32,7 +36,9 @@ body { -webkit-transition: background-color 0.5s ease-out; }
 .mail
 {
 	position: absolute;
-	-webkit-transition: -webkit-transform 0.5s ease-out;
+	-webkit-transition: -webkit-transform 0.5s ease-out, opacity 0.2s ease-out, color 0.2s ease-out;
+	-webkit-transition-delay: 0s, 0.2s, 0.2s;
+	z-index: 1002;
 	overflow: hidden;
 }
 
@@ -61,6 +67,7 @@ body { -webkit-transition: background-color 0.5s ease-out; }
 	width: 100%;
 	background-color: #000;
 	-webkit-transition: opacity 0.2s ease-in;
+	-webkit-transition-delay: 0.2s;
 	z-index: 1000;
 	opacity: 0;
 	pointer-events: none;
@@ -72,16 +79,33 @@ body:hover #overlay
 	pointer-events: auto !important;
 }
 
+body:hover .mail
+{
+	color: white !important;
+	opacity: 0.7;
+}
+
+#compose
+{
+	background-image: url(../img/compose.png);
+	height: 18px;
+	width: 20px;
+	position: absolute;
+	left: 20px;
+	top: 5px;
+	z-index: 1001;
+	opacity: 0.7;
+}
+
 #reload
 {
 	background-image: url(../img/reload.png);
 	height: 18px;
 	width: 18px;
 	position: absolute;
-	left: 20px;
+	left: 60px;
 	top: 5px;
 	z-index: 1001;
-	cursor: pointer;
 	opacity: 0.7;
 }
 
@@ -95,85 +119,9 @@ body:hover #overlay
 	opacity: 1 !important;
 }
 
-@-webkit-keyframes    spin {
+@-webkit-keyframes        spin {
  from { -webkit-transform: rotate(0deg); }
  to { -webkit-transform: rotate(360deg); }
-}
-
-#audioToggle
-{
-	height: 18px;
-	width: 17px;
-	position: absolute;
-	left: 58px;
-	top: 5px;
-	z-index: 1001;
-	cursor: pointer;
-}
-
-.audioOn
-{
-	background-image: url(../img/audioOn.png);
-	opacity: 0.7;
-}
-
-.audioOff
-{
-	background-image: url(../img/audioOff.png);
-	opacity: 0.5;
-}
-
-#hideToggle
-{
-	height: 18px;
-	width: 18px;
-	position: absolute;
-	left: 95px;
-	top: 5px;
-	z-index: 1001;
-	cursor: pointer;
-}
-
-.hideOn
-{
-	background-image: url(../img/hideOn.png);
-	opacity: 0.7;
-}
-
-.hideOff
-{
-	background-image: url(../img/hideOff.png);
-	opacity: 0.5;
-}
-
-#buttonContainer
-{
-	position: absolute;
-	top: 5px;
-}
-
-#openMail
-{
-	background-image: url(../img/openMail.png);
-	height: 18px;
-	width: 23px;
-	position: absolute;
-	left: 0px;
-	z-index: 1001;
-	cursor: pointer;
-	opacity: 0.7;
-}
-
-#compose
-{
-	background-image: url(../img/compose.png);
-	height: 18px;
-	width: 20px;
-	position: absolute;
-	left: 50px;
-	z-index: 1001;
-	cursor: pointer;
-	opacity: 0.7;
 }
 
 #controllers
@@ -192,7 +140,6 @@ body:hover #overlay
 	position: absolute;
 	right: 69px;
 	top: 0px;
-	cursor: pointer;
 	opacity: 0.7;
 }
 
@@ -215,8 +162,11 @@ body:hover #overlay
 	position: absolute;
 	right: 0px;
 	top: 0px;
-	cursor: pointer;
 	opacity: 0.7;
 }
 
-#reload:hover, #audioToggle:hover, #hideToggle:hover, #compose:hover, #openMail:hover, #next:hover, #previous:hover { opacity: 1 !important; }
+#reload:hover, #compose:hover, #next:hover, #previous:hover, .mail:hover
+{
+	opacity: 1 !important;
+	cursor: pointer;
+}

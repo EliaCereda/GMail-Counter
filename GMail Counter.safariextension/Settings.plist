@@ -54,7 +54,7 @@
 			<string>new tab every time</string>
 			<string>new window every time</string>
 			<string>already open GMail tab</string>
-			<string>active tab</string>
+			<string>active page</string>
 		</array>
 		<key>Type</key>
 		<string>PopUpButton</string>
@@ -124,7 +124,7 @@
 		<key>Key</key>
 		<string>barTimeout</string>
 		<key>Title</key>
-		<string>Extension Bar refresh interval (sec)</string>
+		<string>Head Viewer refresh interval (sec)</string>
 		<key>Type</key>
 		<string>TextField</string>
 	</dict>

@@ -56,25 +56,6 @@ Global = {
 		}
 	},
 	
-	processAudioToggle: function() {
-		if (Storage.audioState) {
-			Storage.audioState = false;
-		} else {
-			Storage.audioState = true;
-		}
-		this.BarSetAudioState();
-	},
-	
-	processHideToggle: function() {
-		if (Storage.hideWhenNoMails) {
-			Storage.hideWhenNoMails = false;
-		} else {
-			Storage.hideWhenNoMails = true;
-			this.processUpdate(true);
-		}
-		this.BarSetHideState();
-	},
-	
 	validate: function(event) {
 		if (event.command === "button") {
 			Global.processUpdate();
@@ -82,13 +63,24 @@ Global = {
 	},
 	
 	command: function(event) {
-		Global.openLink(GMail.GMailBaseURL(false));
+		Global.openLink(GMail.GMailBaseURL(false, false, "#inbox"));
 	},
 	
 	change: function (e) {
-		if (e.key == "audioState") Global.BarSetAudioState();
-		
-		if (e.key == "hideWhenNoMails") Global.BarSetHideState();
+		switch ( e.key ) {
+			case "hideWhenNoMails":
+				if(!e.newValue) {
+					Global.BarToggle("show", true);
+				} else {
+					Global.processUpdate(true);
+				}
+			break;
+			
+			case "label":
+			case "appsDomain":
+				Global.processUpdate(true);
+			break;
+		}
 	},
 	
 	callback: function (sender, message) {
@@ -204,10 +196,10 @@ Global = {
 		_tab.url=link;
 	},
 	
-	BarToggle: function(action) {
+	BarToggle: function(action, forceToggle) {
 		switch ( action ) {
 			case "show":
-				if (Storage.hiddenByMe) {
+				if (Storage.hiddenByMe || forceToggle) {
 					Storage.hiddenByMe = false;
 					
 					safari.extension.bars.forEach(function(bar) {
@@ -217,7 +209,7 @@ Global = {
 			break;
 			
 			case "hide":
-				if(Storage.hideWhenNoMails) {
+				if(Storage.hideWhenNoMails || forceToggle) {
 					Storage.hiddenByMe = true;
 					
 					safari.extension.bars.forEach(function(bar) {
@@ -260,18 +252,6 @@ Global = {
 	BarSetUpdateState: function() {
 		safari.extension.bars.forEach(function(bar) {
 				bar.contentWindow.ExtensionBar.setUpdateState(Global.updateState);
-		});
-	},
-	
-	BarSetAudioState: function() {
-		safari.extension.bars.forEach(function(bar) {
-				bar.contentWindow.ExtensionBar.setAudioState(Storage.audioState);
-		});
-	},
-	
-	BarSetHideState: function() {
-		safari.extension.bars.forEach(function(bar) {
-				bar.contentWindow.ExtensionBar.setHideState(Storage.hideWhenNoMails);
 		});
 	},
 	

@@ -30,6 +30,8 @@ ExtensionBar = {
 	
 	inactive: 1, //The inactive mail div, aka the div with high class (1 or 2)
 	
+	mouseOver: false, //True if the mouse is over the bar
+	
 	init: function() {
 		this.onresize();
 		
@@ -42,24 +44,37 @@ ExtensionBar = {
 		var m1 = $("mail_1");
 		var m2 = $("mail_2");
 		
-		var bc = $("buttonContainer");
-		
 		var nb = $$("number")[0];
+		var wnb = +(document.defaultView.getComputedStyle(nb, "").width.split("px")[0]);
+		
 		var prev = $("previous");
 		
-		m1.style.maxWidth = (ww-40).toString() + "px";
-		m2.style.maxWidth = (ww-40).toString() + "px";
+		if(this.mouseOver) {
+			maxWidth = (+(ww)-(20+20+20+18+20)-(20+14+wnb+14+30)).toString() + "px";
+		} else {
+			maxWidth = (ww-40).toString() + "px";
+		}
+		
+		m1.style.maxWidth = maxWidth;
+		m2.style.maxWidth = maxWidth;
 		
 		var w1 = document.defaultView.getComputedStyle(m1, "").width.split("px")[0];
 		var w2 = document.defaultView.getComputedStyle(m2, "").width.split("px")[0];
-		var wnb = document.defaultView.getComputedStyle(nb, "").width.split("px")[0];
 		
 		m1.style.left = ((ww/2)-(w1/2)).toString()+"px";
 		m2.style.left = ((ww/2)-(w2/2)).toString()+"px";
 		
-		bc.style.left = ((ww/2)-35).toString()+"px";
-		
 		prev.style.right = (24 + parseFloat(wnb) + 10).toString()+ "px";
+	},
+	
+	onmouseover: function()  {
+		this.mouseOver = true;
+		this.onresize();
+	},
+	
+	onmouseout: function() {
+		this.mouseOver = false;
+		this.onresize();
 	},
 	
 	requestActivation: function () {
@@ -78,7 +93,6 @@ ExtensionBar = {
 			
 			this.update();
 			this.setUpdateState(Global.updateState);
-			this.setAudioState(Storage.audioState);
 		}
 	},
 	
@@ -177,14 +191,6 @@ ExtensionBar = {
 		Global.processUpdate(window.event.altKey);
 	},
 	
-	requestAudioToggle: function() {
-		Global.processAudioToggle();
-	},
-	
-	requestHideToggle: function() {
-		Global.processHideToggle();
-	},
-	
 	setUpdateState: function(state) {
 		if(state) {
 			$("reload").className = "reloadSpinning";
@@ -194,29 +200,9 @@ ExtensionBar = {
 			$("reload").title = "Update";
 		}
 	},
-	
-	setAudioState: function(state) {
-		if(state) {
-			$("audioToggle").className = "audioOn";
-			$("audioToggle").title = "Sound notifications: ON";
-		} else {
-			$("audioToggle").className = "audioOff";
-			$("audioToggle").title = "Sound notifications: OFF";
-		}
-	},
-	
-	setHideState: function(state) {
-		if(state) {
-			$("hideToggle").className = "hideOn";
-			$("hideToggle").title = "Auto-hide Head Viewer if there aren't unread mails: ON";
-		} else {
-			$("hideToggle").className = "hideOff";
-			$("hideToggle").title = "Auto-hide Head Viewer if there aren't unread mails: OFF";
-		}
-	},
-	
+
 	sendNotification: function() {
-		var a = new Audio("http://elix14.altervista.org/Extensions/GMail%20Counter/assets/audio/"+Storage.audioSrc+".mp3");
+		var a = new Audio("http://elix14.altervista.org/api/audio/"+Storage.audioSrc+".mp3");
 		a.volume = Storage.audioVolume;
 		a.play();
 	}

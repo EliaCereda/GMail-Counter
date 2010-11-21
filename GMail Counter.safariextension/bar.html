@@ -28,9 +28,9 @@ To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-
 		<script src="js/bar.js"></script>
 		<link rel="stylesheet" rev="stylesheet" href="css/bar.css" type="text/css" />
 	</head>
-	<body onload="ExtensionBar.init()">
+	<body onload="ExtensionBar.init()" onmouseover="ExtensionBar.onmouseover()" onmouseout="ExtensionBar.onmouseout()">
 		<div id="container">
-			<div id="mail_1" class="mail high" onclick="ExtensionBar.openMail($$('mailId', $('mail_1'))[0])">
+			<div id="mail_1" class="mail high" onclick="ExtensionBar.openMail()">
 					<span class="mailId" style="display: none;">-</span>
 				
 					<span class="quotes">&#x201c;</span>
@@ -42,7 +42,7 @@ To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-
 					</span>
 			</div>
 			
-			<div id="mail_2" class="mail low" onclick="ExtensionBar.openMail($$('mailId', $('mail_2'))[0])">
+			<div id="mail_2" class="mail low" onclick="ExtensionBar.openMail()">
 					<span class="mailId" style="display: none;">-</span>
 					
 					<span class="quotes">&#x201c;</span>
@@ -56,13 +56,8 @@ To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-
 		</div>
 		
 		<div id="overlay">
+		<div id="compose" title="Compose a new message..." onclick="ExtensionBar.compose()">&nbsp;</div>
 			<div id="reload" class="reloadSpinning" title="Loading..." onclick="ExtensionBar.requestUpdate()">&nbsp;</div>
-			<div id="audioToggle" class="audioOn" title="Sound notifications: ON" onclick="ExtensionBar.requestAudioToggle()">&nbsp;</div>
-			<div id="hideToggle" class="hideOff" title="Auto-hide Head Viewer if there aren't unread mails: OFF" onclick="ExtensionBar.requestHideToggle()">&nbsp;</div>
-			<div id="buttonContainer">
-				<div id="openMail" title="Open link..." onclick="ExtensionBar.openMail()">&nbsp;</div>
-				<div id="compose" title="Compose a new message..." onclick="ExtensionBar.compose()">&nbsp;</div>
-			</div>
 			<div id="controllers">
 				<div id="previous" onclick="ExtensionBar.previous()" title="Previous">&nbsp;</div>
 				<div class="number">

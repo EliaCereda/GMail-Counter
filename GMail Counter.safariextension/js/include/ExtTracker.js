@@ -175,7 +175,7 @@
                     "Content-type",
                     "application/x-www-form-urlencoded"
                 );
-                //request.send(data);
+                //request.send(data); DISABLED DUE TO SERVER UNAVAILABILITY for maintenance
                 
                 storage.set("ExtTracker.lastPush", +(new Date));
             }
