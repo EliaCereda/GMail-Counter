@@ -36,7 +36,7 @@ GMailCounter = {
 	},
 	
 	log: function(message) {
-		GMailCounter.tracker.log(message);
+		GMailCounter.tracker.logEvent(message);
 	},
 	
 	motd: function() {

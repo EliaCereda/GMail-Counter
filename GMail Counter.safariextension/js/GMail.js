@@ -281,8 +281,8 @@ GMail = {
 		
 		var HSV = this.RGB2HSV(r,g,b);
 		
-		var shouldBeWhite = ["#321AF9", "#8E0BF4", "#EC1879", "#F92AA9"];
-		var shouldBeBlack = ["#E1E53A", "#97FB14", "#2FF449", "#7AD132"];
+		var shouldBeWhite = ["#321AF9", "#8E0BF4", "#EC1879", "#F92AA9", "#EB0B85"];
+		var shouldBeBlack = ["#E1E53A", "#97FB14", "#2FF449", "#7AD132", "#ACC9AA", "#9ADEAA"];
 		
 		shouldBeWhite.forEach(function(value) {
 			if (color.toUpperCase() == value) {

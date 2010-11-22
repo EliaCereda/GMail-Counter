@@ -1,7 +1,3 @@
-// ===============
-// = Version 0.1 =
-// ===============
-
 (function() {
     var storage = {
         "get": function(name) {
@@ -17,9 +13,7 @@
             if (persistent || (typeof safari) !== "object") {
                 localStorage.setItem(
                     name,
-                    JSON.stringify(
-                        (value === undefined) ? null : value
-                    )
+                    JSON.stringify((value === undefined) ? null : value)
                 );
             } else {
                 safari.extension.settings.setItem(name, value);
@@ -62,7 +56,7 @@
             
             version1 = version1.split(".");
             version2 = version2.split(".");
-            longer = (version1.length > version2.length) ? version1 : version2;
+            longer = (version1.length >= version2.length) ? version1 : version2;
             shorter = (longer === version1) ? version2 : version1;
             
             for (index in longer) {
@@ -70,8 +64,7 @@
                     return (longer === version1) ? "older" : "newer";
                 }
                 
-                if (
-                    Number(longer[index]) > Number(shorter[index]) ||
+                if (Number(longer[index]) > Number(shorter[index]) ||
                     (
                         shorter[index] === undefined &&
                         longer[index] !== "0"
@@ -119,10 +112,7 @@
         
         // Upgrade state
         if (storage.get("ExtTracker.version") !== null) {
-            var compare = version.compare(
-                extVersion,
-                storage.get("ExtTracker.version")
-            );
+            var compare = version.compare(extVersion, storage.get("ExtTracker.version"));
             
             if (state === "started" && compare === "newer") {
                 state = "upgraded";
@@ -168,20 +158,20 @@
                 request = new XMLHttpRequest();
                 request.open(
                     "POST",
-                    "http://worldcerve.com/ExtTracker/push.php",
+                    "http://exttracker.appspot.com/request/push",
                     true
                 );
                 request.setRequestHeader(
                     "Content-type",
                     "application/x-www-form-urlencoded"
                 );
-                //request.send(data); DISABLED DUE TO SERVER UNAVAILABILITY for maintenance
+                request.send(data);
                 
                 storage.set("ExtTracker.lastPush", +(new Date));
             }
         };
         
-        this.log = function(message) {
+        this.logEvent = function(message) {
             var instantly,
                 logs;
             
@@ -194,7 +184,7 @@
             if (logs === null) {
                 logs = [];
             }
-            logs.push({"message": message, "version": extVersion});
+            logs.push({"message": message, "version": extVersion, "time": (+(new Date)).toString()});
             storage.set("ExtTracker.logs", logs, true);
             
             if (instantly) {
@@ -203,7 +193,7 @@
         };
         
         // Autolog
-        this.log(state);
+        this.logEvent(state);
         if (state !== "started") {
             this.push();
         }
