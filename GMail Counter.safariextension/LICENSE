@@ -1,4 +1,4 @@
-﻿This is the license of Safari's Extension "GMail Counter", developed by Elia Cereda <cereda.extensions@yahoo.it>
+This is the license of Safari's Extension "GMail Counter", developed by Elia Cereda <cereda.extensions@yahoo.it>
 
 PRIVACY:
 •	GMail Counter doesn't and will never save Your personal datas nor share them with any third party. Any communication between Your computer and GMail's server is secured, encrypted and authenticated with the SSL standard.
@@ -24,8 +24,11 @@ This work is licensed under the Creative Commons Attribution-NonCommercial-Share
 To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/3.0/ or send a letter to
 	Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
 
-THIRD-PARTIES COMPONENTS
+THIRD-PARTIES COMPONENTS:
 •	This extension includes the ExtTracker Statistics App by Frank Kohlhepp (Twitter: @frnkkpp).
 	ExtTracker is licensed under the MIT license. Copyright © 2010 Frank Kohlhepp
 
-Last update: Sunday, 7th November 2010
+ICON CREDITS:
+•	GMail Counter's icon is from Bart Kowalski (http://bartkowalski.com)
+
+Last update: Saturday, 27th November 2010

@@ -15,6 +15,12 @@
 		<string>hiddenByMe</string>
 	</dict>
 	<dict>
+		<key>DefaultValue</key>
+		<string>{}</string>
+		<key>Key</key>
+		<string>ExtNews</string>
+	</dict>
+	<dict>
 		<key>Title</key>
 		<string>Google Apps settings (optional)</string>
 		<key>Type</key>
@@ -105,13 +111,15 @@
 		<string>Sound</string>
 		<key>Titles</key>
 		<array>
-			<string>Tritone</string>
+			<string>iPhone - Tritone</string>
+			<string>Apple Mail - New Mail</string>
 		</array>
 		<key>Type</key>
 		<string>PopUpButton</string>
 		<key>Values</key>
 		<array>
 			<string>Tritone</string>
+			<string>Mail</string>
 		</array>
 	</dict>
 	<dict>
