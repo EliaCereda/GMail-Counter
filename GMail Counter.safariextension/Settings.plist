@@ -150,5 +150,27 @@
 		<key>Type</key>
 		<string>CheckBox</string>
 	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Separator</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<string>default</string>
+		<key>Key</key>
+		<string>closeBehavior</string>
+		<key>Title</key>
+		<string>Head Viewer Close button behavior </string>
+		<key>Titles</key>
+		<array>
+			<string>Close every bar until you reopen it</string>
+		</array>
+		<key>Type</key>
+		<string>PopUpButton</string>
+		<key>Values</key>
+		<array>
+			<string>default</string>
+		</array>
+	</dict>
 </array>
 </plist>

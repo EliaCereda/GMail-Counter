@@ -21,8 +21,8 @@ To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-
 	Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
 */
 GMailCounter = {
-	humanVersion: "0.8 | beta 2",
-	version: "8.b.2",
+	humanVersion: "0.8 | beta 3",
+	version: "8.b.3",
 	releaseType: "publicBeta",
 	homepage: "http://elix14.altervista.org/",
 	newsURL: "api/feed.php?v=1",

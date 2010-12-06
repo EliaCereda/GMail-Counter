@@ -191,6 +191,10 @@ ExtensionBar = {
 		Global.processUpdate(window.event.altKey);
 	},
 	
+	requestClose: function() {
+		Global.processBarClose();
+	},
+	
 	setUpdateState: function(state) {
 		if(state) {
 			$("reload").className = "reloadSpinning";

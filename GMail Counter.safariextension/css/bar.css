@@ -85,13 +85,25 @@ body:hover .mail
 	opacity: 0.7;
 }
 
+#close
+{
+	background-image: url(../img/close.png);
+	height: 17px;
+	width: 18px;
+	position: absolute;
+	left: 20px;
+	top: 6px;
+	z-index: 1001;
+	opacity: 0.7;
+}
+
 #compose
 {
 	background-image: url(../img/compose.png);
 	height: 18px;
 	width: 20px;
 	position: absolute;
-	left: 20px;
+	left: 58px;
 	top: 5px;
 	z-index: 1001;
 	opacity: 0.7;
@@ -103,7 +115,7 @@ body:hover .mail
 	height: 18px;
 	width: 18px;
 	position: absolute;
-	left: 60px;
+	left: 98px;
 	top: 5px;
 	z-index: 1001;
 	opacity: 0.7;
@@ -165,7 +177,7 @@ body:hover .mail
 	opacity: 0.7;
 }
 
-#reload:hover, #compose:hover, #next:hover, #previous:hover, .mail:hover
+#close:hover, #reload:hover, #compose:hover, #next:hover, #previous:hover, .mail:hover
 {
 	opacity: 1 !important;
 	cursor: pointer;

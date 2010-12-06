@@ -255,6 +255,12 @@ Global = {
 		});
 	},
 	
+	processBarClose: function() {
+		safari.extension.bars.forEach(function(bar) {
+				bar.hide();
+		});
+	},
+	
 	sendNotification: function() {
 		if(GMail.checkNewMails(true)) {
 			if(Storage.audioState) safari.extension.bars[0].contentWindow.ExtensionBar.sendNotification();
