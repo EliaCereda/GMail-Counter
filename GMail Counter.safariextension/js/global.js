@@ -255,10 +255,17 @@ Global = {
 		});
 	},
 	
-	processBarClose: function() {
-		safari.extension.bars.forEach(function(bar) {
-				bar.hide();
-		});
+	processBarClose: function(caller) {
+		switch ( Storage.closeBehavior ) {
+			case "closeActive":
+				caller.hide()
+			break;
+			
+			default:
+				safari.extension.bars.forEach(function(bar) {
+						bar.hide();
+				});
+		}
 	},
 	
 	sendNotification: function() {

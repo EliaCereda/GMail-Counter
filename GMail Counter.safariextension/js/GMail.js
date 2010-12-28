@@ -133,7 +133,7 @@ GMail = {
 			
 		}
 		
-		this.mailsCount = this.XMLEvaluate(this.atomFeed, '/gmail:feed/gmail:fullcount').snapshotItem(0).textContent;
+		this.mailsCount = +(this.XMLEvaluate(this.atomFeed, '/gmail:feed/gmail:fullcount').snapshotItem(0).textContent);
 		
 		if(this.mails.length == 0) {
 			this.setStatus("noMails");
@@ -199,8 +199,14 @@ GMail = {
 	},
 	
 	getMailsCount: function() {
-		GMail.logThis(0, "getMailsCount", "There is/are "+this.mailsCount+" unread mail(s)");
-		return (this.mailsCount != null)?this.mailsCount:0;
+		count = this.mailsCount
+		
+		if(this.getStatus() == "notLogged" || this.getStatus() == "error" || this.getStatus() == "notInited" || this.mails == null) {
+			count = 0
+		}
+		
+		GMail.logThis(0, "getMailsCount", "There is/are "+count+" unread mail(s)");
+		return (count != null)?count:0;
 	},
 	
 	checkNewMails: function(excludeStatusMessages) {

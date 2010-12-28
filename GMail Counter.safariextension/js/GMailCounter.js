@@ -21,19 +21,16 @@ To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-
 	Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
 */
 GMailCounter = {
-	humanVersion: "0.8 | beta 3",
-	version: "8.b.3",
+	humanVersion: "0.8 | beta 4",
+	version: "8.b.4",
 	releaseType: "publicBeta",
 	homepage: "http://elix14.altervista.org/",
-	newsURL: "api/feed.php?v=1",
 	
 	tracker: {}, //This will contain the ExtTracker object
 	trackerId: "GMailCounter", //ExtTracker extension ID
 	
 	init: function() {
 		GMailCounter.tracker = new ExtTracker(GMailCounter.trackerId, GMailCounter.version);
-		
-		ExtNews.load(GMailCounter.homepage+GMailCounter.newsURL);
 	},
 	
 	log: function(message) {

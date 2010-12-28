@@ -50,7 +50,7 @@ ExtensionBar = {
 		var prev = $("previous");
 		
 		if(this.mouseOver) {
-			maxWidth = (+(ww)-(20+20+20+18+20)-(20+14+wnb+14+30)).toString() + "px";
+			maxWidth = (+(ww)-(30+20+20+20+20+18+20)-(20+14+wnb+14+30)).toString() + "px";
 		} else {
 			maxWidth = (ww-40).toString() + "px";
 		}
@@ -192,7 +192,7 @@ ExtensionBar = {
 	},
 	
 	requestClose: function() {
-		Global.processBarClose();
+		Global.processBarClose(safari.self);
 	},
 	
 	setUpdateState: function(state) {
