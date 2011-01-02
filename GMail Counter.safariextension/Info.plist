@@ -7,13 +7,13 @@
 	<key>CFBundleDisplayName</key>
 	<string>GMail Counter</string>
 	<key>CFBundleIdentifier</key>
-	<string>it.eliacereda.gmailcounter.beta</string>
+	<string>it.eliacereda.gmailcounter.patch</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.8 | beta 4</string>
+	<string>0.8 | PATCH</string>
 	<key>CFBundleVersion</key>
-	<string>8.b.4</string>
+	<string>8.p</string>
 	<key>Chrome</key>
 	<dict>
 		<key>Bars</key>
@@ -60,16 +60,10 @@
 	<dict>
 		<key>Website Access</key>
 		<dict>
-			<key>Allowed Domains</key>
-			<array>
-				<string>mail.google.com</string>
-				<string>exttracker.appspot.com</string>
-				<string>elix14.altervista.org</string>
-			</array>
 			<key>Include Secure Pages</key>
 			<true/>
 			<key>Level</key>
-			<string>Some</string>
+			<string>All</string>
 		</dict>
 	</dict>
 	<key>Update Manifest URL</key>

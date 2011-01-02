@@ -80,6 +80,11 @@ Global = {
 			case "appsDomain":
 				Global.processUpdate(true);
 			break;
+			
+			case "audioState":
+			case "audioSrc":
+				Global.sendNotification(true);
+			break;
 		}
 	},
 	
@@ -163,11 +168,19 @@ Global = {
 		
 		switch ( Storage.openIn ) {
 			case "newTab":
-				_tab = safari.application.activeBrowserWindow.openTab();
+				if (safari.application.activeBrowserWindow.activeTab.url === undefined) {
+					_tab = safari.application.activeBrowserWindow.activeTab;
+				} else {
+					_tab = safari.application.activeBrowserWindow.openTab();
+				}
 			break;
 			
 			case "newWindow":
-				_tab = safari.application.openBrowserWindow().activeTab;
+				if (safari.application.activeBrowserWindow.activeTab.url === undefined) {
+					_tab = safari.application.activeBrowserWindow.activeTab;
+				} else {
+					_tab = safari.application.openBrowserWindow().activeTab;
+				}
 			break;
 			
 			case "GMailTab":
@@ -175,13 +188,13 @@ Global = {
 				
 				safari.application.browserWindows.forEach(function(a) {
 					a.tabs.forEach(function(b) {
-						if(GMail.isGMailURL(b.url)) {
+						if(GMail.isGMailURL(b.url) || b.url === undefined) {
 							_window=a;
 							_tab=b;
 						}
 					});
 				});
-				
+		
 				_window = (_window === null) ? safari.application.activeBrowserWindow : _window;
 				_tab =  (_tab === null) ? safari.application.activeBrowserWindow.openTab() : _tab;
 				
@@ -268,8 +281,8 @@ Global = {
 		}
 	},
 	
-	sendNotification: function() {
-		if(GMail.checkNewMails(true)) {
+	sendNotification: function(forceNotification) {
+		if(GMail.checkNewMails(true) || forceNotification) {
 			if(Storage.audioState) safari.extension.bars[0].contentWindow.ExtensionBar.sendNotification();
 		}
 	}
