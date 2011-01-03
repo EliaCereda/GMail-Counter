@@ -184,22 +184,26 @@ Global = {
 			break;
 			
 			case "GMailTab":
-				var _window = null;
-				
-				safari.application.browserWindows.forEach(function(a) {
-					a.tabs.forEach(function(b) {
-						if(GMail.isGMailURL(b.url) || b.url === undefined) {
-							_window=a;
-							_tab=b;
-						}
+				if (safari.application.activeBrowserWindow.activeTab.url === undefined) {
+					_tab = safari.application.activeBrowserWindow.activeTab;
+				} else {
+					var _window = null;
+					
+					safari.application.browserWindows.forEach(function(a) {
+						a.tabs.forEach(function(b) {
+							if(GMail.isGMailURL(b.url)) {
+								_window=a;
+								_tab=b;
+							}
+						});
 					});
-				});
-		
-				_window = (_window === null) ? safari.application.activeBrowserWindow : _window;
-				_tab =  (_tab === null) ? safari.application.activeBrowserWindow.openTab() : _tab;
-				
-				_window.activate();
-				_tab.activate();
+			
+					_window = (_window === null) ? safari.application.activeBrowserWindow : _window;
+					_tab =  (_tab === null) ? safari.application.activeBrowserWindow.openTab() : _tab;
+					
+					_window.activate();
+					_tab.activate();
+				}
 			break;
 			
 			case "activeTab":
