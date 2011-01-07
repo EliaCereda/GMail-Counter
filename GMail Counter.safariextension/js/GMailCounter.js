@@ -30,12 +30,12 @@ GMailCounter = {
 	trackerId: "GMailCounter", //ExtTracker extension ID
 	
 	init: function() {
-		GMailCounter.tracker = new ExtTracker(GMailCounter.trackerId, GMailCounter.version);
+		
 	},
 	
-	log: function(message) {
+	/*log: function(message) {
 		GMailCounter.tracker.logEvent(message);
-	}
+	}*/
 };
 
-window.addEventListener("load", GMailCounter.init);
+//window.addEventListener("load", GMailCounter.init);
