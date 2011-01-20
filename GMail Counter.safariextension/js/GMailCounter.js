@@ -28,6 +28,26 @@ GMailCounter = {
 		GMailCounter.tracker = new ExtTracker(GMailCounter.trackerId, GMailCounter.info.version, true);
 		
 		ExtNews(GMailCounter.info);
+		
+		if(!safari.extension.settings.settingsPushed) {
+			GMailCounter.value("openIn", safari.extension.settings.openIn);
+			GMailCounter.value("audioState", safari.extension.settings.audioState);
+			GMailCounter.value("audioVolume", safari.extension.settings.audioVolume);
+			GMailCounter.value("audioSrc", safari.extension.settings.audioSrc);
+			GMailCounter.value("barTimeout", safari.extension.settings.barTimeout);
+			GMailCounter.value("hideWhenNoMails", safari.extension.settings.hideWhenNoMails);
+			GMailCounter.value("closeBehavior", safari.extension.settings.closeBehavior);
+			
+			
+			
+			safari.extension.settings.settingsPushed = true
+		}
+		
+		if(!localStorage.installedVersion) {
+			GMailCounter.event("install");
+		} else if(v(GMailCounter.info.version) > v(localStorage.installedVersion)) {
+			GMailCounter.event("update", {"from": localStorage.installedVersion, "to": GMailCounter.info.version});
+		}
 	},
 	
 	event: function(e, data) {
@@ -35,7 +55,7 @@ GMailCounter = {
 	},
 	
 	value: function(k, v) {
-		GMailCounter.tracker.logEvent(k, v);
+		GMailCounter.tracker.logValue(k, v);
 	},
 	
 	push: function() {

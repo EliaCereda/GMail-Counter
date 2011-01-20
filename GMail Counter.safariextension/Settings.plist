@@ -206,7 +206,7 @@
 		<key>DefaultValue</key>
 		<false/>
 		<key>Key</key>
-		<string>disableWithMessage</string>
+		<string>settingsPushed</string>
 	</dict>
 </array>
 </plist>
