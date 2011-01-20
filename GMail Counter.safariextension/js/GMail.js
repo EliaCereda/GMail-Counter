@@ -2,7 +2,7 @@
 --------------------------------
 	GMail.js
 	Author: Elia Cereda
-	© 2010 All rights reserved.
+	Copyright (c) 2010-2011
 	
 	The GMail class. Handle connections with GMail server.
 --------------------------------
@@ -11,14 +11,8 @@
 		
 --------------------------------
 
-This file is part of Safari's Extension "GMail Counter", developed by Elia Cereda <cereda.extensions@yahoo.it>
-
-If you redestribute, edit or share this file you MUST INCLUDE THIS NOTICE and you cannot remove it without prior written permission by Elia Cereda.
-If you use this file or its derivates in your projects you MUST release it with this or any other compatible license.
-
-This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
-To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/3.0/ or send a letter to
-	Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
+This file is part of Safari's Extension "GMail Counter" and is licensed under the MIT license.
+Copyright (c) 2010-2011 Elia Cereda.
 */
 var Storage = safari.extension.settings;
 
@@ -181,6 +175,10 @@ GMail = {
 			}]
 		} else if(this.getStatus() == "error" || this.getStatus() == "notInited" || this.mails == null) {
 			GMail.logThis(0, "getMailsArray", "I've returned an array", "error");
+			
+			GMailCounter.event("errorOccurred");
+			GMailCounter.push();
+			
 			return [{
 				title : "An error occurred, click here to contact me...",
 				author : "GMail Counter",

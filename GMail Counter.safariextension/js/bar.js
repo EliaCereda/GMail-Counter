@@ -2,7 +2,7 @@
 --------------------------------
 	bar.js
 	Author: Elia Cereda
-	© 2010 All rights reserved.
+	Copyright (c) 2010-2011
 	
 	Extension bar javascript file
 --------------------------------
@@ -11,19 +11,14 @@
 		
 --------------------------------
 
-This file is part of Safari's Extension "GMail Counter", developed by Elia Cereda <cereda.extensions@yahoo.it>
-
-If you redestribute, edit or share this file you MUST INCLUDE THIS NOTICE and you cannot remove it without prior written permission by Elia Cereda.
-If you use this file or its derivates in your projects you MUST release it with this or any other compatible license.
-
-This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
-To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/3.0/ or send a letter to
-	Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
+This file is part of Safari's Extension "GMail Counter" and is licensed under the MIT license.
+Copyright (c) 2010-2011 Elia Cereda.
 */
 
 var GMail; //This will contain the GMail Object
+var GMailCounter; //This will contain the GMailCounter Object
 var Global; //This will contain the Global Object
-var Storage = safari.extension.settings;
+var Storage = safari.extension.settings || {};
 
 ExtensionBar = {
 	alreadyActivated: false,	//Setted to true on first update
@@ -78,21 +73,21 @@ ExtensionBar = {
 	},
 	
 	requestActivation: function () {
-		Global  = safari.extension.globalPage.contentWindow.Global;
-		if (typeof(Global) != 'undefined' && typeof(Global.processActivation) != 'undefined') {
-			Global.processActivation(this);
-		}
+		Global = safari.extension.globalPage.contentWindow.Global || {};
+		
+		p = Global.processActivation || function () {};
+		p(this);
 	},
 	
 	activate: function() {
 		if(!this.alreadyActivated) {
-			GMail = safari.extension.globalPage.contentWindow.GMail;
-			Global  = safari.extension.globalPage.contentWindow.Global;
+			GMail = safari.extension.globalPage.contentWindow.GMail || {};
+			GMailCounter = safari.extension.globalPage.contentWindow.GMailCounter || {};
+			Global  = safari.extension.globalPage.contentWindow.Global || {};
 			
-			this.alreadyActivated = true;
-			
-			this.update();
-			this.setUpdateState(Global.updateState);
+			ExtensionBar.alreadyActivated = true;
+			ExtensionBar.update();
+			ExtensionBar.setUpdateState(Global.updateState);
 		}
 	},
 	
@@ -172,11 +167,13 @@ ExtensionBar = {
 	},
 	
 	next: function() {
-		Global.BarNext();
+		var a = Global.BarNext || function() {};
+		a();
 	},
 	
 	previous: function() {
-		Global.BarPrevious();
+		var a = Global.BarPrevious || function() {};
+		a();
 	},
 	
 	compose: function() {
@@ -184,15 +181,24 @@ ExtensionBar = {
 	},
 	
 	openLink: function(link) {
-		Global.openLink(link);
+		var a = Global.openLink || function() {};
+		
+		a(link);
 	},
 	
 	requestUpdate: function() {
-		Global.processUpdate(window.event.altKey);
+		var a = Global.processUpdate || function() {};
+		a(window.event.altKey);
+		
+		if(window.event.altKey) {
+			GMailCounter.event("manualForcedUpdate");
+			GMailCounter.push();
+		}
 	},
 	
 	requestClose: function() {
-		Global.processBarClose(safari.self);
+		var a = Global.processBarClose || function() {};
+		a(safari.self);
 	},
 	
 	setUpdateState: function(state) {

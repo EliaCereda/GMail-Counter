@@ -154,7 +154,7 @@
 		<key>Key</key>
 		<string>barTimeout</string>
 		<key>Title</key>
-		<string>Head Viewer refresh interval (sec)</string>
+		<string>Head Viewer per-mail interval (sec)</string>
 		<key>Type</key>
 		<string>TextField</string>
 	</dict>
@@ -195,6 +195,18 @@
 			<string>default</string>
 			<string>closeActive</string>
 		</array>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<string>{}</string>
+		<key>Key</key>
+		<string>ExtNews</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<false/>
+		<key>Key</key>
+		<string>disableWithMessage</string>
 	</dict>
 </array>
 </plist>
