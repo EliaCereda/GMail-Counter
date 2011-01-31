@@ -16,50 +16,23 @@ Copyright (c) 2010-2011 Elia Cereda.
 */
 GMailCounter = {
 	info: {
-		humanVersion: "0.8 | beta 5",
-		version: "8.b.5",
+		humanVersion: "0.8 | beta 6",
+		version: "8.b.6",
 		releaseType: "publicBeta"
 	},
 	
 	tracker: {}, //This will contain the ExtTracker object
-	trackerId: "GMail-Counter", //ExtTracker extension ID
+	trackerId: "UA-17690004-2", //ExtTracker extension ID
 	
 	init: function() {
 		GMailCounter.tracker = new ExtTracker(GMailCounter.trackerId, GMailCounter.info.version, true);
 		
 		ExtNews(GMailCounter.info);
-		
-		if(!safari.extension.settings.settingsPushed) {
-			GMailCounter.value("openIn", safari.extension.settings.openIn);
-			GMailCounter.value("audioState", safari.extension.settings.audioState);
-			GMailCounter.value("audioVolume", safari.extension.settings.audioVolume);
-			GMailCounter.value("audioSrc", safari.extension.settings.audioSrc);
-			GMailCounter.value("barTimeout", safari.extension.settings.barTimeout);
-			GMailCounter.value("hideWhenNoMails", safari.extension.settings.hideWhenNoMails);
-			GMailCounter.value("closeBehavior", safari.extension.settings.closeBehavior);
-			
-			
-			
-			safari.extension.settings.settingsPushed = true
-		}
-		
-		if(!localStorage.installedVersion) {
-			GMailCounter.event("install");
-		} else if(v(GMailCounter.info.version) > v(localStorage.installedVersion)) {
-			GMailCounter.event("update", {"from": localStorage.installedVersion, "to": GMailCounter.info.version});
-		}
+
 	},
 	
 	event: function(e, data) {
-		GMailCounter.tracker.logEvent(e, data);
-	},
-	
-	value: function(k, v) {
-		GMailCounter.tracker.logValue(k, v);
-	},
-	
-	push: function() {
-		GMailCounter.tracker.push();
+		return GMailCounter.tracker.logEvent(e, data);
 	}
 };
 

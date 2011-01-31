@@ -101,7 +101,7 @@ GMail = {
 		return "STARTED";
 	},
 	
-	parseFeed: function(callback) {	//This function is synchronus, but for consistence it has a callback anyway. Parsed data will be also returned 
+	parseFeed: function(callback) {
 		this.setStatus("parsing");
 		
 		Storage.previousMailsArray = this.mails;
@@ -116,12 +116,12 @@ GMail = {
 				link : this.XMLEvaluate(this.atomFeed, '/gmail:feed/gmail:entry['+(i+1)+']/gmail:link/@href').snapshotItem(0).textContent,
 				id : this.XMLEvaluate(this.atomFeed, '/gmail:feed/gmail:entry['+(i+1)+']/gmail:id').snapshotItem(0).textContent,
 				
-				color: [],		//COLOR IS SETTED LATER ||
-								//						\/
+				color: [],		//COLOR IS SET LATER ||
+								//					 \/
 				current : i+1,
 				total : length
 			}
-								//COLOR IS SETTED RIGHT HERE
+								//COLOR IS SET RIGHT HERE
 			this.mails[i].color = this.string2Color(this.mails[i].author); 
 			if(this.mails[i].title == "") this.mails[i].title = "[no subject]"
 			
@@ -135,7 +135,7 @@ GMail = {
 			GMail.logThis(0, "parseFeed", "There aren't unread mails");
 			
 			this.mails[0] = {
-				title : "No unread mails",
+				title : "No unread mail",
 				author : "GMail Counter",
 				link : this.GMailBaseURL(false, false, "#inbox"),
 				id : "000-000",
@@ -177,7 +177,6 @@ GMail = {
 			GMail.logThis(0, "getMailsArray", "I've returned an array", "error");
 			
 			GMailCounter.event("errorOccurred");
-			GMailCounter.push();
 			
 			return [{
 				title : "An error occurred, click here to contact me...",
@@ -208,13 +207,17 @@ GMail = {
 	},
 	
 	checkNewMails: function(excludeStatusMessages) {
-		var a = GMail.mails;
-		var b = Storage.previousMailsArray;
+		var a = GMail.mails || [];
+		var b = Storage.previousMailsArray || [];
 		
-		if (b == null) {
+		if (b == []) {
 			return false;
 		}
-	
+		
+		if (b.length !== a.length) {
+			return false;
+		}
+		
 		for(i in a) {
 			flag=true;
 			for(j in b) {

@@ -1,126 +1,122 @@
 //
 // Copyright (c) 2011 Frank Kohlhepp
+// License: MIT-license
+// https://github.com/frankkohlhepp/exttracker
 //
 (function () {
     // =========
     // = store =
     // =========
-    var Store;
-    (function () {
-        Store = function (name) {
-            var storePrototype = {
-                "save": function () {
-                    var stringifiedObj = JSON.stringify(this);
-                    localStorage.setItem(name, stringifiedObj);
-                    
-                    if (localStorage.getItem(name) !== stringifiedObj) {
-                        return false;
-                    } else {
-                        return this;
-                    }
+    function Store(name) {
+        var storePrototype = {
+            "save": function () {
+                var stringifiedObj = JSON.stringify(this);
+                localStorage.setItem(name, stringifiedObj);
+                
+                if (localStorage.getItem(name) !== stringifiedObj) {
+                    return false;
+                } else {
+                    return this;
                 }
-            };
+            },
             
-            var store = JSON.parse(localStorage.getItem(name)) || {};
-            store.__proto__ = storePrototype;
-            return store;
+            "clean": function () {
+                localStorage.removeItem(name);
+            }
         };
-    })();
+        
+        var store = (localStorage.getItem(name)) ? JSON.parse(localStorage.getItem(name)) : {};
+        store.__proto__ = storePrototype;
+        return store;
+    }
+    
+    // ===========
+    // = version =
+    // ===========
+    function zero(count) {
+        var str = "";
+        for (var i = 0; i < count; i++) {
+            str += "0";
+        }
+        
+        return str;
+    }
+    
+    function v(str) {
+        if ((typeof str) !== "string") {
+            str = "";
+        }
+        var match = str.match(/([0-9]+).(a|b).([0-9]+)$/i);
+        if (match) {
+            str = str.replace(/([0-9]+).(a|b).([0-9]+)$/i, ((match[2] === "a") ? -1e+10 : -2e+10) + Number(match[1]) - Number(match[3]));
+        }
+        
+        var parts = str.split(".");
+        str = "";
+        for (var i = 0; i < parts.length; i++) {
+            if (parts[i] < 0) {
+                str += "-";
+            }
+            
+            var part = parts[i].replace(/^-/i, "");
+            if (part.length < 15) {
+                str += zero(15 - part.length);
+            }
+            str += part + ".";
+        }
+        
+        return str.substr(0, str.length - 1);
+    }
     
     // ========
     // = main =
     // ========
-    (function () {
-        var client_version = 2;
-        window.ExtTracker = function (extensionId, version) {            
-            // ======================
-            // = Privileged Methods =
-            // ======================
-            this.getUserId = function () {
-                return userId;
-            };
+    window._gaq = [];
+    window.ExtTracker = function (webPropertyId, version) {
+        // =====================
+        // = private variables =
+        // =====================
+        var store = new Store("extTracker");
+        
+        // ===============
+        // = constructor =
+        // ===============
+        _gaq.push(["_setAccount", webPropertyId]);
+        _gaq.push(["_trackPageview"]);
+        _gaq.push(["_setCustomVar", 1, "Version", version]);
+        
+        // installation
+        if (!store.installed) {
+            _gaq.push(["_trackEvent", "installation", version]);
             
-            this.logEvent = function (name, data) {
-                if ((typeof store.events) !== "object") {
-                    store.events = [];
-                }
-                
-                store.events.push({"name": name, "data": data, "version": version, "time": Math.round(+(new Date) / 1000)});
-                store.save();
-            };
+            store.installed = true;
+            store.version = version;
+            store.save();
+        }
+        
+        // upgrade
+        else if (v(version) > v(store.version)) {
+            _gaq.push(["_trackEvent", "upgrade", "from: " + store.version + " to: " + version]);
             
-            this.logValue = function (key, value) {
-                if ((typeof store.values) !== "object") {
-                    store.values = {};
-                }
-                
-                store.values[key] = value;
-                store.save();
-            };
+            store.version = version;
+            store.save();
+        }
+        
+        // run analytics
+        (function () {
+            var ga = document.createElement("script");
+            ga.async = true;
+            ga.src = "https://ssl.google-analytics.com/ga.js";
             
-            var pushBrowserInfo = function () {
-            		
-            		var browser = {
-            			platform: navigator.platform.toLowerCase().match(/mac|win|linux/)[0],
-            			language: navigator.language.split("-")[0]
-            		}
-            		store.browser = browser;
-            		store.save();
-
-            		that.logValue("platform", browser.platform);
-            		that.logValue("language", browser.language);
-            };
-            
-            this.push = function () {
-                var postData = "client_version=" + client_version + "&data=" + JSON.stringify({
-                    "userId": userId,
-                    "extensionId": extensionId,
-                    "version": version,
-                    
-                    "events": store.events || null,
-                    "values": store.values || null
-                });
-                
-                var request = new XMLHttpRequest();
-                request.open(
-                    "POST",
-                    "http://worldcerve.com/exttracker/push.php",
-                    true
-                );
-                request.setRequestHeader(
-                    "Content-type",
-                    "application/x-www-form-urlencoded"
-                );
-                request.send(postData);
-                
-                store.events = [];
-                store.values = {};
-                store.save();
-            };
-            
-            // ===============
-            // = Constructor =
-            // ===============
-            var that = this,
-                store = new Store("tracker"),
-                userId = store.userId;
-                browser = store.browser || {};
-            
-            if (!userId) {
-                userId = +(new Date);
-                userId = (userId++).toString(36);
-                store.userId = userId;
-                store.save();
-            }
-            
-            if (!browser.platform || !browser.language) {
-            	pushBrowserInfo();
-            }
-            
-           	(function autoPush() {
-                that.push();
-                setTimeout(autoPush, 3600000);
-            })();	
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+        
+        // ======================
+        // = privileged methods =
+        // ======================
+        this.logEvent = function (name, action) {
+            _gaq.push(["_trackEvent", name, action]);
         };
-    })();
+    };
 })();

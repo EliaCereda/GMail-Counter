@@ -20,6 +20,7 @@ Global = {
 	
 	mailsCount: 0, //Number of unreaded mails
 	mailsArray: [], //Array of latest 20 unreaded mails
+	previousMailsArray: [], //Array before last update
 	
 	currentIndex: 0, //The current mail index in the mailsArray
 	updateState: false, //True if it's updating else false
@@ -47,13 +48,13 @@ Global = {
 		}
 	},
 	
-	validate: function(event) {
-		if (event.command === "button") {
+	validate: function(e) {
+		if (e.command === "button") {
 			Global.processUpdate();
 		}
 	},
 	
-	command: function(event) {
+	command: function(e) {
 		Global.openLink(GMail.GMailBaseURL(false, false, "#inbox"));
 	},
 	
@@ -71,17 +72,6 @@ Global = {
 			case "appsDomain":
 				Global.processUpdate(true);
 			break;
-		}
-		
-		switch ( e.key ) {
-			case "openIn":
-			case "audioState":
-			case "audioVolume":
-			case "audioSrc":
-			case "barTimeout":
-			case "hideWhenNoMails":
-			case "closeBehavior":
-				GMailCounter.value(e.key, e.newValue);
 		}
 	},
 	

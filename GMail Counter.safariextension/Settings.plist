@@ -4,7 +4,13 @@
 <array>
 	<dict>
 		<key>DefaultValue</key>
-		<string>null</string>
+		<string>{}</string>
+		<key>Key</key>
+		<string>ExtNews</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<string>[]</string>
 		<key>Key</key>
 		<string>previousMailsArray</string>
 	</dict>
@@ -195,18 +201,6 @@
 			<string>default</string>
 			<string>closeActive</string>
 		</array>
-	</dict>
-	<dict>
-		<key>DefaultValue</key>
-		<string>{}</string>
-		<key>Key</key>
-		<string>ExtNews</string>
-	</dict>
-	<dict>
-		<key>DefaultValue</key>
-		<false/>
-		<key>Key</key>
-		<string>settingsPushed</string>
 	</dict>
 </array>
 </plist>

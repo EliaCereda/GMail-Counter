@@ -15,7 +15,40 @@ This file is licensed under the MIT license. Copyright (c) 2010-2011 Elia Cereda
 */
 (function() {
 	var i;
-	var v = v || function (v) { return v; }	//Provide JS-standard comparison if version by Frank Kohlhepp isn't available
+	function zero(count) {
+        var str = "";
+        for (var i = 0; i < count; i++) {
+            str += "0";
+        }
+        
+        return str;
+    }
+    
+    function v(str) {
+        if ((typeof str) !== "string") {
+            str = "";
+        }
+        var match = str.match(/([0-9]+).(a|b).([0-9]+)$/i);
+        if (match) {
+            str = str.replace(/([0-9]+).(a|b).([0-9]+)$/i, ((match[2] === "a") ? -1e+10 : -2e+10) + Number(match[1]) - Number(match[3]));
+        }
+        
+        var parts = str.split(".");
+        str = "";
+        for (var i = 0; i < parts.length; i++) {
+            if (parts[i] < 0) {
+                str += "-";
+            }
+            
+            var part = parts[i].replace(/^-/i, "");
+            if (part.length < 15) {
+                str += zero(15 - part.length);
+            }
+            str += part + ".";
+        }
+        
+        return str.substr(0, str.length - 1);
+    }
 	
 	var url = "http://elix14.altervista.org/api/ExtNews/";
 	

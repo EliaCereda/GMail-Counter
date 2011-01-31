@@ -192,7 +192,6 @@ ExtensionBar = {
 		
 		if(window.event.altKey) {
 			GMailCounter.event("manualForcedUpdate");
-			GMailCounter.push();
 		}
 	},
 	
