@@ -110,8 +110,8 @@ This file is licensed under the MIT license. Copyright (c) 2010-2011 Elia Cereda
 		"everyone": function() { return true; },
 		"version": function(value) { return (v(i.version) === v(value)); },
 		"releaseType": function(value) { return (i.releaseType === value); },
-		"newer": function(value) { return (v(value) > v(i.version)); },
-		"older": function(value) { return (v(value) < v(i.version)); }
+		"newer": function(value) { return (v(value) < v(i.version)); },
+		"older": function(value) { return (v(value) > v(i.version)); }
 	};
 	
 	var activesConditions = {
