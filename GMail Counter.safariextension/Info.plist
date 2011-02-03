@@ -11,9 +11,9 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.8 | beta 6</string>
+	<string>0.8 | beta 7</string>
 	<key>CFBundleVersion</key>
-	<string>8.b.6</string>
+	<string>8.b.7</string>
 	<key>Chrome</key>
 	<dict>
 		<key>Bars</key>
