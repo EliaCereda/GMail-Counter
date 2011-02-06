@@ -1,6 +1,6 @@
 ﻿/*
 --------------------------------
-	global.css
+	global.js
 	Author: Elia Cereda
 	Copyright (c) 2010-2011
 	

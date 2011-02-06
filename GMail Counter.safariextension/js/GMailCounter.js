@@ -1,4 +1,4 @@
-/*
+﻿/*
 --------------------------------
 	GMailCounter.js
 	Author: Elia Cereda
