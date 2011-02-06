@@ -196,8 +196,12 @@ ExtensionBar = {
 	},
 	
 	requestClose: function() {
-		var a = Global.processBarClose || function() {};
-		a(safari.self);
+		if(window.event.altKey && window.event.shiftKey) {
+			alert("Anonymous UserID:\n\t"+GMailCounter.getUserID());
+		} else {
+			var a = Global.processBarClose || function() {};
+			a(safari.self);
+		}
 	},
 	
 	setUpdateState: function(state) {

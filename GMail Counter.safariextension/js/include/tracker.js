@@ -4,102 +4,79 @@
 // https://github.com/frankkohlhepp/exttracker
 //
 (function () {
-    // =========
-    // = store =
-    // =========
-    function Store(name) {
-        var storePrototype = {
-            "save": function () {
-                var stringifiedObj = JSON.stringify(this);
-                localStorage.setItem(name, stringifiedObj);
-                
-                if (localStorage.getItem(name) !== stringifiedObj) {
-                    return false;
-                } else {
-                    return this;
-                }
-            },
-            
-            "clean": function () {
-                localStorage.removeItem(name);
-            }
-        };
-        
-        var store = (localStorage.getItem(name)) ? JSON.parse(localStorage.getItem(name)) : {};
-        store.__proto__ = storePrototype;
-        return store;
-    }
-    
     // ===========
     // = version =
     // ===========
-    function zero(count) {
-        var str = "";
-        for (var i = 0; i < count; i++) {
-            str += "0";
-        }
-        
-        return str;
-    }
-    
-    function v(str) {
-        if ((typeof str) !== "string") {
-            str = "";
-        }
-        var match = str.match(/([0-9]+).(a|b).([0-9]+)$/i);
-        if (match) {
-            str = str.replace(/([0-9]+).(a|b).([0-9]+)$/i, ((match[2] === "a") ? -1e+10 : -2e+10) + Number(match[1]) - Number(match[3]));
-        }
-        
-        var parts = str.split(".");
-        str = "";
-        for (var i = 0; i < parts.length; i++) {
-            if (parts[i] < 0) {
-                str += "-";
+    var v;
+    (function () {
+        function zero(count) {
+            var str = "";
+            for (var i = 0; i < count; i++) {
+                str += "0";
             }
             
-            var part = parts[i].replace(/^-/i, "");
-            if (part.length < 15) {
-                str += zero(15 - part.length);
-            }
-            str += part + ".";
+            return str;
         }
         
-        return str.substr(0, str.length - 1);
-    }
+        v = function (str) {
+            var match = str.match(/([0-9]+)\.(a|b)\.([0-9]+)$/i);
+            if (match) {
+                str = str.replace(/([0-9]+)\.(a|b)\.([0-9]+)$/i, ((match[2] === "a") ? -1e+10 : -2e+10) + Number(match[1]) - Number(match[3]));
+            }
+            
+            var parts = str.split(".");
+            str = "";
+            for (var i = 0; i < parts.length; i++) {
+                if (parts[i] < 0) {
+                    str += "-";
+                }
+                
+                var part = parts[i].replace(/^-/i, "");
+                if (part.length < 15) {
+                    str += zero(15 - part.length);
+                }
+                str += part + ".";
+            }
+            
+            return str.substr(0, str.length - 1);
+        };
+    })();
     
     // ========
     // = main =
     // ========
     window._gaq = [];
-    window.ExtTracker = function (webPropertyId, version) {
+    window.ExtTracker = function (webPropertyID, version) {
         // =====================
         // = private variables =
         // =====================
-        var store = new Store("extTracker");
+        var userID = localStorage.getItem("extTracker.userID");
         
         // ===============
         // = constructor =
         // ===============
-        _gaq.push(["_setAccount", webPropertyId]);
-        _gaq.push(["_trackPageview"]);
+        if (!userID) {
+            userID = (+(new Date)).toString(36);
+            localStorage.setItem("extTracker.userID", userID);
+        }
+        
+        _gaq.push(["_setAccount", webPropertyID]);
+        _gaq.push(["_trackPageview", "user_" + userID]);
         _gaq.push(["_setCustomVar", 1, "Version", version]);
         
         // installation
-        if (!store.installed) {
+        if (!localStorage.getItem("extTracker.installed")) {
             _gaq.push(["_trackEvent", "installation", version]);
             
-            store.installed = true;
-            store.version = version;
-            store.save();
+            localStorage.setItem("extTracker.installed", true);
+            localStorage.setItem("extTracker.version", version);
         }
         
         // upgrade
-        else if (v(version) > v(store.version)) {
-            _gaq.push(["_trackEvent", "upgrade", "from: " + store.version + " to: " + version]);
+        else if (v(version) > v(localStorage.getItem("extTracker.version"))) {
+            _gaq.push(["_trackEvent", "upgrade", "from: " + localStorage.getItem("extTracker.version") + " to: " + version]);
             
-            store.version = version;
-            store.save();
+            localStorage.setItem("extTracker.version", version);
         }
         
         // run analytics
@@ -115,8 +92,15 @@
         // ======================
         // = privileged methods =
         // ======================
-        this.logEvent = function (name, action) {
-            _gaq.push(["_trackEvent", name, action]);
+        this.getUserID = function () {
+            return userID;
         };
+    };
+    
+    // ==================
+    // = public methods =
+    // ==================
+    ExtTracker.prototype.logEvent = function (name, action) {
+        _gaq.push(["_trackEvent", name, action]);
     };
 })();

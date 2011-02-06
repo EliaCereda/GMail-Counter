@@ -28,9 +28,9 @@ This file is licensed under the MIT license. Copyright (c) 2010-2011 Elia Cereda
         if ((typeof str) !== "string") {
             str = "";
         }
-        var match = str.match(/([0-9]+).(a|b).([0-9]+)$/i);
+        var match = str.match(/([0-9]+)\.(a|b)\.([0-9]+)$/i);
         if (match) {
-            str = str.replace(/([0-9]+).(a|b).([0-9]+)$/i, ((match[2] === "a") ? -1e+10 : -2e+10) + Number(match[1]) - Number(match[3]));
+            str = str.replace(/([0-9]+)\.(a|b)\.([0-9]+)$/i, ((match[2] === "a") ? -1e+10 : -2e+10) + Number(match[1]) - Number(match[3]));
         }
         
         var parts = str.split(".");
@@ -110,8 +110,8 @@ This file is licensed under the MIT license. Copyright (c) 2010-2011 Elia Cereda
 		"everyone": function() { return true; },
 		"version": function(value) { return (v(i.version) === v(value)); },
 		"releaseType": function(value) { return (i.releaseType === value); },
-		"newer": function(value) { return (v(value) > v(i.version)); },
-		"older": function(value) { return (v(value) < v(i.version)); }
+		"newer": function(value) { return (v(value) < v(i.version)); },
+		"older": function(value) { return (v(value) > v(i.version)); }
 	};
 	
 	var activesConditions = {

@@ -33,6 +33,10 @@ GMailCounter = {
 	
 	event: function(e, data) {
 		return GMailCounter.tracker.logEvent(e, data);
+	},
+	
+	getUserID: function(e, data) {
+		return GMailCounter.tracker.getUserID();
 	}
 };
 
