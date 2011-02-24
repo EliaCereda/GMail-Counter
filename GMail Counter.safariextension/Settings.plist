@@ -104,50 +104,20 @@
 	</dict>
 	<dict>
 		<key>DefaultValue</key>
-		<string>Tritone</string>
+		<string>Bell</string>
 		<key>Key</key>
 		<string>audioSrc</string>
 		<key>Title</key>
 		<string>Sound</string>
 		<key>Titles</key>
 		<array>
-			<string>iPhone - Tritone</string>
-			<string>Apple Mail - New Mail</string>
-			<string>Mac OS X - Basso</string>
-			<string>Mac OS X - Blow</string>
-			<string>Mac OS X - Bottle</string>
-			<string>Mac OS X - Frog</string>
-			<string>Mac OS X - Funk</string>
-			<string>Mac OS X - Glass</string>
-			<string>Mac OS X - Hero</string>
-			<string>Mac OS X - Morse</string>
-			<string>Mac OS X - Ping</string>
-			<string>Mac OS X - Pop</string>
-			<string>Mac OS X - Purr</string>
-			<string>Mac OS X - Sosumi</string>
-			<string>Mac OS X - Submarine</string>
-			<string>Mac OS X - Tink</string>
+			<string>Bell</string>
 		</array>
 		<key>Type</key>
 		<string>PopUpButton</string>
 		<key>Values</key>
 		<array>
-			<string>Tritone</string>
-			<string>Mail</string>
-			<string>Basso</string>
-			<string>Blow</string>
-			<string>Bottle</string>
-			<string>Frog</string>
-			<string>Funk</string>
-			<string>Glass</string>
-			<string>Hero</string>
-			<string>Morse</string>
-			<string>Ping</string>
-			<string>Pop</string>
-			<string>Purr</string>
-			<string>Sosumi</string>
-			<string>Submarine</string>
-			<string>Tink</string>
+			<string>Bell</string>
 		</array>
 	</dict>
 	<dict>

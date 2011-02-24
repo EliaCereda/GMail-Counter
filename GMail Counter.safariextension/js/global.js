@@ -263,8 +263,8 @@ Global = {
 		}
 	},
 	
-	sendNotification: function() {
-		if(GMail.checkNewMails(true)) {
+	sendNotification: function(forceNotification) {
+		if(GMail.checkNewMails(true) || forceNotification) {
 			if(Storage.audioState) {
 				var sN = safari.extension.bars[0].contentWindow.ExtensionBar.sendNotification || function () {};
 				sN();

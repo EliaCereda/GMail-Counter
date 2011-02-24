@@ -215,7 +215,7 @@ ExtensionBar = {
 	},
 
 	sendNotification: function() {
-		var a = new Audio("http://elix14.altervista.org/api/audio/"+Storage.audioSrc+".mp3");
+		var a = new Audio(audioData[Storage.audioSrc]);
 		a.volume = Storage.audioVolume;
 		a.play();
 	}
