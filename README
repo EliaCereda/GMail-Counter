@@ -7,3 +7,11 @@
                                                      by Elia Cereda
 
 Get informed about your unread mails at the same time they arrive, without even leaving Safari.
+
+TODO:
+ • Better integration with GMail's webmail - planned
+	- Real time updates with the webmail
+	- Open messages without reloading the entire interface
+	- Mark messages as…
+ • Custom sounds notification - STARTED
+ • Move settings from Safari's Preferences - STARTED
