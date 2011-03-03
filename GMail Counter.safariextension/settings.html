@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>GMail Counter - Settings</title>
+</head>
+<body>
+	<iframe src="http://localhost:8080/" width="1000" height="500">
+	
+	</iframe>
+	
+	<script>
+		
+		function receiveMessage(e) {
+			//if (event.origin !== "http://localhost:8080/")
+    		//	return;
+
+			console.log(e);
+		}
+		window.addEventListener("message", receiveMessage, false);
+	</script>
+</body>
+</html>

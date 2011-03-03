@@ -179,9 +179,9 @@ GMail = {
 			GMailCounter.event("errorOccurred");
 			
 			return [{
-				title : "An error occurred, click here to contact me...",
+				title : "An error occurred, click here to re-login...",
 				author : "GMail Counter",
-				link : "mailto:cereda.extensions@yahoo.it?subject=GMail%20Counter%20-%20Error",
+				link : "https://mail.google.com/mail/?logout",
 				id : "000-000",
 				
 				color: ["", "#000"],

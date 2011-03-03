@@ -16,9 +16,9 @@ Copyright (c) 2010-2011 Elia Cereda.
 */
 GMailCounter = {
 	info: {
-		humanVersion: "0.8",
-		version: "8.0",
-		releaseType: "stable"
+		humanVersion: "0.9 | alpha 1",
+		version: "9.a.1",
+		releaseType: "alpha"
 	},
 	
 	tracker: {}, //This will contain the ExtTracker object

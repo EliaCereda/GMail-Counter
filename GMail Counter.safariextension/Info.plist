@@ -66,6 +66,7 @@
 			<array>
 				<string>mail.google.com</string>
 				<string>elix14.altervista.org</string>
+				<string>localhost</string>
 			</array>
 			<key>Include Secure Pages</key>
 			<true/>
