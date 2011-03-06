@@ -26,8 +26,6 @@ GMailCounter = {
 	
 	init: function() {
 		GMailCounter.tracker = new ExtTracker(GMailCounter.trackerId, GMailCounter.info.version, true);
-		
-		ExtNews(GMailCounter.info);
 
 	},
 	

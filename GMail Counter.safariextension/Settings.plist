@@ -4,12 +4,6 @@
 <array>
 	<dict>
 		<key>DefaultValue</key>
-		<string>{}</string>
-		<key>Key</key>
-		<string>ExtNews</string>
-	</dict>
-	<dict>
-		<key>DefaultValue</key>
 		<string>[]</string>
 		<key>Key</key>
 		<string>previousMailsArray</string>
