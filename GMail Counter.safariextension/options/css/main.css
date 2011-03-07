@@ -1,9 +1,9 @@
 .wfancy {
-    text-shadow: white 0 1px 2px;
+    text-shadow: white 0 1px 1px;
 }
 
 .bfancy {
-    text-shadow: black 0 1px 2px;
+    text-shadow: black 0 1px 1px;
 }
 
 .no-select, .no-select * {
@@ -58,16 +58,23 @@ body {
 }
 
 #reset-container {
-    margin-bottom: 5px;
+    margin: 5px;
+    margin-left: 0;
+    margin-right: 0;
+    padding-right: 20px !important;
+    cursor: default !important;
 }
 
 #tab-container .tab {
     height: 30px;
-    padding-right: 20px;
+    padding-right: 23px;
     border: 1px solid transparent;
     border-left: none;
     border-right: none;
+    font-size: 14px;
     line-height: 30px;
+    color: #426DC9;
+    cursor: pointer;
 }
 
 #tab-container .tab.selected {
@@ -76,11 +83,13 @@ body {
     border-left: none;
     border-right: none;
     box-shadow: 0 0 1px white;
+    color: black;
+    text-shadow: none;
 }
 
 
 
-#content-box {
+#content-container {
     position: absolute;
     top: 0;
     bottom: 0;
