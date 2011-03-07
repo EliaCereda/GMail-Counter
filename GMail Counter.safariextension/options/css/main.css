@@ -1,24 +1,58 @@
+.wfancy {
+    text-shadow: white 0 1px 2px;
+}
+
+.bfancy {
+    text-shadow: black 0 1px 2px;
+}
+
+.no-select, .no-select * {
+    cursor: default;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+}
+
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
 #sidebar {
-	position: absolute;
-	background-image: -webkit-gradient(
-	    linear,
-	    left top,
-	    left 500,
-	    color-stop(0, #EAEEF3),
-	    color-stop(1, #EAEEF2)
-	);
-	width: 269px;
-	height: 100%;
-	top: 0;
-	left: 0;
-	border-right: 1px solid #C6C9CE;
-	box-shadow: inset -10px 0 30px -30px black;
+    position: absolute;
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left 500,
+        color-stop(0, #EAEEF3),
+        color-stop(1, #F2F6FA)
+    );
+    width: 269px;
+    height: 100%;
+    top: 0;
+    left: 0;
+    border-right: 1px solid #C6C9CE;
+    box-shadow: inset -10px 0 30px -30px black;
+}
+
+#sidebar h1 {
+    position: absolute;
+    top: 8px;
+    right: 25px;
+    font-size: 26px;
+    font-weight: normal;
+    color: #53637D;
 }
 
 #content-box {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 270px;
-	right: 0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 270px;
+    right: 0;
 }
