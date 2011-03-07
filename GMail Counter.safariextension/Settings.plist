@@ -156,14 +156,12 @@
 		<key>Titles</key>
 		<array>
 			<string>Close every bar until you reopen it</string>
-			<string>Close bar on active window</string>
 		</array>
 		<key>Type</key>
 		<string>PopUpButton</string>
 		<key>Values</key>
 		<array>
 			<string>default</string>
-			<string>closeActive</string>
 		</array>
 	</dict>
 </array>

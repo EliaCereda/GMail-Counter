@@ -42,9 +42,19 @@ Global = {
 	
 	processUpdate: function(forceUpdate) {
 		if (Global.updateState == false || forceUpdate){
-			Global.updateState = true;
-			Global.BarSetUpdateState();
+			Global.setUpdateState(true);
+			
 			GMail.checkLogin(Global.callback);
+		}
+	},
+	
+	processBarClose: function(caller) {
+		switch ( Storage.closeBehavior ) {
+			
+			default:
+				safari.extension.bars.forEach(function(bar) {
+						bar.hide();
+				});
 		}
 	},
 	
@@ -81,8 +91,8 @@ Global = {
 				if (message === true) {
 					GMail.updateFeed(Global.callback);
 				} else {
-					Global.updateState = false;
-					Global.BarSetUpdateState();
+				
+					Global.setUpdateState(false);
 					
 					Global.loadData();
 				}
@@ -92,16 +102,16 @@ Global = {
 				if (message != "error" && message !== null) {
 					GMail.parseFeed(Global.callback);
 				} else {
-					Global.updateState = false;
-					Global.BarSetUpdateState();
+				
+					Global.setUpdateState(false);
 					
 					Global.loadData();
 				}
 			break;
 			
 			case "parseFeed":
-				Global.updateState = false;
-				Global.BarSetUpdateState();
+			
+				Global.setUpdateState(false);
 				
 				switch ( message ) {
 					case "noMails":
@@ -188,6 +198,14 @@ Global = {
 		_tab.url=link;
 	},
 	
+	setUpdateState: function(state) {
+		safari.extension.bars.forEach(function(bar) {
+				var s = bar.contentWindow.ExtensionBar.setUpdateState || void(0);
+				s(state);
+				Global.updateState = state;
+		});
+	},
+	
 	BarToggle: function(action, forceToggle) {
 		switch ( action ) {
 			case "show":
@@ -215,7 +233,7 @@ Global = {
 	BarUpdate: function(forceUpdate) {
 		if(Global.mailsArray.length > 1 || forceUpdate) {
 			safari.extension.bars.forEach(function(bar) {
-				u = bar.contentWindow.ExtensionBar.update || function () {};
+				u = bar.contentWindow.ExtensionBar.update || void(0);
 				u();
 				
 				clearTimeout(Global.barChangeActiveTimeout);
@@ -241,32 +259,11 @@ Global = {
 		}
 		Global.BarUpdate();
 	},
-
-	BarSetUpdateState: function() {
-		safari.extension.bars.forEach(function(bar) {
-				var s = bar.contentWindow.ExtensionBar.setUpdateState || function () {};
-				s(Global.updateState);
-		});
-	},
-	
-	processBarClose: function(caller) {
-		switch ( Storage.closeBehavior ) {
-			case "closeActive":
-				var h = caller.hide || function () {};
-				h()
-			break;
-			
-			default:
-				safari.extension.bars.forEach(function(bar) {
-						bar.hide();
-				});
-		}
-	},
 	
 	sendNotification: function(forceNotification) {
 		if(GMail.checkNewMails(true) || forceNotification) {
 			if(Storage.audioState) {
-				var sN = safari.extension.bars[0].contentWindow.ExtensionBar.sendNotification || function () {};
+				var sN = safari.extension.bars[0].contentWindow.ExtensionBar.sendNotification || void(0);
 				sN();
 			}
 		}

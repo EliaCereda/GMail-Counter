@@ -22,13 +22,6 @@ Copyright (c) 2010-2011 Elia Cereda.
 		<script src="js/include/audioData.js"></script>
 		<script src="js/bar.js"></script>
 		
-		
-		
-		<!-- tmp: open the settings page -->
-		<script>(safari.application.activeBrowserWindow.openTab()).url = safari.extension.baseURI + "options/index.html";</script>
-		
-		
-		
 		<link rel="stylesheet" rev="stylesheet" href="css/bar.css" type="text/css" />
 	</head>
 	<body onload="ExtensionBar.init()" onmouseover="ExtensionBar.onmouseover()" onmouseout="ExtensionBar.onmouseout()">
@@ -70,8 +63,10 @@ Copyright (c) 2010-2011 Elia Cereda.
 					<span id="total">0</span>
 				</div>
 				<div id="next" onclick="ExtensionBar.next()" title="Next">&nbsp;</div>
-				<a href="settings.html">Open Settings</a>
 			</div>
+			
+			<!--tmp: open settings page -->
+			<a href="options/index.html"><font color="white">Open Settings</font></a>
 		</div>
 		
 	</body>
