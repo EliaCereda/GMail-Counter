@@ -1,7 +1,7 @@
 window.addEvent("domready", function (event) {
     // Create tabs
     var tabs = [
-        "Grundeinstellungen",
+        "Preferences",
         "Privates",
         "Details"
     ];
