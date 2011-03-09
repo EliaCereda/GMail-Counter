@@ -18,7 +18,7 @@ Copyright (c) 2010-2011 Elia Cereda.
 var GMail; //This will contain the GMail Object
 var GMailCounter; //This will contain the GMailCounter Object
 var Global; //This will contain the Global Object
-var Storage = safari.extension.settings || {};
+var store; //This will contain the store.js Object
 
 ExtensionBar = {
 	alreadyActivated: false,	//Setted to true on first update
@@ -80,15 +80,16 @@ ExtensionBar = {
 	},
 	
 	activate: function() {
-		if(!this.alreadyActivated) {
-			GMail = safari.extension.globalPage.contentWindow.GMail || {};
-			GMailCounter = safari.extension.globalPage.contentWindow.GMailCounter || {};
-			Global  = safari.extension.globalPage.contentWindow.Global || {};
-			
-			ExtensionBar.alreadyActivated = true;
-			ExtensionBar.update();
-			ExtensionBar.setUpdateState(Global.updateState);
-		}
+		if(this.alreadyActivated)
+			return;
+		GMail = safari.extension.globalPage.contentWindow.GMail || {};
+		GMailCounter = safari.extension.globalPage.contentWindow.GMailCounter || {};
+		Global  = safari.extension.globalPage.contentWindow.Global || {};
+		store = GMailCounter.store || {};
+		
+		ExtensionBar.alreadyActivated = true;
+		ExtensionBar.update();
+		ExtensionBar.setUpdateState(Global.updateState);
 	},
 	
 	update: function() {
@@ -215,8 +216,8 @@ ExtensionBar = {
 	},
 
 	sendNotification: function() {
-		var a = new Audio(audioData[Storage.audioSrc]);
-		a.volume = Storage.audioVolume;
+		var a = new Audio(audioData[store.audioSrc]);
+		a.volume = store.audioVolume;
 		a.play();
 	}
 };

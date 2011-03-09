@@ -24,9 +24,11 @@ GMailCounter = {
 	tracker: {}, //This will contain the ExtTracker object
 	trackerId: "UA-17690004-2", //ExtTracker extension ID
 	
+	store: {}, 	//This will contain the store.js object 
+	
 	init: function() {
 		GMailCounter.tracker = new ExtTracker(GMailCounter.trackerId, GMailCounter.info.version, true);
-
+		GMailCounter.store = new Store("GMailCounter");
 	},
 	
 	event: function(e, data) {

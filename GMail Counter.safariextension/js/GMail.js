@@ -14,7 +14,7 @@
 This file is part of Safari's Extension "GMail Counter" and is licensed under the MIT license.
 Copyright (c) 2010-2011 Elia Cereda.
 */
-var Storage = safari.extension.settings;
+var store = GMailCounter.store || {};
 
 GMail = {
 	status: "notInited",	//This can be "notInited", "loading", "notLogged", "logged", "error", "updated", "parsing", "noMails", "newMails"
@@ -32,8 +32,8 @@ GMail = {
 		}
 		
 		var base = "https://mail.google.com";
-		var domain = Storage.appsDomain;
-		var label = Storage.label;
+		var domain = store.appsDomain;
+		var label = store.label;
 		
 		var url=base;
 		url += (domain) ? ("/a/"+ domain + ((domain[domain.length - 1] != "/") ? "/" : "")) : "/mail/";
@@ -104,7 +104,7 @@ GMail = {
 	parseFeed: function(callback) {
 		this.setStatus("parsing");
 		
-		Storage.previousMailsArray = this.mails;
+		store.previousMailsArray = this.mails;
 		
 		this.mails = [];
 		var length = this.XMLEvaluate(this.atomFeed, '/gmail:feed/gmail:entry').snapshotLength;
@@ -208,7 +208,7 @@ GMail = {
 	
 	checkNewMails: function(excludeStatusMessages) {
 		var a = GMail.mails || [];
-		var b = Storage.previousMailsArray || [];
+		var b = store.previousMailsArray || [];
 		
 		if (b == []) {
 			return false;

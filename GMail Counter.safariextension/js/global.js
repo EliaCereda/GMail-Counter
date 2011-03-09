@@ -14,7 +14,7 @@
 This file is part of Safari's Extension "GMail Counter" and is licensed under the MIT license.
 Copyright (c) 2010-2011 Elia Cereda.
 */
-var Storage = safari.extension.settings || {};
+var store = GMailCounter.store || {};
 
 Global = {
 	
@@ -49,13 +49,9 @@ Global = {
 	},
 	
 	processBarClose: function(caller) {
-		switch ( Storage.closeBehavior ) {
-			
-			default:
-				safari.extension.bars.forEach(function(bar) {
-						bar.hide();
-				});
-		}
+		safari.extension.bars.forEach(function(bar) {
+				bar.hide();
+		});
 	},
 	
 	validate: function(e) {
@@ -163,7 +159,7 @@ Global = {
 		
 		var _tab;
 		
-		switch ( Storage.openIn ) {
+		switch ( store.openIn ) {
 			case "newTab":
 				_tab = safari.application.activeBrowserWindow.openTab();
 			break;
@@ -172,7 +168,12 @@ Global = {
 				_tab = safari.application.openBrowserWindow().activeTab;
 			break;
 			
+			case "activeTab":
+				_tab = safari.application.activeBrowserWindow.activeTab;
+			break;
+			
 			case "GMailTab":
+			default:
 				var _window;
 				
 				safari.application.browserWindows.forEach(function(a) {
@@ -190,10 +191,6 @@ Global = {
 				_window.activate();
 				_tab.activate();
 			break;
-			
-			case "activeTab":
-				_tab = safari.application.activeBrowserWindow.activeTab;
-			break;
 		}
 		_tab.url=link;
 	},
@@ -209,8 +206,8 @@ Global = {
 	BarToggle: function(action, forceToggle) {
 		switch ( action ) {
 			case "show":
-				if (Storage.hiddenByMe || forceToggle) {
-					Storage.hiddenByMe = false;
+				if (store.hiddenByMe || forceToggle) {
+					store.hiddenByMe = false;
 					
 					safari.extension.bars.forEach(function(bar) {
 						bar.show();
@@ -219,8 +216,8 @@ Global = {
 			break;
 			
 			case "hide":
-				if(Storage.hideWhenNoMails || forceToggle) {
-					Storage.hiddenByMe = true;
+				if(store.hideWhenNoMails || forceToggle) {
+					store.hiddenByMe = true;
 					
 					safari.extension.bars.forEach(function(bar) {
 						bar.hide();
@@ -237,7 +234,7 @@ Global = {
 				u();
 				
 				clearTimeout(Global.barChangeActiveTimeout);
-				Global.barChangeActiveTimeout = setTimeout(Global.BarNext, Storage.barTimeout*1000);
+				Global.barChangeActiveTimeout = setTimeout(Global.BarNext, store.barTimeout*1000);
 			});
 		}
 	},
@@ -262,7 +259,7 @@ Global = {
 	
 	sendNotification: function(forceNotification) {
 		if(GMail.checkNewMails(true) || forceNotification) {
-			if(Storage.audioState) {
+			if(store.audioState) {
 				var sN = safari.extension.bars[0].contentWindow.ExtensionBar.sendNotification || void(0);
 				sN();
 			}
