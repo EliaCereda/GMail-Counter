@@ -1,4 +1,25 @@
 window.addEvent("domready", function (event) {
+    var tab = new Tab($("tab-container"), $("content-container"));
+    tab.new();
+    tab.new();
+    tab.new();
+    tab.new();
+    tab.new();
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    return;
     // Create tabs
     var tabs = [
         "Preferences",
