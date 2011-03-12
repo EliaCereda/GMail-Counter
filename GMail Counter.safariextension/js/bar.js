@@ -216,9 +216,11 @@ ExtensionBar = {
 	},
 
 	sendNotification: function() {
-		var a = new Audio(audioData[store.audioSrc]);
-		a.volume = store.audioVolume;
-		a.play();
+		if (store.audio.enabled){
+			var a = new Audio(audioData[store.audio.src]);
+			a.volume = store.audio.volume;
+			a.play();
+		}
 	}
 };
 

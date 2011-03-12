@@ -26,9 +26,34 @@ GMailCounter = {
 	
 	store: {}, 	//This will contain the store.js object 
 	
+	defaultStore: {
+		"audio": {
+			"enabled": true,
+			"src": "Bell",
+			"volume": "0.5"
+		},
+		"general": {
+			"label": "Inbox",
+			"openLinksIn": "GMailTab"
+		},
+		"GoogleApps": {
+			"enabled": false,
+			"domain": ""
+		},
+		"HeadViewer": {
+			"interval": 15,
+			"autoHide": false,
+			"closeBehavior": "closeAll"
+		},
+		"hidden": {
+			"BarHiddenByMe": true,
+			"previousMailsArray": []
+		}
+	},
+	
 	init: function() {
 		GMailCounter.tracker = new ExtTracker(GMailCounter.trackerId, GMailCounter.info.version, true);
-		GMailCounter.store = new Store("GMailCounter");
+		GMailCounter.store = Object.merge(Object.clone(GMailCounter.defaultStore), new Store("GMailCounter")).save();
 	},
 	
 	event: function(e, data) {
@@ -40,4 +65,4 @@ GMailCounter = {
 	}
 };
 
-window.addEventListener("load", GMailCounter.init);
+GMailCounter.init();

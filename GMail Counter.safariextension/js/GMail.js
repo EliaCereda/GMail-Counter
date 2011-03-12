@@ -31,12 +31,16 @@ GMail = {
 			return 'http://purl.org/atom/ns#'; //This is for using with XMLDocument.evaluate, it's the NameSpaceResolver
 		}
 		
-		var base = "https://mail.google.com";
-		var domain = store.appsDomain;
-		var label = store.label;
+		var url = "https://mail.google.com";
+		var label = store.general.label;
 		
-		var url=base;
-		url += (domain) ? ("/a/"+ domain + ((domain[domain.length - 1] != "/") ? "/" : "")) : "/mail/";
+		if (store.GoogleApps.enabled) {
+			var domain = store.GoogleApps.domain;
+			url += "/a/"+ domain + ((domain[domain.length - 1] != "/") ? "/" : "");
+		} else {
+			url +="/mail/";
+		}
+		
 		url += (feed) ? "feed/atom/" + ((label)? label : "") : "";
 		
 		url += (query) ? "?"+query : "";
@@ -104,7 +108,7 @@ GMail = {
 	parseFeed: function(callback) {
 		this.setStatus("parsing");
 		
-		store.previousMailsArray = this.mails;
+		store.hidden.previousMailsArray = this.mails;
 		
 		this.mails = [];
 		var length = this.XMLEvaluate(this.atomFeed, '/gmail:feed/gmail:entry').snapshotLength;
@@ -208,7 +212,7 @@ GMail = {
 	
 	checkNewMails: function(excludeStatusMessages) {
 		var a = GMail.mails || [];
-		var b = store.previousMailsArray || [];
+		var b = store.hidden.previousMailsArray || [];
 		
 		if (b == []) {
 			return false;
