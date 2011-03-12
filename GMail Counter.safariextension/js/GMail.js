@@ -108,7 +108,7 @@ GMail = {
 	parseFeed: function(callback) {
 		this.setStatus("parsing");
 		
-		store.hidden.previousMailsArray = this.mails;
+		store.hidden.previousMailsArray = this.mails; store.save();
 		
 		this.mails = [];
 		var length = this.XMLEvaluate(this.atomFeed, '/gmail:feed/gmail:entry').snapshotLength;
