@@ -64,7 +64,7 @@ Global = {
 		Global.openLink(GMail.GMailBaseURL(false, false, "#inbox"));
 	},
 	
-	change: function (e) {
+	/*change: function (e) {
 		switch ( e.key ) {
 			case "hideWhenNoMails":
 				if(!e.newValue) {
@@ -79,7 +79,7 @@ Global = {
 				Global.processUpdate(true);
 			break;
 		}
-	},
+	},*/
 	
 	callback: function (sender, message) {
 		switch ( sender ) {
@@ -206,7 +206,7 @@ Global = {
 		switch ( action ) {
 			case "show":
 				if (store.hidden.BarHiddenByMe || forceToggle) {
-					store.hidden.BarHiddenByMe = false;
+					store.hidden.BarHiddenByMe = false; store.save();
 					
 					safari.extension.bars.forEach(function(bar) {
 						bar.show();
@@ -216,7 +216,7 @@ Global = {
 			
 			case "hide":
 				if(store.HeadViewer.autoHide || forceToggle) {
-					store.hidden.BarHiddenByMe = true;
+					store.hidden.BarHiddenByMe = true; store.save();
 					
 					safari.extension.bars.forEach(function(bar) {
 						bar.hide();
@@ -269,6 +269,6 @@ Global = {
 safari.application.addEventListener("validate", Global.validate, false);
 safari.application.addEventListener("command", Global.command, false);
 
-safari.extension.settings.addEventListener("change", Global.change, false);
+//safari.extension.settings.addEventListener("change", Global.change, false);
 
 window.addEventListener("load", Global.init);
