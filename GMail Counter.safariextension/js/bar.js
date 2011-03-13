@@ -168,12 +168,12 @@ ExtensionBar = {
 	},
 	
 	next: function() {
-		var a = Global.BarNext || function() {};
+		var a = Global.BarNext || void(0);
 		a();
 	},
 	
 	previous: function() {
-		var a = Global.BarPrevious || function() {};
+		var a = Global.BarPrevious || void(0);
 		a();
 	},
 	
@@ -182,13 +182,13 @@ ExtensionBar = {
 	},
 	
 	openLink: function(link) {
-		var a = Global.openLink || function() {};
+		var a = Global.openLink || void(0);
 		
 		a(link);
 	},
 	
 	requestUpdate: function() {
-		var a = Global.processUpdate || function() {};
+		var a = Global.processUpdate || void(0);
 		a(window.event.altKey);
 		
 		if(window.event.altKey) {
@@ -200,7 +200,7 @@ ExtensionBar = {
 		if(window.event.altKey && window.event.shiftKey) {
 			alert("Anonymous UserID:\n\t"+GMailCounter.getUserID());
 		} else {
-			var a = Global.processBarClose || function() {};
+			var a = Global.processBarClose || void(0);
 			a(safari.self);
 		}
 	},
@@ -230,6 +230,7 @@ function $ (id, ns) {
 	var ns = (typeof(ns) != "undefined")?ns : document;
 	return ns.getElementById(id);
 }
+
 function $$ (className, ns) {
 	var ns = (typeof(ns) != "undefined")?ns : document;
 	return ns.getElementsByClassName(className);
