@@ -217,7 +217,7 @@ ExtensionBar = {
 
 	sendNotification: function() {
 		if (store.audio.enabled){
-			var a = new Audio(audioData[store.audio.src]);
+			var a = new Audio(audioData["data:audio/mp3;base64," + store.audio.src]);
 			a.volume = store.audio.volume;
 			a.play();
 		}
