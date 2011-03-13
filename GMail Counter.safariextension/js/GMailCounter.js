@@ -47,7 +47,7 @@ GMailCounter = {
 		},
 		"hidden": {
 			"BarHiddenByMe": true,
-			"previousMailsArray": []
+			"latestFirstId": ""
 		}
 	},
 	

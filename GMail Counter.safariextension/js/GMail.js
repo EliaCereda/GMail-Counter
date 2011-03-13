@@ -210,55 +210,26 @@ GMail = {
 		return (count != null)?count:0;
 	},
 	
-	checkNewMails: function(excludeStatusMessages) {
+	checkNewMails: function() {
 		var firstMail = GMail.mails[0];
 		var firstId = firstMail.id + firstMail.title + firstMail.author + firstMail.current + firstMail.total;
 		
 		var latestFirstId = store.hidden.latestFirstId;
 		
-		if (firstId ==! latestFirstId) {
-			if (excludeStatusMessages && firstMail.id === "000-000") {
+		store.hidden.latestFirstId = firstId; store.save();
+		
+		if (firstId !== latestFirstId) {
+			if (firstMail.id === "000-000") {
 				this.logThis(false, "checkNewMails", "Status messages only");
-				return false;
+				return -1;
 			} else {
 				this.logThis(false, "checkNewMails", "There are new mails");
-				return true;
+				return 1;
 			}
 		} else {
 			this.logThis(false, "checkNewMails", "No new mails");
-			return false;
+			return 0;
 		}
-		
-/*		var a = GMail.mails || [];
-		var b = store.hidden.previousMailsArray || [];
-		
-		if (b == []) {
-			return false;
-		}
-		
-		if (b.length !== a.length) {
-			return false;
-		}
-		
-		for(i in a) {
-			flag=true;
-			for(j in b) {
-				if(a[i].id == b[j].id && a[i].id != "000-000"){
-					flag=false;
-				}
-			}
-			if(flag) {
-				
-				if(excludeStatusMessages && a[i].id == "000-000") {
-					this.logThis(false, "checkNewMails", "There are only status messages");
-					return false;
-				}
-				this.logThis(false, "checkNewMails", "There are new mails");
-				return true;
-			}
-		}
-		this.logThis(false, "checkNewMails", "There aren't any new mails");
-		return false;*/
 	},
 	
 	setStatus: function(newStatus, newError) {

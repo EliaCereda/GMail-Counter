@@ -25,9 +25,7 @@ Global = {
 	currentIndex: 0, //The current mail index in the mailsArray
 	updateState: false, //True if it's updating else false
 	
-	latestFirstId: null,
-	
-	barChangeActiveTimeout: "", //The container for the Timeout reference
+	barChangeActiveTimeout: null, //The container for the Timeout reference
 	
 	init: function () {		
 		safari.extension.bars.forEach(function(item) {
@@ -142,16 +140,13 @@ Global = {
 			}
 		});
 		
-		Global.sendNotification()
-		
-		var firstId = Global.mailsArray[0].id+Global.mailsArray[0].title+Global.mailsArray[0].author+Global.mailsCount;
-		
-		if (firstId != Global.latestFirstId) {
-			
-			Global.latestFirstId = firstId;
-			Global.currentIndex = 0;
-			
-			Global.BarUpdate(true);
+		switch ( GMail.checkNewMails() ) {
+			case 1:
+				Global.sendNotification()
+			case -1:
+				Global.currentIndex = 0;
+				Global.BarUpdate(true);
+			break;
 		}
 	},
 
@@ -257,11 +252,9 @@ Global = {
 	},
 	
 	sendNotification: function() {
-		if(GMail.checkNewMails(true)) {
-			if(store.audio.enabled) {
-				var sN = safari.extension.bars[0].contentWindow.ExtensionBar.sendNotification || void(0);
-				sN();
-			}
+		if(store.audio.enabled) {
+			var sN = safari.extension.bars[0].contentWindow.ExtensionBar.sendNotification || void(0);
+			sN();
 		}
 	}
 }
