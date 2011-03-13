@@ -211,7 +211,25 @@ GMail = {
 	},
 	
 	checkNewMails: function(excludeStatusMessages) {
-		var a = GMail.mails || [];
+		var firstMail = GMail.mails[0];
+		var firstId = firstMail.id + firstMail.title + firstMail.author + firstMail.current + firstMail.total;
+		
+		var latestFirstId = store.hidden.latestFirstId;
+		
+		if (firstId ==! latestFirstId) {
+			if (excludeStatusMessages && firstMail.id === "000-000") {
+				this.logThis(false, "checkNewMails", "Status messages only");
+				return false;
+			} else {
+				this.logThis(false, "checkNewMails", "There are new mails");
+				return true;
+			}
+		} else {
+			this.logThis(false, "checkNewMails", "No new mails");
+			return false;
+		}
+		
+/*		var a = GMail.mails || [];
 		var b = store.hidden.previousMailsArray || [];
 		
 		if (b == []) {
@@ -240,7 +258,7 @@ GMail = {
 			}
 		}
 		this.logThis(false, "checkNewMails", "There aren't any new mails");
-		return false;
+		return false;*/
 	},
 	
 	setStatus: function(newStatus, newError) {

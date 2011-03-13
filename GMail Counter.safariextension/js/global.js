@@ -256,8 +256,8 @@ Global = {
 		Global.BarUpdate();
 	},
 	
-	sendNotification: function(forceNotification) {
-		if(GMail.checkNewMails(true) || forceNotification) {
+	sendNotification: function() {
+		if(GMail.checkNewMails(true)) {
 			if(store.audio.enabled) {
 				var sN = safari.extension.bars[0].contentWindow.ExtensionBar.sendNotification || void(0);
 				sN();
