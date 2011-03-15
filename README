@@ -12,7 +12,7 @@ Get informed about your unread mails at the same time they arrive, without even 
 TODO:
  • Better integration with GMail's webmail - planned
 	- Real time updates with the webmail
-	- Open messages without reloading the entire interface
-	- Mark messages as…
+	- Open messages without reloading the entire interface - STARTED
+	- Mark messages as… directly from the bar
  • Custom sounds notification - STARTED
  • Move settings from Safari's Preferences - STARTED

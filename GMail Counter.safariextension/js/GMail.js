@@ -210,37 +210,26 @@ GMail = {
 		return (count != null)?count:0;
 	},
 	
-	checkNewMails: function(excludeStatusMessages) {
-		var a = GMail.mails || [];
-		var b = store.hidden.previousMailsArray || [];
+	checkNewMails: function() {
+		var firstMail = GMail.mails[0];
+		var firstId = firstMail.id + firstMail.title + firstMail.author + firstMail.current + firstMail.total;
 		
-		if (b == []) {
-			return false;
-		}
+		var latestFirstId = store.hidden.latestFirstId;
 		
-		if (b.length !== a.length) {
-			return false;
-		}
+		store.hidden.latestFirstId = firstId; store.save();
 		
-		for(i in a) {
-			flag=true;
-			for(j in b) {
-				if(a[i].id == b[j].id && a[i].id != "000-000"){
-					flag=false;
-				}
-			}
-			if(flag) {
-				
-				if(excludeStatusMessages && a[i].id == "000-000") {
-					this.logThis(false, "checkNewMails", "There are only status messages");
-					return false;
-				}
+		if (firstId !== latestFirstId) {
+			if (firstMail.id === "000-000") {
+				this.logThis(false, "checkNewMails", "Status messages only");
+				return -1;
+			} else {
 				this.logThis(false, "checkNewMails", "There are new mails");
-				return true;
+				return 1;
 			}
+		} else {
+			this.logThis(false, "checkNewMails", "No new mails");
+			return 0;
 		}
-		this.logThis(false, "checkNewMails", "There aren't any new mails");
-		return false;
 	},
 	
 	setStatus: function(newStatus, newError) {
