@@ -1,3 +1,0 @@
-[submodule "store-js"]
-	path = GMail Counter.safariextension\frameworks\store-js
-	url = https://github.com/frankkohlhepp/store-js.git
