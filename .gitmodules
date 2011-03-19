@@ -1,9 +1,0 @@
-[submodule "GMail-Counter.safariextension/frameworks/store-js"]
-	path = GMail-Counter.safariextension/frameworks/store-js
-	url = https://github.com/frankkohlhepp/store-js.git
-[submodule "GMail-Counter.safariextension/frameworks/default-css"]
-	path = GMail-Counter.safariextension/frameworks/default-css
-	url = https://github.com/frankkohlhepp/default-css.git
-[submodule "GMail-Counter.safariextension/frameworks/exttracker"]
-	path = GMail-Counter.safariextension/frameworks/exttracker
-	url = https://github.com/frankkohlhepp/exttracker.git
