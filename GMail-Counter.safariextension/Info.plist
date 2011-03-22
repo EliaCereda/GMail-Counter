@@ -64,6 +64,7 @@
 			<array>
 				<string>mail.google.com</string>
 				<string>elix14.altervista.org</string>
+				<string>gmailcounter-app.appspot.com</string>
 			</array>
 			<key>Include Secure Pages</key>
 			<true/>
@@ -74,6 +75,6 @@
 	<key>Update Manifest URL</key>
 	<string>http://elix14.altervista.org/update.plist</string>
 	<key>Website</key>
-	<string>http://elix14.altervista.org/Extensions/GMail%20Counter/</string>
+	<string>http://elix14.altervista.org/</string>
 </dict>
 </plist>
