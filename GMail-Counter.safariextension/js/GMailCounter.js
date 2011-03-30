@@ -53,7 +53,7 @@ GMailCounter = {
 	
 	init: function() {
 		GMailCounter.tracker = new ExtTracker(GMailCounter.trackerId, GMailCounter.info.version, true);
-		GMailCounter.store = Object.merge(Object.clone(GMailCounter.defaultStore), new Store("GMailCounter")).save();
+		GMailCounter.store = merge(clone(GMailCounter.defaultStore), new Store("GMailCounter")).save();
 	},
 	
 	event: function(e, data) {
@@ -64,5 +64,46 @@ GMailCounter = {
 		return GMailCounter.tracker.getUserID();
 	}
 };
+
+function merge(source, k, v) {
+	var mergeOne = function(source, key, current){
+		switch (typeof current){
+			case 'object':
+				if (typeof source[key] == 'object') merge(source[key], current);
+				else source[key] = clone(current);
+			break;
+			case 'array': source[key] = clone(current); break;
+			default: source[key] = current;
+		}
+		return source;
+	};
+	
+	if (typeof k == 'string') return mergeOne(source, k, v);
+	for (var i = 1, l = arguments.length; i < l; i++){
+		var object = arguments[i];
+		for (var key in object) mergeOne(source, key, object[key]);
+	}
+	return source;
+}
+
+function clone(item) {
+	switch (typeof item) {
+		case "array":
+			var newItem = new Array(i);
+			
+			var i = item.length;
+			while (i--) newItem[i] = clone(newItem[i]);
+			return newItem;
+		
+		case "object":
+			var newItem = {};
+			
+			for (var key in item) newItem[key] = clone(item[key]);
+			return newItem;
+		
+		default:
+			return item;
+	}
+}
 
 GMailCounter.init();
