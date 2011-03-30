@@ -251,11 +251,6 @@ Global = {
 	
 	processBarClose: function(caller) {
 		switch ( Storage.closeBehavior ) {
-			case "closeActive":
-				var h = caller.hide || function () {};
-				h()
-			break;
-			
 			default:
 				safari.extension.bars.forEach(function(bar) {
 						bar.hide();
