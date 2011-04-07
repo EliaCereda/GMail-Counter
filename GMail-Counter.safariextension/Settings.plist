@@ -16,7 +16,7 @@
 	</dict>
 	<dict>
 		<key>DefaultValue</key>
-		<false/>
+		<true/>
 		<key>Key</key>
 		<string>hiddenByMe</string>
 	</dict>

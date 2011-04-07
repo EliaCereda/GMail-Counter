@@ -252,6 +252,7 @@ Global = {
 	processBarClose: function(caller) {
 		switch ( Storage.closeBehavior ) {
 			default:
+				Storage.hiddenByMe = false;
 				safari.extension.bars.forEach(function(bar) {
 						bar.hide();
 				});
