@@ -62,22 +62,16 @@ Global = {
 		Global.openLink(GMail.GMailBaseURL(false, false, "#inbox"));
 	},
 	
-	/*change: function (e) {
+	change: function (e) {
 		switch ( e.key ) {
-			case "hideWhenNoMails":
-				if(!e.newValue) {
-					Global.BarToggle("show", true);
-				} else {
-					Global.processUpdate(true);
-				}
-			break;
-			
-			case "label":
-			case "appsDomain":
-				Global.processUpdate(true);
+			case "settings":
+				if (e.newValue) {
+				Global.openLink(safari.extension.baseURI + "settings/index.html")
+				e.target[e.key] = false;
+			}
 			break;
 		}
-	},*/
+	},
 	
 	callback: function (sender, message) {
 		switch ( sender ) {
@@ -262,6 +256,6 @@ Global = {
 safari.application.addEventListener("validate", Global.validate, false);
 safari.application.addEventListener("command", Global.command, false);
 
-//safari.extension.settings.addEventListener("change", Global.change, false);
+safari.extension.settings.addEventListener("change", Global.change, false);
 
 window.addEventListener("load", Global.init);
