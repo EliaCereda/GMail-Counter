@@ -129,6 +129,9 @@ Global = {
 				if(Global.mailsCount != 0) {
 					item.toolTip = "GMail Counter - "+Global.mailsCount+" new message"+(Global.mailsCount == 1?"":"s");
 					item.badge = Global.mailsCount;
+				} else if(GMail.getStatus() == "notLogged") {
+					item.toolTip = "GMail Counter - Not logged in";
+					item.badge = 0;
 				} else {
 					item.toolTip = "GMail Counter - No new messages";
 					item.badge = 0;

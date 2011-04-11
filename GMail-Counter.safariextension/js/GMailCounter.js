@@ -16,8 +16,8 @@ Copyright (c) 2010-2011 Elia Cereda.
 */
 GMailCounter = {
 	info: {
-		humanVersion: "0.8.1",
-		version: "8.1",
+		humanVersion: "0.8.2",
+		version: "8.2",
 		releaseType: "stable"
 	},
 	
