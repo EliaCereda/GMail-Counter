@@ -1,0 +1,64 @@
+.tab-content h2 {
+    margin: 0;
+    padding-bottom: 5px;
+    font-size: 26px;
+    color: #707070;
+    line-height: 1;
+}
+
+.setting.group {
+    border-top: 1px solid #EEEEEE;
+    margin-top: 10px;
+    padding-top: 5px;
+    padding-left: 2px;
+}
+
+.setting.group-name {
+    width: 130px;
+    padding: 0;
+    font-size: 14px;
+    font-weight: bold;
+    vertical-align: top;
+}
+
+.setting.bundle {
+    margin-bottom: 5px;
+}
+
+.setting.bundle.list-box {
+    margin-bottom: 10px;
+}
+
+.setting.label {
+    margin-right: 5px;
+    font-size: 13px;
+    font-weight: normal;
+}
+
+.setting.label.checkbox, .setting.element.label.radio-buttons {
+    margin-left: 5px;
+}
+
+.setting.element.label.radio-buttons {
+    position: relative;
+    top: -1px;
+}
+
+.setting.label.radio-buttons + .setting.container.radio-buttons {
+    margin-top: 3px;
+}
+
+.setting.element.description {
+    color: #666666;
+}
+
+.setting.element.slider {
+    position: relative;
+    top: 4px;
+}
+
+.setting.element.list-box {
+    height: 100px;
+    width: 100%;
+    display: block;
+}
