@@ -6,13 +6,14 @@
 */
 (function () {
     this.Store = function (name) {
+        // Prototype that contains the two methods
         var storePrototype = {
             "save": function () {
                 var stringifiedObj = JSON.stringify(this);
                 localStorage.setItem(name, stringifiedObj);
                 
                 if (localStorage.getItem(name) !== stringifiedObj) {
-                    throw "savingFailed";
+                    throw "saveFailed";
                 }
                 
                 return this;
@@ -20,6 +21,8 @@
             
             "remove": function () {
                 localStorage.removeItem(name);
+                
+                // Remove any Members from this Object
                 for (var key in this) {
                     if (this.hasOwnProperty(key)) {
                         delete this[key];
@@ -34,7 +37,7 @@
         store.__proto__ = storePrototype;
         return store;
     };
-})();
+}());
 
 /*
 // ExtTracker

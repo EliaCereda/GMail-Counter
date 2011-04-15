@@ -53,7 +53,7 @@ GMailCounter = {
 	
 	init: function() {
 		GMailCounter.tracker = new ExtTracker(GMailCounter.trackerId, GMailCounter.info.version, true);
-		GMailCounter.store = merge(clone(GMailCounter.defaultStore), new Store("GMailCounter")).save();
+		GMailCounter.store = merge(clone(GMailCounter.defaultStore), new Store("settings")).save();
 	},
 	
 	event: function(e, data) {
