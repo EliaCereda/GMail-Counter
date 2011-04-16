@@ -94,10 +94,10 @@
             "save": function () {
                 var newStorage = localStorage.getItem(name);
                 if (newStorage !== originalStorage) {
+                    var newStorageObj = JSON.parse(newStorage || "{}");
                     originalStorageObj = JSON.parse(originalStorage || "{}");
-                    newStorage = JSON.parse(newStorage || "{}");
                     
-                    var save = merge(originalStorageObj, newStorage, this);
+                    var save = merge(originalStorageObj, newStorageObj, this);
                 } else {
                     var save = this;
                 }
@@ -110,6 +110,10 @@
                     } else {
                         throw "unknownError"
                     }
+                }
+                
+                if (save === this) {
+                    originalStorage = localStorage.getItem(name);
                 }
                 
                 return this;
