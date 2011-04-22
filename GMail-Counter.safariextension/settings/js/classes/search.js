@@ -6,6 +6,7 @@
 (function () {
     this.Search = new Class({
         "index": [],
+        "groups": {},
         
         "initialize": function (searchBox, container) {
             // Check containers
@@ -37,21 +38,57 @@
         
         "find": function (string) {
             this.index.each((function (setting) {
-                setting.bundle.inject(setting.container);
+                setting.bundle.inject(setting.bundleContainer);
             }).bind(this));
             
-            if (string === "") {
+            Object.each(this.groups, (function (group) {
+                group.content.dispose();
+            }).bind(this));
+            
+            if (string.trim() === "") {
                 document.body.removeClass("searching");
             } else {
                 document.body.addClass("searching");
                 var results = this.index.filter(function (setting) {
-                    if (setting.searchString.contains(string.toLowerCase())) {
-                        return true;
+                    if (setting.searchString.contains(string.trim().toLowerCase())) {
+                        if (setting.type !== "description") {
+                            return true;
+                        }
                     }
                 });
                 
                 results.each((function (result) {
-                    result.bundle.inject(this.container);
+                    // Create group
+                    var groupName = result.bundleContainer.parentNode.childNodes[0].get("text");
+                    if (this.groups[groupName] === undefined) {
+                        this.groups[groupName] = {};
+                        var group = this.groups[groupName];
+                        
+                        group.content = (new Element("table", {
+                            "class": "setting group"
+                        })).inject(this.container.parentNode.parentNode.parentNode.parentNode);
+                        
+                        var row = (new Element("tr")).inject(group.content);
+                        
+                        (new Element("td", {
+                            "class": "setting group-name",
+                            "text": groupName
+                        })).inject(row);
+                        
+                        var content = (new Element("td", {
+                            "class": "setting group-content"
+                        })).inject(row);
+                        
+                        group.setting = new Setting(content);
+                    } else {
+                        var group = this.groups[groupName];
+                        group.content.inject(this.container.parentNode.parentNode.parentNode.parentNode);
+                    }
+                    
+                    
+                    
+                    
+                    result.bundle.inject(group.content.childNodes[0]);
                 }).bind(this));
                 
                 if (results.length === 0) {
