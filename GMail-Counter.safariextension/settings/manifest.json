@@ -90,7 +90,7 @@
 						{
 	                        "name": "Sounds_description",
 	                        "type": "description",
-	                        "text": "Here you can choose your custom sound. Just upload a file in any QuickTime-supported format."
+	                        "text": "Here you can choose your custom sound. Just select any file in a QuickTime-supported format (512KB max)."
 	                    },
 						{
 	                        "name": "Sounds_choose",
@@ -111,12 +111,12 @@
 						{
 	                        "name": "HeadViewer_description",
 	                        "type": "description",
-	                        "text": "(a.k.a. the toolbar over Safari's tab bar)"
+	                        "text": "(a.k.a. the toolbar under Safari's favorites bar)"
 	                    },
 		                {
 	                        "name": "HeadViewer_interval",
 	                        "type": "popupButton",
-	                        "label": "interval",
+	                        "label": "Show each email for",
 							"options": [
                                 {
                                     "value": "2",
@@ -148,23 +148,28 @@
                                 },
 								{
                                     "value": "60",
-									"text": "1 minute"
+									"text": "a minute"
                                 }
                             ]
 	                    },
 	                    {
 	                        "name": "HeadViewer_autoHide",
 	                        "type": "checkbox",
-	                        "label": "autoHide"
+	                        "label": "Close the Head Viewer when there is no mail to show"
+	                    },
+						{
+	                        "name": "HeadViewer_Non-Breaking_SPace",
+	                        "type": "description",
+	                        "text": ""
 	                    },
                         {
                             "name": "HeadViewer_closeBehavior",
                             "type": "radioButtons",
-                            "label": "closeBehavior:",
+                            "label": "Clicking on the \"close\" button will:",
                             "options": [
                                 {
                                     "value": "closeAll",
-                                    "text": "close the bar on every window, until you reopen it"
+                                    "text": "close Head Viewer on every window, until you reopen it"
                                 }
                             ]
                         }
