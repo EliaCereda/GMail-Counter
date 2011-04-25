@@ -49,7 +49,24 @@ Copyright (c) 2010-2011 Elia Cereda.
 			"hidden": {
 				"BarHiddenByMe": true,
 				"latestFirstId": ""
-			}
+			},
+			//General tab
+				//Behavior group
+					"Behavior_label": "Inbox",
+					"Behavior_openLinksIn": "GmailTab",
+				//Google Apps group
+					"GoogleApps_enable": "false",
+					"GoogleApps_domain": "",
+			//Notifications tab
+				//Sounds group
+					"Sounds_enable": true,
+					"Sounds_volume": 0.5,
+					"Sounds_name": "Bell",
+				//Head Viewer group
+					"HeadViewer_interval": "15",
+					"HeadViewer_autoHide": false,
+					"HeadViewer_closeBehavior": "closeAll"
+				
 		},
 
 		event: function(e, data) {

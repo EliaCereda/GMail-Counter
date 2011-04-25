@@ -88,6 +88,11 @@
 							"step": 0.01
 	                    },
 						{
+	                        "name": "Sounds_description",
+	                        "type": "description",
+	                        "text": "Here you can choose your custom sound. Just upload a file in any QuickTime-supported format."
+	                    },
+						{
 	                        "name": "Sounds_choose",
 	                        "type": "button",
 	                        "text": "Choose sound..."
@@ -95,9 +100,74 @@
 						{
 	                        "name": "Sounds_name",
 	                        "type": "text",
-	                        "label": "Name",
+	                        "label": "Current sound",
 	                        "text": "loading..."
 	                    }
+	                ]
+	            },
+				{
+	                "name": "Head Viewer",
+	                "settings": [
+						{
+	                        "name": "HeadViewer_description",
+	                        "type": "description",
+	                        "text": "(a.k.a. the toolbar over Safari's tab bar)"
+	                    },
+		                {
+	                        "name": "HeadViewer_interval",
+	                        "type": "popupButton",
+	                        "label": "interval",
+							"options": [
+                                {
+                                    "value": "2",
+                                    "text": "2 seconds"
+                                },
+                                {
+                                    "value": "5",
+									"text": "5 seconds"
+                                },
+								{
+                                    "value": "10",
+									"text": "10 seconds"
+                                },
+								{
+                                    "value": "15",
+									"text": "15 seconds"
+                                },
+								{
+                                    "value": "20",
+									"text": "20 seconds"
+                                },
+								{
+                                    "value": "30",
+									"text": "30 seconds"
+                                },
+								{
+                                    "value": "45",
+									"text": "45 seconds"
+                                },
+								{
+                                    "value": "60",
+									"text": "1 minute"
+                                }
+                            ]
+	                    },
+	                    {
+	                        "name": "HeadViewer_autoHide",
+	                        "type": "checkbox",
+	                        "label": "autoHide"
+	                    },
+                        {
+                            "name": "HeadViewer_closeBehavior",
+                            "type": "radioButtons",
+                            "label": "closeBehavior:",
+                            "options": [
+                                {
+                                    "value": "closeAll",
+                                    "text": "close the bar on every window, until you reopen it"
+                                }
+                            ]
+                        }
 	                ]
 	            }
             ]
