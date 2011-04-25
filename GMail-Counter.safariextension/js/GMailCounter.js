@@ -28,34 +28,12 @@ Copyright (c) 2010-2011 Elia Cereda.
 		store: {}, 	//This will contain the store.js object 
 	
 		defaultStore: {
-			"audio": {
-				"enabled": true,
-				"src": "Bell",
-				"volume": "0.5"
-			},
-			"general": {
-				"label": "Inbox",
-				"openLinksIn": "GMailTab"
-			},
-			"GoogleApps": {
-				"enabled": false,
-				"domain": ""
-			},
-			"HeadViewer": {
-				"interval": 15,
-				"autoHide": false,
-				"closeBehavior": "closeAll"
-			},
-			"hidden": {
-				"BarHiddenByMe": true,
-				"latestFirstId": ""
-			},
 			//General tab
 				//Behavior group
 					"Behavior_label": "Inbox",
 					"Behavior_openLinksIn": "GmailTab",
 				//Google Apps group
-					"GoogleApps_enable": "false",
+					"GoogleApps_enable": false,
 					"GoogleApps_domain": "",
 			//Notifications tab
 				//Sounds group
@@ -65,8 +43,9 @@ Copyright (c) 2010-2011 Elia Cereda.
 				//Head Viewer group
 					"HeadViewer_interval": "15",
 					"HeadViewer_autoHide": false,
-					"HeadViewer_closeBehavior": "closeAll"
-				
+					"HeadViewer_closeBehavior": "closeAll",
+			"Hidden_BarHiddenByMe": false,
+			"Hidden_latestFirstId": ""
 		},
 
 		event: function(e, data) {

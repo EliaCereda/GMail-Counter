@@ -148,7 +148,7 @@ Global = {
 		
 		var _tab;
 		
-		switch ( store.general.openLinksIn ) {
+		switch ( store["Behavior_openLinksIn"] ) {
 			case "newTab":
 				_tab = safari.application.activeBrowserWindow.openTab();
 			break;
@@ -161,7 +161,8 @@ Global = {
 				_tab = safari.application.activeBrowserWindow.activeTab;
 			break;
 			
-			case "GMailTab":
+			case "GmailTab":
+			default:
 				var _window;
 				
 				safari.application.browserWindows.forEach(function(a) {
@@ -194,8 +195,8 @@ Global = {
 	BarToggle: function(action, forceToggle) {
 		switch ( action ) {
 			case "show":
-				if (store.hidden.BarHiddenByMe || forceToggle) {
-					store.hidden.BarHiddenByMe = false; store.save();
+				if (store["Hidden_BarHiddenByMe"] || forceToggle) {
+					store["Hidden_BarHiddenByMe"] = false; store.save();
 					
 					safari.extension.bars.forEach(function(bar) {
 						bar.show();
@@ -204,8 +205,8 @@ Global = {
 			break;
 			
 			case "hide":
-				if(store.HeadViewer.autoHide || forceToggle) {
-					store.hidden.BarHiddenByMe = true; store.save();
+				if(store["HeadViewer_autoHide"] || forceToggle) {
+					store["Hidden_BarHiddenByMe"] = true; store.save();
 					
 					safari.extension.bars.forEach(function(bar) {
 						bar.hide();
@@ -222,7 +223,7 @@ Global = {
 				u();
 				
 				clearTimeout(Global.barChangeActiveTimeout);
-				Global.barChangeActiveTimeout = setTimeout(Global.BarNext, store.HeadViewer.interval*1000);
+				Global.barChangeActiveTimeout = setTimeout(Global.BarNext, store["HeadViewer_interval"]*1000);
 			});
 		}
 	},
@@ -246,10 +247,8 @@ Global = {
 	},
 	
 	sendNotification: function() {
-		if(store.audio.enabled) {
-			var sN = safari.extension.bars[0].contentWindow.ExtensionBar.sendNotification || void(0);
-			sN();
-		}
+		var sN = safari.extension.bars[0].contentWindow.ExtensionBar.sendNotification || void(0);
+		sN();
 	}
 }
 

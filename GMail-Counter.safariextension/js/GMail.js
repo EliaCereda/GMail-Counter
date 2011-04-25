@@ -32,10 +32,10 @@ GMail = {
 		}
 		
 		var url = "https://mail.google.com";
-		var label = store.general.label;
+		var label = store["Behavior_label"];
 		
-		if (store.GoogleApps.enabled) {
-			var domain = store.GoogleApps.domain;
+		if (store["GoogleApps_enable"]) {
+			var domain = store["GoogleApps_domain"];
 			url += "/a/"+ domain + ((domain[domain.length - 1] != "/") ? "/" : "");
 		} else {
 			url +="/mail/";
@@ -107,8 +107,6 @@ GMail = {
 	
 	parseFeed: function(callback) {
 		this.setStatus("parsing");
-		
-		store.hidden.previousMailsArray = this.mails; store.save();
 		
 		this.mails = [];
 		var length = this.XMLEvaluate(this.atomFeed, '/gmail:feed/gmail:entry').snapshotLength;
@@ -214,9 +212,9 @@ GMail = {
 		var firstMail = GMail.mails[0];
 		var firstId = firstMail.id + firstMail.title + firstMail.author + firstMail.current + firstMail.total;
 		
-		var latestFirstId = store.hidden.latestFirstId;
+		var latestFirstId = store["Hidden_latestFirstId"];
 		
-		store.hidden.latestFirstId = firstId; store.save();
+		store["Hidden_latestFirstId"] = firstId; store.save();
 		
 		if (firstId !== latestFirstId) {
 			if (firstMail.id === "000-000") {

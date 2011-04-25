@@ -9,89 +9,77 @@
 // License: MIT-license
 //
 (function () {
+    var Store;
+    
     // MooTools features
-    Array.prototype.$family = function () { return "array"; };
+    Array.prototype.$isArray = true;
     
     function typeOf(item) {
+        if (item === undefined) {
+            return "undefined";
+        }
+        
         if (item === null) {
             return "null";
         }
         
-        if (item.$family) {
-            return item.$family();
+        if (item.$isArray) {
+            return "array";
         }
         
         return typeof item;
     };
     
+    function cloneItem(item) {
+        if (typeOf(item) === "object") {
+            return cloneObject(item);
+        }
+        
+        if (typeOf(item) === "array") {
+            return cloneArray(item);
+        }
+        
+        return item;
+    }
+    
     function cloneObject(object) {
-        var clone = {};
-        for (var key in object) {
-            clone[key] = cloneItem(object[key]);
+        var clone,
+            key;
+        
+        clone = {};
+        for (key in object) {
+            if (object.hasOwnProperty(key)) {
+                clone[key] = cloneItem(object[key]);
+            }
         }
         
         return clone;
     }
     
     function cloneArray(item) {
-        var i = item.length,
-            clone = new Array(i);
+        var clone,
+            i;
         
-        while (i--) {
+        clone = [];
+        for (i = 0; i < item.length; i++) {
             clone[i] = cloneItem(item[i]);
         }
         
         return clone;
     }
     
-    function cloneItem(item) {
-        if (typeOf(item) === "array") {
-            return cloneArray(item);
-        } else if (typeOf(item) === "object") {
-            return cloneObject(item);
-        } else {
-            return item;
-        }
-    }
-    
-    function mergeOne(source, key, current) {
-        if (typeOf(current) === "object") {
-            if (typeOf(source[key]) === "object") {
-                mergeObject(source[key], current);
-            } else {
-                source[key] = cloneObject(current);
-            }
-        } else if (typeOf(current) === "array") {
-            source[key] = cloneArray(current);
-        } else {
-            source[key] = current;
-        }
-        
-        return source;
-    }
-    
-    function mergeObject(source, k, v) {
-        if (typeOf(k) === "string") {
-            return mergeOne(source, k, v);
-        }
-        
-        for (var i = 1, l = arguments.length; i < l; i++) {
-            var object = arguments[i];
-            for (var key in object) {
-                mergeOne(source, key, object[key]);
-            }
-        }
-        
-        return source;
-    }
-    
     // Custom 3-way merge
     function merge() {
-        var target = cloneObject(arguments[0]),
-            original = cloneObject(arguments[0]);
+        var target,
+            original,
+            i,
+            object;
         
-        for (var i = 1; i < arguments.length; i++) {
-            var object = arguments[i];
+        target = cloneObject(arguments[0]);
+        original = cloneObject(arguments[0]);
+        
+        for (i = 1; i < arguments.length; i++) {
+            object = arguments[i];
             
             // Remove keys from the target that were removed
             mergeRemove(target, original, object);
@@ -104,11 +92,13 @@
     }
     
     function mergeRemove(target, original, object) {
-        for (var key in original) {
+        var key;
+        
+        for (key in original) {
             if (original.hasOwnProperty(key)) {
                 if (!object.hasOwnProperty(key)) {
                     delete target[key];
-                } else if (typeOf(object[key]) === "object") {
+                } else if (typeOf(target[key]) === "object" && typeOf(original[key]) === "object" && typeOf(object[key]) === "object") {
                     mergeRemove(target[key], original[key], object[key]);
                 }
             }
@@ -116,35 +106,52 @@
     }
     
     function mergeCopy(target, original, object) {
-        for (var key in object) {
+        var key;
+        
+        for (key in object) {
             if (object.hasOwnProperty(key)) {
-                if (typeOf(object[key]) === "object") {
-                    mergeCopy(target[key], original[key], object[key]);
-                } else if (object[key] !== original[key]) {
+                if (typeOf(object[key]) === "object" && (typeOf(target[key]) === "object" || typeOf(original[key]) === "object")) {
+                    if (JSON.stringify(object[key]) !== JSON.stringify(original[key])) {
+                        if (typeOf(target[key]) !== "object") {
+                            target[key] = {};
+                        }
+                        
+                        if (typeOf(original[key]) !== "object") {
+                            original[key] = {};
+                        }
+                        
+                        mergeCopy(target[key], original[key], object[key]);
+                    }
+                } else if (object[key] !== original[key] || typeOf(object[key]) === "object") {
                     target[key] = object[key];
                 }
             }
         }
     }
     
-    this.Store = function (name) {
-        var storePrototype = {
-            "save": function () {
-                // Check if we even have to save
-                if (JSON.stringify(this) === originalStorage) {
-                    return this;
-                }
+    // Main store function
+    Store = this.Store = function (name) {
+        var storePrototype,
+            originalStorage,
+            store;
+        
+        storePrototype = {
+            "save": function (noMerge) {
+                var newStorage,
+                    newStorageObj,
+                    originalStorageObj,
+                    save;
                 
                 // Check if localStorage has been updated by
                 // another instance of store.js
-                var newStorage = localStorage.getItem(name);
-                if (newStorage !== originalStorage) {
-                    var newStorageObj = JSON.parse(newStorage || "{}");
-                    var originalStorageObj = JSON.parse(originalStorage || "{}");
+                newStorage = localStorage.getItem(name);
+                if (newStorage !== originalStorage && noMerge !== true) {
+                    newStorageObj = JSON.parse(newStorage || "{}");
+                    originalStorageObj = JSON.parse(originalStorage || "{}");
                     
-                    var save = merge(originalStorageObj, newStorageObj, this);
+                    save = merge(originalStorageObj, newStorageObj, this);
                 } else {
-                    var save = this;
+                    save = this;
                 }
                 
                 try {
@@ -166,34 +173,42 @@
                 return this;
             },
             
-            "remove": function () {
-                localStorage.removeItem(name);
-                originalStorage = "{}";
+            "clean": function () {
+                var key;
                 
-                // Restore to a clean store
-                for (var key in this) {
+                for (key in this) {
                     if (this.hasOwnProperty(key)) {
                         delete this[key];
                     }
                 }
                 
                 return this;
+            },
+            
+            "remove": function () {
+                localStorage.removeItem(name);
+                originalStorage = "{}";
+                return this.clean();
             }
         };
         
         // Save the current state of localStorage
-        var originalStorage = localStorage.getItem(name),
-            store = JSON.parse(localStorage.getItem(name)  || "{}");
+        originalStorage = localStorage.getItem(name);
+        store = JSON.parse(localStorage.getItem(name) || "{}");
         store.__proto__ = storePrototype;
         return store;
     };
     
-    this.Store.initWithDefaults = function (name, obj) {
-        var store = Store(name);
-        var proto = store.__proto__;
-        store.__proto__ = ({}).__proto__;
-        store = mergeObject(cloneObject(obj), store);
+    Store.__proto__.initWithDefaults = function (name, obj) {
+        var store,
+            proto;
+        
+        store = Store(name);
+        proto = store.__proto__;
+        
+        store = merge({}, obj, store);
         store.__proto__ = proto;
+        
         return store;
     };
 }());
