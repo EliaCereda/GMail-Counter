@@ -4,7 +4,7 @@
 <array>
 	<dict>
 		<key>Title</key>
-		<string>Settings has been moved.</string>
+		<string>Preferences has been moved.</string>
 		<key>Type</key>
 		<string>Group</string>
 	</dict>
@@ -18,7 +18,7 @@
 		<key>Key</key>
 		<string>settings</string>
 		<key>Title</key>
-		<string>Click me to open Preferences window</string>
+		<string>Check me to open Settings window</string>
 		<key>Type</key>
 		<string>CheckBox</string>
 	</dict>

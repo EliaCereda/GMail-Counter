@@ -56,7 +56,7 @@
 		                {
 	                        "name": "GoogleApps_enable",
 	                        "type": "checkbox",
-	                        "label": "Enable Google Apps"
+	                        "label": "Enable"
 	                    },
 	                    {
 	                        "name": "GoogleApps_domain",
@@ -71,6 +71,35 @@
         {
             "name": "Notifications",
             "groups": [
+				{
+	                "name": "Sounds",
+	                "settings": [
+		                {
+	                        "name": "Sounds_enable",
+	                        "type": "checkbox",
+	                        "label": "Enable"
+	                    },
+	                    {
+	                        "name": "Sounds_volume",
+	                        "type": "slider",
+	                        "label": "Volume",
+	                        "max": 1,
+							"min": 0,
+							"step": 0.01
+	                    },
+						{
+	                        "name": "Sounds_choose",
+	                        "type": "button",
+	                        "text": "Choose sound..."
+	                    },
+						{
+	                        "name": "Sounds_name",
+	                        "type": "text",
+	                        "label": "Name",
+	                        "text": "loading..."
+	                    }
+	                ]
+	            }
             ]
         }
     ]
