@@ -18,7 +18,6 @@ Copyright (c) 2010-2011 Elia Cereda.
 var GMail; //This will contain the GMail Object
 var GMailCounter; //This will contain the GMailCounter Object
 var Global; //This will contain the Global Object
-var store; //This will contain the store.js Object
 
 ExtensionBar = {
 	alreadyActivated: false,	//Setted to true on first update
@@ -85,7 +84,6 @@ ExtensionBar = {
 		GMail = safari.extension.globalPage.contentWindow.GMail || {};
 		GMailCounter = safari.extension.globalPage.contentWindow.GMailCounter || {};
 		Global  = safari.extension.globalPage.contentWindow.Global || {};
-		store = GMailCounter.store || {};
 		
 		ExtensionBar.alreadyActivated = true;
 		ExtensionBar.update();
@@ -168,12 +166,12 @@ ExtensionBar = {
 	},
 	
 	next: function() {
-		var a = Global.BarNext || void(0);
+		var a = Global.BarNext || function(){};
 		a();
 	},
 	
 	previous: function() {
-		var a = Global.BarPrevious || void(0);
+		var a = Global.BarPrevious || function(){};
 		a();
 	},
 	
@@ -182,13 +180,13 @@ ExtensionBar = {
 	},
 	
 	openLink: function(link) {
-		var a = Global.openLink || void(0);
+		var a = Global.openLink || function(){};
 		
 		a(link);
 	},
 	
 	requestUpdate: function() {
-		var a = Global.processUpdate || void(0);
+		var a = Global.processUpdate || function(){};
 		a(window.event.altKey);
 		
 		if(window.event.altKey) {
@@ -200,7 +198,7 @@ ExtensionBar = {
 		if(window.event.altKey && window.event.shiftKey) {
 			alert("Anonymous UserID:\n\t"+GMailCounter.getUserID());
 		} else {
-			var a = Global.processBarClose || void(0);
+			var a = Global.processBarClose || function(){};
 			a(safari.self);
 		}
 	},
@@ -216,9 +214,9 @@ ExtensionBar = {
 	},
 
 	sendNotification: function() {
-		if (store["Sounds_enable"]){
-			var a = new Audio("data:audio/mp3;base64," + audioData[store["Sounds_name"]]);
-			a.volume = store["Sounds_volume"];
+		if (GMailCounter.settings.get("Sounds_enable")){
+			var a = new Audio("data:audio/mp3;base64," + audioData[GMailCounter.settings.get("Sounds_name")]);
+			a.volume = GMailCounter.settings.get("Sounds_volume");
 			a.play();
 		}
 	}

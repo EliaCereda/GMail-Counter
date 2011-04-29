@@ -14,7 +14,6 @@
 This file is part of Safari's Extension "GMail Counter" and is licensed under the MIT license.
 Copyright (c) 2010-2011 Elia Cereda.
 */
-var store = GMailCounter.store || {};
 
 Global = {
 	
@@ -145,10 +144,9 @@ Global = {
 	},
 
 	openLink: function(link) {
-		
 		var _tab;
 		
-		switch ( store["Behavior_openLinksIn"] ) {
+		switch ( GMailCounter.settings.get("Behavior_openLinksIn") ) {
 			case "newTab":
 				_tab = safari.application.activeBrowserWindow.openTab();
 			break;
@@ -186,7 +184,7 @@ Global = {
 	
 	setUpdateState: function(state) {
 		safari.extension.bars.forEach(function(bar) {
-				var s = bar.contentWindow.ExtensionBar.setUpdateState || void(0);
+				var s = bar.contentWindow.ExtensionBar.setUpdateState || function(){};
 				s(state);
 				Global.updateState = state;
 		});
@@ -195,8 +193,8 @@ Global = {
 	BarToggle: function(action, forceToggle) {
 		switch ( action ) {
 			case "show":
-				if (store["Hidden_BarHiddenByMe"] || forceToggle) {
-					store["Hidden_BarHiddenByMe"] = false; store.save();
+				if (GMailCounter.settings.get("Hidden_BarHiddenByMe") || forceToggle) {
+					GMailCounter.settings.set("Hidden_BarHiddenByMe", false)
 					
 					safari.extension.bars.forEach(function(bar) {
 						bar.show();
@@ -205,8 +203,8 @@ Global = {
 			break;
 			
 			case "hide":
-				if(store["HeadViewer_autoHide"] || forceToggle) {
-					store["Hidden_BarHiddenByMe"] = true; store.save();
+				if(GMailCounter.settings.get("HeadViewer_autoHide") || forceToggle) {
+					GMailCounter.settings.set("Hidden_BarHiddenByMe", true)
 					
 					safari.extension.bars.forEach(function(bar) {
 						bar.hide();
@@ -219,11 +217,11 @@ Global = {
 	BarUpdate: function(forceUpdate) {
 		if(Global.mailsArray.length > 1 || forceUpdate) {
 			safari.extension.bars.forEach(function(bar) {
-				u = bar.contentWindow.ExtensionBar.update || void(0);
+				u = bar.contentWindow.ExtensionBar.update || function(){};
 				u();
 				
 				clearTimeout(Global.barChangeActiveTimeout);
-				Global.barChangeActiveTimeout = setTimeout(Global.BarNext, store["HeadViewer_interval"]*1000);
+				Global.barChangeActiveTimeout = setTimeout(Global.BarNext, GMailCounter.settings.get("HeadViewer_interval")*1000);
 			});
 		}
 	},
@@ -247,7 +245,7 @@ Global = {
 	},
 	
 	sendNotification: function() {
-		var sN = safari.extension.bars[0].contentWindow.ExtensionBar.sendNotification || void(0);
+		var sN = safari.extension.bars[0].contentWindow.ExtensionBar.sendNotification || function(){};
 		sN();
 	}
 }

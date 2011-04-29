@@ -14,7 +14,6 @@
 This file is part of Safari's Extension "GMail Counter" and is licensed under the MIT license.
 Copyright (c) 2010-2011 Elia Cereda.
 */
-var store = GMailCounter.store || {};
 
 GMail = {
 	status: "notInited",	//This can be "notInited", "loading", "notLogged", "logged", "error", "updated", "parsing", "noMails", "newMails"
@@ -32,10 +31,10 @@ GMail = {
 		}
 		
 		var url = "https://mail.google.com";
-		var label = store["Behavior_label"];
+		var label = GMailCounter.settings.get("Behavior_label");
 		
-		if (store["GoogleApps_enable"]) {
-			var domain = store["GoogleApps_domain"];
+		if (GMailCounter.settings.get("GoogleApps_enable")) {
+			var domain = GMailCounter.settings.get("GoogleApps_domain");
 			url += "/a/"+ domain + ((domain[domain.length - 1] != "/") ? "/" : "");
 		} else {
 			url +="/mail/";
@@ -212,9 +211,9 @@ GMail = {
 		var firstMail = GMail.mails[0];
 		var firstId = firstMail.id + firstMail.title + firstMail.author + firstMail.current + firstMail.total;
 		
-		var latestFirstId = store["Hidden_latestFirstId"];
+		var latestFirstId = GMailCounter.settings.get("Hidden_latestFirstId");
 		
-		store["Hidden_latestFirstId"] = firstId; store.save();
+		GMailCounter.settings.set("Hidden_latestFirstId", firstId)
 		
 		if (firstId !== latestFirstId) {
 			if (firstMail.id === "000-000") {
@@ -235,8 +234,6 @@ GMail = {
 		this.error = (this.status == "error") ? newError : 0;
 		
 		this.logThis(this.error, "setStatus", "New status is \""+this.status+"\"", this.error);
-		
-		//TODO: implement a callback system when status change
 		
 	},
 	

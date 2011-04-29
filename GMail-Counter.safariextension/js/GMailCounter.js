@@ -15,7 +15,7 @@ This file is part of Safari's Extension "GMail Counter" and is licensed under th
 Copyright (c) 2010-2011 Elia Cereda.
 */
 (function() {
-	window.GMailCounter = {
+	this.GMailCounter = {
 		info: {
 			humanVersion: "0.9 | alpha 3",
 			version: "9.a.3",
@@ -25,7 +25,7 @@ Copyright (c) 2010-2011 Elia Cereda.
 		tracker: {}, //This will contain the ExtTracker object
 		trackerId: "UA-17690004-2", //ExtTracker extension ID
 	
-		store: {}, 	//This will contain the store.js object 
+		settings: {}, 	//This will contain the store.js object 
 	
 		defaultStore: {
 			//General tab
@@ -60,6 +60,6 @@ Copyright (c) 2010-2011 Elia Cereda.
 	//init
 	(function () {
 		GMailCounter.tracker = new ExtTracker(GMailCounter.trackerId, GMailCounter.info.version, true);
-		GMailCounter.store = Store.initWithDefaults("settings", GMailCounter.defaultStore);
+		GMailCounter.settings = new Store("settings", GMailCounter.defaultStore);
 	})();
 })();
