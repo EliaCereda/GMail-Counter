@@ -4,7 +4,7 @@
 // License: LGPL v2.1
 //
 (function () {
-    var settings = Store("settings"),
+    var settings = new Store("settings"),
         Bundle = new Class({
         "Implements": Events,
         "searchString": "",
@@ -17,15 +17,14 @@
             this.addEvents();
             
             if (typeOf(this.params.name) === "string" && this.params.name !== "") {
-                this.set(settings[this.params.name], true);
+                this.set(settings.get(this.params.name), true);
             }
         },
         
         "addEvents": function () {
             this.element.addEvent("change", (function (event) {
                 if (typeOf(this.params.name) === "string" && this.params.name !== "") {
-                    settings[this.params.name] = this.get();
-                    settings.save();
+                    settings.set(this.params.name, this.get());
                 }
                 
                 this.fireEvent("action", this.get());
@@ -187,8 +186,7 @@
         "addEvents": function () {
             var change = (function (event) {
                 if (typeOf(this.params.name) === "string" && this.params.name !== "") {
-                    settings[this.params.name] = this.get();
-                    settings.save();
+                    settings.set(this.params.name, this.get());
                 }
                 
                 this.fireEvent("action", this.get());
@@ -333,7 +331,7 @@
             this.addEvents();
             
             if (typeOf(this.params.name) === "string" && this.params.name !== "") {
-                this.set(settings[this.params.name], true);
+                this.set(settings.get(this.params.name), true);
             }
         },
         
@@ -436,7 +434,7 @@
             this.addEvents();
             
             if (typeOf(this.params.name) === "string" && this.params.name !== "") {
-                this.set(settings[this.params.name], true);
+                this.set(settings.get(this.params.name), true);
             }
         },
         
@@ -494,8 +492,7 @@
         "addEvents": function () {
             this.bundle.addEvent("change", (function (event) {
                 if (typeOf(this.params.name) === "string" && this.params.name !== "") {
-                    settings[this.params.name] = this.get();
-                    settings.save();
+                    settings.set(this.params.name, this.get());
                 }
                 
                 this.fireEvent("action", this.get());
