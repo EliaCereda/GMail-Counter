@@ -4,7 +4,7 @@ window.addEvent("domready", function () {
 	new FancySettings.initWithManifest("manifest.json", function (settings) {
 		settings.manifestOutput.Sounds_name.element.readOnly = true;	//Set sound name to read-only, as it will be set on sound change
 		settings.manifestOutput.Sounds_choose.addEvent("action", function(){
-			alert("Choose sound...");
+			alert("This is still TODO (issue #5)...");
 		});
 	});
     
