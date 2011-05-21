@@ -1,181 +1,186 @@
-// SAMPLE MANIFEST
-// (learn by reading...)
-//
-// A manifest can get rather complex(-looking),
-// so you might wanna consider specifing
-// your settings manually in the settings.js
-// file. Instructions are included.
-//
-// Even if you choose to use the manifest file,
-// you can manually customize the settings.
-// Enter a name for each setting, and you
-// can access them in the settings.js file.
 {
     "name": "GMail Counter - Settings",
-    "tabs": [
-        {
-            "name": "General",
-            "groups": [
-				{
-	                "name": "Behavior",
-	                "settings": [
-	                    {
-	                        "name": "Behavior_label",
-	                        "type": "text",
-	                        "label": "Gmail Label",
-	                        "text": "i.e. \"All\" or \"Inbox\""
-	                    },
-                        {
-                            "name": "Behavior_openLinksIn",
-                            "type": "radioButtons",
-                            "label": "Open links in:",
-                            "options": [
-                                {
-                                    "value": "GmailTab",
-                                    "text": "any tab already opened on a Gmail page"
-                                },
-                                {
-                                    "value": "activeTab",
-									"text": "the active tab"
-                                },
-								{
-                                    "value": "newTab",
-									"text": "a new tab"
-                                },
-								{
-                                    "value": "newWindow",
-									"text": "a new window"
-                                }
-                            ]
-                        }
-	                ]
+	"icon": "../Icon.png",
+    "settings": [
+	    {
+			"tab": "General",
+			"group": "Behavior",
+			
+	        "name": "Behavior_label",
+	        "type": "text",
+	        "label": "Gmail Label",
+	        "text": "i.e. \"All\" or \"Inbox\""
+	    },
+	    {
+			"tab": "General",
+			"group": "Behavior",
+		
+	        "name": "Behavior_openLinksIn",
+	        "type": "radioButtons",
+	        "label": "Open links in:",
+	        "options": [
+	            {
+	                "value": "GmailTab",
+	                "text": "any tab already opened on a Gmail page"
+	            },
+	            {
+	                "value": "activeTab",
+					"text": "the active tab"
 	            },
 				{
-	                "name": "Google Apps",
-	                "settings": [
-		                {
-	                        "name": "GoogleApps_enable",
-	                        "type": "checkbox",
-	                        "label": "Enable"
-	                    },
-	                    {
-	                        "name": "GoogleApps_domain",
-	                        "type": "text",
-	                        "label": "Domain",
-	                        "text": "i.e. example.com"
-	                    }
-	                ]
+	                "value": "newTab",
+					"text": "a new tab"
+	            },
+				{
+	                "value": "newWindow",
+					"text": "a new window"
 	            }
+	        ]
+	    },
+	
+	    {
+			"tab": "General",
+			"group": "Google Apps",
+		
+            "name": "GoogleApps_enable",
+            "type": "checkbox",
+            "label": "Enable"
+        },
+        {
+			"tab": "General",
+			"group": "Google Apps",
+	
+            "name": "GoogleApps_domain",
+            "type": "text",
+            "label": "Domain",
+            "text": "i.e. example.com"
+        },
+
+		{
+			"tab": "Notifications",
+			"group": "Sounds",
+		
+            "name": "Sounds_enable",
+            "type": "checkbox",
+            "label": "Enable"
+        },
+        {
+			"tab": "Notifications",
+			"group": "Sounds",
+		
+            "name": "Sounds_volume",
+            "type": "slider",
+            "label": "Volume",
+            "max": 1,
+			"min": 0,
+			"step": 0.01
+        },
+		{
+			"tab": "Notifications",
+			"group": "Sounds",
+		
+            "name": "Sounds_description",
+            "type": "description",
+            "text": "Here you can choose your custom sound. Just select any file in a QuickTime-supported format (512KB max)."
+        },
+		{
+			"tab": "Notifications",
+			"group": "Sounds",
+		
+            "name": "Sounds_choose",
+            "type": "button",
+            "text": "Choose sound..."
+        },
+		{
+			"tab": "Notifications",
+			"group": "Sounds",
+		
+            "name": "Sounds_name",
+            "type": "text",
+            "label": "Current sound",
+            "text": "loading..."
+        },
+
+		{
+			"tab": "Notifications",
+			"group": "Head Viewer",
+		
+            "name": "HeadViewer_description",
+            "type": "description",
+            "text": "(a.k.a. the toolbar under Safari's favorites bar)"
+        },
+        {
+			"tab": "Notifications",
+			"group": "Head Viewer",
+		
+            "name": "HeadViewer_interval",
+            "type": "popupButton",
+            "label": "Show each email for",
+			"options": [
+                {
+                    "value": "2",
+                    "text": "2 seconds"
+                },
+                {
+                    "value": "5",
+					"text": "5 seconds"
+                },
+				{
+                    "value": "10",
+					"text": "10 seconds"
+                },
+				{
+                    "value": "15",
+					"text": "15 seconds"
+                },
+				{
+                    "value": "20",
+					"text": "20 seconds"
+                },
+				{
+                    "value": "30",
+					"text": "30 seconds"
+                },
+				{
+                    "value": "45",
+					"text": "45 seconds"
+                },
+				{
+                    "value": "60",
+					"text": "a minute"
+                }
             ]
         },
         {
-            "name": "Notifications",
-            "groups": [
-				{
-	                "name": "Sounds",
-	                "settings": [
-		                {
-	                        "name": "Sounds_enable",
-	                        "type": "checkbox",
-	                        "label": "Enable"
-	                    },
-	                    {
-	                        "name": "Sounds_volume",
-	                        "type": "slider",
-	                        "label": "Volume",
-	                        "max": 1,
-							"min": 0,
-							"step": 0.01
-	                    },
-						{
-	                        "name": "Sounds_description",
-	                        "type": "description",
-	                        "text": "Here you can choose your custom sound. Just select any file in a QuickTime-supported format (512KB max)."
-	                    },
-						{
-	                        "name": "Sounds_choose",
-	                        "type": "button",
-	                        "text": "Choose sound..."
-	                    },
-						{
-	                        "name": "Sounds_name",
-	                        "type": "text",
-	                        "label": "Current sound",
-	                        "text": "loading..."
-	                    }
-	                ]
-	            },
-				{
-	                "name": "Head Viewer",
-	                "settings": [
-						{
-	                        "name": "HeadViewer_description",
-	                        "type": "description",
-	                        "text": "(a.k.a. the toolbar under Safari's favorites bar)"
-	                    },
-		                {
-	                        "name": "HeadViewer_interval",
-	                        "type": "popupButton",
-	                        "label": "Show each email for",
-							"options": [
-                                {
-                                    "value": "2",
-                                    "text": "2 seconds"
-                                },
-                                {
-                                    "value": "5",
-									"text": "5 seconds"
-                                },
-								{
-                                    "value": "10",
-									"text": "10 seconds"
-                                },
-								{
-                                    "value": "15",
-									"text": "15 seconds"
-                                },
-								{
-                                    "value": "20",
-									"text": "20 seconds"
-                                },
-								{
-                                    "value": "30",
-									"text": "30 seconds"
-                                },
-								{
-                                    "value": "45",
-									"text": "45 seconds"
-                                },
-								{
-                                    "value": "60",
-									"text": "a minute"
-                                }
-                            ]
-	                    },
-	                    {
-	                        "name": "HeadViewer_autoHide",
-	                        "type": "checkbox",
-	                        "label": "Close the Head Viewer when there is no mail to show"
-	                    },
-						{
-	                        "name": "HeadViewer_Non-Breaking_SPace",
-	                        "type": "description",
-	                        "text": ""
-	                    },
-                        {
-                            "name": "HeadViewer_closeBehavior",
-                            "type": "radioButtons",
-                            "label": "Clicking on the \"close\" button will:",
-                            "options": [
-                                {
-                                    "value": "closeAll",
-                                    "text": "close Head Viewer on every window, until you reopen it"
-                                }
-                            ]
-                        }
-	                ]
-	            }
+			"tab": "Notifications",
+			"group": "Head Viewer",
+		
+            "name": "HeadViewer_autoHide",
+            "type": "checkbox",
+            "label": "Close the Head Viewer when there is no mail to show"
+        },
+		{
+			"tab": "Notifications",
+			"group": "Head Viewer",
+		
+            "name": "HeadViewer_Non-Breaking_SPace",
+            "type": "description",
+            "text": ""
+        },
+        {
+			"tab": "Notifications",
+			"group": "Head Viewer",
+		
+            "name": "HeadViewer_closeBehavior",
+            "type": "radioButtons",
+            "label": "Clicking on the \"close\" button will:",
+            "options": [
+                {
+                    "value": "closeAll",
+                    "text": "close Head Viewer on every window, until you reopen it"
+                }
             ]
         }
+
     ]
 }
