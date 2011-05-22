@@ -1,13 +1,24 @@
 window.addEvent("domready", function () {
-    // Option 1: Use the manifest:
-    
+	
 	new FancySettings.initWithManifest(function (settings) {
+		store = new Store("settings");
+		
 		settings.manifest.Sounds_name.element.readOnly = true;
 		
+		var play = new Element("span");
+		play.id="GCPlayButton";
+		play.innerHTML="▶";
+		play.setStyle("position","relative");
+		play.setStyle("right","15px");
+		
+		play.addEvent("click", function(){
+			new Audio(store.get("Hidden_audioData")).play();
+		});
+		
+		play.inject(settings.manifest.Sounds_name.container);
+		
 		var Sounds_choose = settings.manifest.Sounds_choose;
-		
 		Sounds_choose.container.setStyle("height", "27px");
-		
 		Sounds_choose.addEvent("action", function(){
 			
 			if (Sounds_choose.element.value == Sounds_choose.params.text) {
@@ -48,7 +59,6 @@ window.addEvent("domready", function () {
 		        	case "success":
 						document.id("GCCancelButton").destroy();
 						Sounds_choose.element.value = "Close";
-						store = new Store("settings");
 						store.set("Sounds_name", e.data.data.name);
 						settings.manifest.Sounds_name.element.value = e.data.data.name;
 						
