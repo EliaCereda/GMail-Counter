@@ -1,4 +1,4 @@
-{
+this.manifest = {
     "name": "GMail Counter - Settings",
 	"icon": "../Icon.png",
     "settings": [
@@ -79,17 +79,17 @@
 			"tab": "Notifications",
 			"group": "Sounds",
 		
-            "name": "Sounds_description",
+            "name": "Sounds_Non-Breaking_SPace",
             "type": "description",
-            "text": "Here you can choose your custom sound. Just select any file in a QuickTime-supported format (512KB max)."
+            "text": ""
         },
 		{
 			"tab": "Notifications",
 			"group": "Sounds",
 		
-            "name": "Sounds_choose",
-            "type": "button",
-            "text": "Choose sound..."
+            "name": "Sounds_description",
+            "type": "description",
+            "text": "You can choose any audio file QuickTime can open with a max. size of 512KB."
         },
 		{
 			"tab": "Notifications",
@@ -99,6 +99,14 @@
             "type": "text",
             "label": "Current sound",
             "text": "loading..."
+        },
+		{
+			"tab": "Notifications",
+			"group": "Sounds",
+		
+            "name": "Sounds_choose",
+            "type": "button",
+            "text": "Choose another sound..."
         },
 
 		{
@@ -157,7 +165,7 @@
 		
             "name": "HeadViewer_autoHide",
             "type": "checkbox",
-            "label": "Close the Head Viewer when there is no mail to show"
+            "label": "Close the Head Viewer when there is nothing to show"
         },
 		{
 			"tab": "Notifications",
