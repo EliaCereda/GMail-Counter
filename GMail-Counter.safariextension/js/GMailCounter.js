@@ -45,7 +45,8 @@ Copyright (c) 2010-2011 Elia Cereda.
 					"HeadViewer_autoHide": false,
 					"HeadViewer_closeBehavior": "closeAll",
 			"Hidden_BarHiddenByMe": false,
-			"Hidden_latestFirstId": ""
+			"Hidden_latestFirstId": "",
+			"Hidden_audioData": audioData["Bell"]
 		},
 
 		event: function(e, data) {

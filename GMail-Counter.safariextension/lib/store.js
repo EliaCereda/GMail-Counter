@@ -4,29 +4,22 @@
 // License: MIT-license
 //
 (function () {
-    var Store = this.Store = function (name) {
+    var Store = this.Store = function (name, defaults) {
+        var key;
         this.name = name;
-    };
-    
-    Store.__proto__.initWithDefaults = function (name, defaults) {
-        var store,
-            key;
         
-        store = new Store(name);
-        for (key in defaults) {
-            if (defaults.hasOwnProperty(key)) {
-                if (store.get(key) === undefined) {
-                    store.set(key, defaults[key]);
+        if (defaults !== undefined) {
+            for (key in defaults) {
+                if (defaults.hasOwnProperty(key) && this.get(key) === undefined) {
+                    this.set(key, defaults[key]);
                 }
             }
         }
-        
-        return store;
     };
     
     Store.prototype.get = function (name) {
         name = "store." + this.name + "." + name;
-        if (!localStorage.hasOwnProperty(name)) { return undefined; }
+        if (localStorage.getItem(name) === null) { return undefined; }
         try {
             return JSON.parse(localStorage.getItem(name));
         } catch (e) {
@@ -64,8 +57,8 @@
             i;
         
         name = "store." + this.name + ".";
-        for (i = localStorage.length; i >= 0; i--) {
-            if (localStorage.key(i) && localStorage.key(i).substring(0, name.length) === name) {
+        for (i = (localStorage.length - 1); i >= 0; i--) {
+            if (localStorage.key(i).substring(0, name.length) === name) {
                 localStorage.removeItem(localStorage.key(i));
             }
         }
@@ -82,8 +75,8 @@
         
         values = {};
         name = "store." + this.name + ".";
-        for (i = localStorage.length; i >= 0; i--) {
-            if (localStorage.key(i) && localStorage.key(i).substring(0, name.length) === name) {
+        for (i = (localStorage.length - 1); i >= 0; i--) {
+            if (localStorage.key(i).substring(0, name.length) === name) {
                 key = localStorage.key(i).substring(name.length);
                 value = this.get(key);
                 if (value !== undefined) { values[key] = value; }
