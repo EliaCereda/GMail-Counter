@@ -12,7 +12,7 @@
 	<body>
 		
 		<script>
-			parent.postMessage("Error:\n\t{{message}}");
+			parent.postMessage({message: "error", data: {type: "{{type}}", details: "{{message}}"}}, "*");
 		</script>
 	</body>
 </html>

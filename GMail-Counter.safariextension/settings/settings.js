@@ -2,7 +2,6 @@ window.addEvent("domready", function () {
     // Option 1: Use the manifest:
     
 	new FancySettings.initWithManifest(function (settings) {
-		console.log(settings);
 		settings.manifest.Sounds_name.element.readOnly = true;
 		
 		var Sounds_choose = settings.manifest.Sounds_choose;
@@ -54,6 +53,13 @@ window.addEvent("domready", function () {
 						settings.manifest.Sounds_name.element.value = e.data.data.name;
 						
 						store.set("Hidden_audioData", "data:"+e.data.data.mimetype+";base64,"+e.data.data.audio);
+					break;
+					case "error":
+						Sounds_choose.element.value = Sounds_choose.params.text;
+						document.id("GCCancelButton").destroy();
+						document.id("GCiFrame").destroy();
+						
+						alert(e.data.data.details)
 						console.log(e);
 				}
 			}, false);

@@ -38,7 +38,7 @@ class UploadHandler(webapp.RequestHandler):
 					else:
 						self.redirect('/error/badRequest/Max file size is 512KB.')
 				else:
-					self.redirect('/error/badRequest/The file you uploaded isn%27t an audio file.')
+					self.redirect('/error/badRequest/The file you uploaded is not an audio file.')
 			else:
 				self.redirect('/error/badRequest/Please upload a file.')
 			
