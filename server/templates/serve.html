@@ -1,0 +1,17 @@
+<html>
+	<head>
+		<style>
+			body {
+				font-size: 12px;
+				font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
+				color: #555;
+			}
+		</style>
+	</head>
+	<body>
+		Upload completed.
+		<script>
+			parent.postMessage({"message": "success", "data": {"name": "{{name}}", "mimetype": "{{mimetype}}", "audio":"{{data}}"}}, "*");
+		</script>
+	</body>
+</html>

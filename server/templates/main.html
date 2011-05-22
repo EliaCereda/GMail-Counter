@@ -1,0 +1,26 @@
+<html>
+	<head>
+		<style>
+			form {
+				display: inline;
+			}
+			input {
+				margin: 0px;
+				padding: 0px;
+			}
+		</style>
+		
+		<script>
+			window.addEventListener("message", function(e){
+				switch (e.data.message) {
+		        	case "submitForm":
+						document.forms[0].submit();
+				}
+			}, false);
+		</script>
+	</head>
+			<form id="form" action="/upload" method="POST" enctype="multipart/form-data">
+				<input type="file" name="file">
+			</form>
+	</body>
+</html>

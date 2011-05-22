@@ -215,7 +215,7 @@ ExtensionBar = {
 
 	sendNotification: function() {
 		if (GMailCounter.settings.get("Sounds_enable")){
-			var a = new Audio("data:audio/mp3;base64," + audioData[GMailCounter.settings.get("Sounds_name")]);
+			var a = new Audio(GMailCounter.settings.get("Hidden_audioData"));
 			a.volume = GMailCounter.settings.get("Sounds_volume");
 			a.play();
 		}

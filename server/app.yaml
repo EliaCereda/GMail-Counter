@@ -1,0 +1,45 @@
+application: gmailcounter-app
+version: 2
+runtime: python
+api_version: 1
+
+handlers:
+- url: /upload
+  script: UploadHandler.py
+  secure: always
+  
+- url: /error/(.*?)/(.*)
+  script: ErrorHandler.py
+  secure: always
+
+########
+#Static#
+########
+
+- url: /static/css
+  static_dir: static/css
+  expiration: "3d"
+
+- url: /download/(stable|pending_review)/GMail-Counter\.safariextz
+  upload: static/download/(.*)/latest\.safariextz
+  static_files: static/download/\1/latest.safariextz
+  mime_type: application/octect-stream
+  expiration: "0"
+
+- url: /update\.plist
+  upload: static/update\.plist
+  static_files: static/update.plist
+  mime_type: application/xml
+  expiration: "0"
+
+- url: /favicon\.ico
+  static_files: static/images/favicon.ico
+  upload: static/images/favicon\.ico
+
+#########
+#Generic#
+#########
+
+- url: .*
+  script: main.py
+  secure: always
