@@ -134,7 +134,7 @@ this.i18n = {
 	"Sounds_description": {
         "en": "You can choose any audio file QuickTime can open with a max. size of 512KB.",
         "de": "",
-		"it": "Puoi selezionare qualsiasi file audio che Quicktime può aprire con una dimensione massima di 512KB."
+		"it": "Puoi selezionare qualsiasi file audio che QuickTime può aprire con una dimensione massima di 512KB."
     },
 
 	"Sounds_choose": {
