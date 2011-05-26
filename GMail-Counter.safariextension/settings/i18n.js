@@ -1,63 +1,163 @@
 // SAMPLE
 this.i18n = {
+	"title": {
+        "en": "GMail Counter - Settings",
+        "de": "GMail Counter - Optionen",
+		"it": "GMail Counter - Preferenze",
+    },
+
     "settings": {
         "en": "Settings",
-        "de": "Optionen"
+        "de": "Optionen",
+		"it": "Preferenze"
     },
+
     "search": {
         "en": "Search",
-        "de": "Suche"
+        "de": "Suche",
+		"it": "Cerca"
     },
+
     "nothing-found": {
         "en": "No matches were found.",
-        "de": "Keine Übereinstimmungen gefunden."
+        "de": "Keine Übereinstimmungen gefunden.",
+		"it": "Nessun risultato trovato."
     },
     
-    
-    
-    "information": {
-        "en": "Information",
-        "de": "Information"
-    },
-    "login": {
-        "en": "Login",
-        "de": "Anmeldung"
-    },
-    "password": {
-        "en": "Password:",
-        "de": "Passwort:"
-    },
-    "x-characters": {
-        "en": "6 - 12 characters",
-        "de": "6 - 12 Zeichen"
-    },
-    "description": {
-        "en": "This is a description. You can write any text inside of this.<br>\
-        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut\
-        labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores\
-        et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem\
-        ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et\
-        dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.\
-        Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
-        
-        "de": "Das ist eine Beschreibung. Du kannst hier beliebigen Text einfügen.<br>\
-        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut\
-        labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores\
-        et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem\
-        ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et\
-        dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.\
-        Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
-    },
-    "logout": {
-        "en": "Logout",
-        "de": "Abmeldung"
-    },
-    "enable": {
+	"enable": {
         "en": "Enable",
-        "de": "Aktivieren"
+        "de": "",
+		"it": "Abilita"
     },
-    "disconnect": {
-        "en": "Disconnect:",
-        "de": "Trennen:"
+    
+   
+    "general": {
+        "en": "General",
+        "de": "",
+		"it": "Generale"
+    },
+
+    "behavior": {
+        "en": "Behavior",
+        "de": "",
+		"it": "Comportamento"
+    },
+
+    "Behavior_label": {
+        "en": "Gmail label",
+        "de": "",
+		"it": "Etichetta di Gmail"
+    },
+
+	"Behavior_label-text": {
+        "en": "i.e. \"All\" or \"Inbox\"",
+        "de": "",
+		"it": "es. \"All\" o \"Inbox\""
+    },
+
+	"Behavior_openLinksIn": {
+        "en": "Open links in:",
+        "de": "",
+		"it": "Apri i link:"
+    },
+
+	"Behavior_openLinksIn-GmailTab": {
+        "en": "any tab already opened on a Gmail page",
+        "de": "",
+		"it": "in qualunque tab già aperto su Gmail"
+    },
+
+	"Behavior_openLinksIn-activeTab": {
+        "en": "the active tab",
+        "de": "",
+		"it": "nel tab attivo"
+    },
+
+	"Behavior_openLinksIn-newTab": {
+        "en": "a new tab",
+        "de": "",
+		"it": "in un nuovo tab"
+    },
+
+	"Behavior_openLinksIn-newWindow": {
+        "en": "a new window",
+        "de": "",
+		"it": "in una nuova finestra"
+    },
+
+ 	"GoogleApps": {
+        "en": "Google Apps",
+        "de": "Google Apps",
+		"it": "Google Apps"
+    },
+	"GoogleApps_domain": {
+        "en": "Domain",
+        "de": "",
+		"it": "Dominio"
+    },
+	"GoogleApps_domain-text": {
+        "en": "i.e. example.com",
+        "de": "",
+		"it": "es. esempio.com"
+    },
+
+	"notifications": {
+        "en": "Notifications",
+        "de": "",
+		"it": "Notifiche"
+    },
+
+	"sounds": {
+        "en": "Sounds",
+        "de": "",
+		"it": "Suoni"
+    },
+
+	"Sounds_name": {
+        "en": "Current sound",
+        "de": "",
+		"it": "Suono selezionato"
+    },
+
+	"Sounds_name-text": {
+        "en": "loading...",
+        "de": "",
+		"it": "caricamento..."
+    },
+
+	"Sounds_volume": {
+        "en": "Volume",
+        "de": "",
+		"it": "Volume"
+    },
+
+	"Sounds_description": {
+        "en": "You can choose any audio file QuickTime can open with a max. size of 512KB.",
+        "de": "",
+		"it": "Puoi selezionare qualsiasi file audio che Quicktime può aprire con una dimensione massima di 512KB."
+    },
+
+	"Sounds_choose": {
+        "en": "Choose another sound...",
+        "de": "",
+		"it": "Seleziona un suono..."
+    },
+
+	"Sounds_name-text": {
+        "en": "loading...",
+        "de": "",
+		"it": "caricamento..."
+    },
+
+	"HeadViewer": {
+        "en": "Head Viewer",
+        "de": "Head Viewer",
+		"it": "Head Viewer"
+    },
+
+	"HeadViewer_description": {
+        "en": "(a.k.a. the toolbar under Safari's favorites bar)",
+        "de": "",
+		"it": "(la toolbar sotto la barra dei preferiti di Safari)"
     }
 };

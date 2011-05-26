@@ -1,69 +1,69 @@
 this.manifest = {
-    "name": "GMail Counter - Settings",
+    "name": i18n.get("title"),
     "icon": "../Icon.png",
     "settings": [
         {
-            "tab": "General",
-            "group": "Behavior",
+            "tab":  i18n.get("general"),
+            "group": i18n.get("behavior"),
             
             "name": "Behavior_label",
             "type": "text",
-            "label": "Gmail Label",
-            "text": "i.e. \"All\" or \"Inbox\""
+            "label": i18n.get("Behavior_label"),
+            "text": i18n.get("Behavior_label-text")
         },
         {
-            "tab": "General",
-            "group": "Behavior",
+            "tab": i18n.get("general"),
+            "group": i18n.get("behavior"),
             "name": "Behavior_openLinksIn",
             "type": "radioButtons",
-            "label": "Open links in:",
+            "label": i18n.get("Behavior_openLinksIn"),
             "options": [
                 {
                     "value": "GmailTab",
-                    "text": "any tab already opened on a Gmail page"
+                    "text": i18n.get("Behavior_openLinksIn-GmailTab")
                 },
                 {
                     "value": "activeTab",
-                    "text": "the active tab"
+                    "text": i18n.get("Behavior_openLinksIn-activeTab")
                 },
                 {
                     "value": "newTab",
-                    "text": "a new tab"
+                    "text": i18n.get("Behavior_openLinksIn-newTab")
                 },
                 {
                     "value": "newWindow",
-                    "text": "a new window"
+                    "text": i18n.get("Behavior_openLinksIn-newWindow")
                 }
             ]
         },
         {
-            "tab": "General",
-            "group": "Google Apps",
+            "tab": i18n.get("general"),
+            "group": i18n.get("GoogleApps"),
             "name": "GoogleApps_enable",
             "type": "checkbox",
-            "label": "Enable"
+            "label": i18n.get("enable")
         },
         {
-            "tab": "General",
-            "group": "Google Apps",
+            "tab": i18n.get("general"),
+            "group": i18n.get("GoogleApps"),
             "name": "GoogleApps_domain",
             "type": "text",
-            "label": "Domain",
-            "text": "i.e. example.com"
+            "label": i18n.get("GoogleApps_domain"),
+            "text": i18n.get("GoogleApps_domain-text")
         },
         {
-            "tab": "Notifications",
-            "group": "Sounds",
+            "tab": i18n.get("notifications"),
+            "group": i18n.get("sounds"),
             "name": "Sounds_enable",
             "type": "checkbox",
-            "label": "Enable"
+            "label": i18n.get("enable")
         },
         {
-            "tab": "Notifications",
-            "group": "Sounds",
+            "tab": i18n.get("notifications"),
+            "group": i18n.get("sounds"),
             "name": "Sounds_volume",
             "type": "slider",
-            "label": "Volume",
+            "label": i18n.get("Sounds_volume"),
             "max": 1,
             "min": 0,
             "step": 0.01,
@@ -73,44 +73,44 @@ this.manifest = {
             }
         },
         {
-            "tab": "Notifications",
-            "group": "Sounds",
+            "tab": i18n.get("notifications"),
+            "group": i18n.get("sounds"),
             "name": "Sounds_Non-Breaking_SPace",
             "type": "description",
             "text": ""
         },
         {
-            "tab": "Notifications",
-            "group": "Sounds",
+            "tab": i18n.get("notifications"),
+            "group": i18n.get("sounds"),
             "name": "Sounds_description",
             "type": "description",
-            "text": "You can choose any audio file QuickTime can open with a max. size of 512KB."
+            "text": i18n.get("Sounds_description")
         },
         {
-            "tab": "Notifications",
-            "group": "Sounds",
+            "tab": i18n.get("notifications"),
+            "group": i18n.get("sounds"),
             "name": "Sounds_name",
             "type": "text",
-            "label": "Current sound",
-            "text": "loading..."
+            "label": i18n.get("Sounds_name"),
+            "text": i18n.get("Sounds_name-text")
         },
         {
-            "tab": "Notifications",
-            "group": "Sounds",
+            "tab": i18n.get("notifications"),
+            "group": i18n.get("sounds"),
             "name": "Sounds_choose",
             "type": "button",
-            "text": "Choose another sound..."
+            "text": i18n.get("Sounds_choose")
         },
         {
-            "tab": "Notifications",
-            "group": "Head Viewer",
+            "tab": i18n.get("notifications"),
+            "group": i18n.get("HeadViewer"),
             "name": "HeadViewer_description",
             "type": "description",
-            "text": "(a.k.a. the toolbar under Safari's favorites bar)"
+            "text": i18n.get("HeadViewer_description")
         },
         {
-            "tab": "Notifications",
-            "group": "Head Viewer",
+            "tab": i18n.get("notifications"),
+            "group": i18n.get("HeadViewer"),
             "name": "HeadViewer_interval",
             "type": "popupButton",
             "label": "Show each email for",
@@ -150,22 +150,22 @@ this.manifest = {
             ]
         },
         {
-            "tab": "Notifications",
-            "group": "Head Viewer",
+            "tab": i18n.get("notifications"),
+            "group": i18n.get("HeadViewer"),
             "name": "HeadViewer_autoHide",
             "type": "checkbox",
             "label": "Close the Head Viewer when there is nothing to show"
         },
         {
-            "tab": "Notifications",
-            "group": "Head Viewer",
+            "tab": i18n.get("notifications"),
+            "group": i18n.get("HeadViewer"),
             "name": "HeadViewer_Non-Breaking_SPace",
             "type": "description",
             "text": ""
         },
         {
-            "tab": "Notifications",
-            "group": "Head Viewer",
+            "tab": i18n.get("notifications"),
+            "group": i18n.get("HeadViewer"),
             "name": "HeadViewer_closeBehavior",
             "type": "radioButtons",
             "label": "Clicking on the \"close\" button will:",
