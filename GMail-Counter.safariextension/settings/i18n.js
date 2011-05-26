@@ -159,5 +159,41 @@ this.i18n = {
         "en": "(a.k.a. the toolbar under Safari's favorites bar)",
         "de": "(die Toolbar unter Safaris Lesezeichenleiste)",
 		"it": "(la toolbar sotto la barra dei preferiti di Safari)"
-    }
+    },
+
+	"HeadViewer_interval": {
+        "en": "Show each email for",
+        "de": "",
+		"it": "Mostra ogni mail per"
+    },
+
+	"HeadViewer_interval-secondsSuffix": {
+        "en": "seconds",
+        "de": "",
+		"it": "secondi"
+    },
+
+	"HeadViewer_interval-aMinute": {
+        "en": "a minute",
+        "de": "",
+		"it": "un minuto"
+    },
+
+	"HeadViewer_autoHide": {
+        "en": "Close Head Viewer when there is nothing to show",
+        "de": "",
+		"it": "Nascondi Head Viewer quando non ci sono mail non lette"
+    },
+
+	"HeadViewer_closeBehavior": {
+        "en": "Clicking on the \"close\" button will:",
+        "de": "",
+		"it": "Cliccare sul bottone \"chiudi\" farà:"
+    },
+
+	"HeadViewer_closeBehavior-closeAll": {
+	        "en": "close Head Viewer on every window, until you reopen it",
+	        "de": "",
+			"it": "chiudere Head Viewer in ogni finestra, finché non lo riaprirai"
+	    }
 };

@@ -113,39 +113,39 @@ this.manifest = {
             "group": i18n.get("HeadViewer"),
             "name": "HeadViewer_interval",
             "type": "popupButton",
-            "label": "Show each email for",
+            "label": i18n.get("HeadViewer_interval"),
             "options": [
                 {
                     "value": "2",
-                    "text": "2 seconds"
+                    "text": "2 "+i18n.get("HeadViewer_interval-secondsSuffix")
                 },
                 {
                     "value": "5",
-                    "text": "5 seconds"
+                    "text": "5 "+i18n.get("HeadViewer_interval-secondsSuffix")
                 },
                 {
                     "value": "10",
-                    "text": "10 seconds"
+                    "text": "10 "+i18n.get("HeadViewer_interval-secondsSuffix")
                 },
                 {
                     "value": "15",
-                    "text": "15 seconds"
+                    "text": "15 "+i18n.get("HeadViewer_interval-secondsSuffix")
                 },
                 {
                     "value": "20",
-                    "text": "20 seconds"
+                    "text": "20 "+i18n.get("HeadViewer_interval-secondsSuffix")
                 },
                 {
                     "value": "30",
-                    "text": "30 seconds"
+                    "text": "30 "+i18n.get("HeadViewer_interval-secondsSuffix")
                 },
                 {
                     "value": "45",
-                    "text": "45 seconds"
+                    "text": "45 "+i18n.get("HeadViewer_interval-secondsSuffix")
                 },
                 {
                     "value": "60",
-                    "text": "a minute"
+                    "text": i18n.get("HeadViewer_interval-aMinute")
                 }
             ]
         },
@@ -154,7 +154,7 @@ this.manifest = {
             "group": i18n.get("HeadViewer"),
             "name": "HeadViewer_autoHide",
             "type": "checkbox",
-            "label": "Close the Head Viewer when there is nothing to show"
+            "label": i18n.get("HeadViewer_autoHide")
         },
         {
             "tab": i18n.get("notifications"),
@@ -168,11 +168,11 @@ this.manifest = {
             "group": i18n.get("HeadViewer"),
             "name": "HeadViewer_closeBehavior",
             "type": "radioButtons",
-            "label": "Clicking on the \"close\" button will:",
+            "label": i18n.get("HeadViewer_closeBehavior"),
             "options": [
                 {
                     "value": "closeAll",
-                    "text": "close Head Viewer on every window, until you reopen it"
+                    "text": i18n.get("HeadViewer_closeBehavior-closeAll")
                 }
             ]
         }
