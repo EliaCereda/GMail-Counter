@@ -7,13 +7,26 @@ window.addEvent("domready", function () {
 		
 		var play = new Element("span");
 		play.id="GCPlayButton";
-		play.innerHTML="▶";
-		play.setStyle("position","relative");
-		play.setStyle("right","15px");
-		
-		play.addEvent("click", function(){
-			new Audio(store.get("Hidden_audioData")).play();
-		});
+		play.innerHTML="&#9654;";	//▶
+	
+		function audioToggle () {
+			if(play.innerHTML == "▶") {
+				window.audioObj = new Audio(store.get("Hidden_audioData"));
+				audioObj.addEventListener("ended", audioToggle, false);
+				
+				audioObj.play();
+				
+				
+				play.innerHTML="&#9724;";
+			} else {
+				window.audioObj.pause();
+				window.audioObj.destroy();
+				
+				play.innerHTML = "&#9654;";
+			}
+		}
+	
+		play.addEvent("click", audioToggle);
 		
 		play.inject(settings.manifest.Sounds_name.container);
 		

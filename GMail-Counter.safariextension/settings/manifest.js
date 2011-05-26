@@ -66,7 +66,11 @@ this.manifest = {
             "label": "Volume",
             "max": 1,
             "min": 0,
-            "step": 0.01
+            "step": 0.01,
+			"display": true,
+            "displayModifier": function (value) {
+                return (value * 100).floor() + "%";
+            }
         },
         {
             "tab": "Notifications",

@@ -23,7 +23,7 @@ class UploadHandler(webapp.RequestHandler):
 				
 				blob = self.request.get("file")
 				if (mime == "audio"):
-					if(len(blob) < 65536*8):
+					if(len(blob) < 512000):
 						blob64 = blob.encode('base64')
 						blob64 = blob64.replace('\n', '')
 						
