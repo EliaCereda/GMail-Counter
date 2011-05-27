@@ -163,37 +163,37 @@ this.i18n = {
 
 	"HeadViewer_interval": {
         "en": "Show each email for",
-        "de": "",
+        "de": "Anzeigedauer pro E-Mail",
 		"it": "Mostra ogni mail per"
     },
 
 	"HeadViewer_interval-secondsSuffix": {
         "en": "seconds",
-        "de": "",
+        "de": "Sekunden",
 		"it": "secondi"
     },
 
 	"HeadViewer_interval-aMinute": {
         "en": "a minute",
-        "de": "",
+        "de": "eine Minute",
 		"it": "un minuto"
     },
 
 	"HeadViewer_autoHide": {
         "en": "Close Head Viewer when there is nothing to show",
-        "de": "",
+        "de": "Head Viewer schließen, wenn nichts zum Anzeigen vorhanden ist.",
 		"it": "Nascondi Head Viewer quando non ci sono mail non lette"
     },
 
 	"HeadViewer_closeBehavior": {
         "en": "Clicking on the \"close\" button will:",
-        "de": "",
+        "de": "Verhalten des \"Schließen\"-Buttons:",
 		"it": "Cliccare sul bottone \"chiudi\" farà:"
     },
 
 	"HeadViewer_closeBehavior-closeAll": {
 	        "en": "close Head Viewer on every window, until you reopen it",
-	        "de": "",
+	        "de": "den Head Viewer in jedem Fenster schließen, bis Sie ihn wieder öffnen.",
 			"it": "chiudere Head Viewer in ogni finestra, finché non lo riaprirai"
 	    }
 };
