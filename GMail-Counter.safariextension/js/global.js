@@ -19,7 +19,6 @@ Global = {
 	
 	mailsCount: 0, //Number of unreaded mails
 	mailsArray: [], //Array of latest 20 unreaded mails
-	previousMailsArray: [], //Array before last update
 	
 	currentIndex: 0, //The current mail index in the mailsArray
 	updateState: false, //True if it's updating else false
@@ -118,16 +117,16 @@ Global = {
 	
 	loadData: function () {
 		Global.mailsCount = GMail.getMailsCount();
-		Global.previousMailsArray = Global.mailsArray;
+		
 		Global.mailsArray = GMail.getMailsArray();
 		
 		safari.extension.toolbarItems.forEach(function(item) {
 			if(item.command === "button") {
 				if(Global.mailsCount != 0) {
-					item.toolTip = "GMail Counter - "+Global.mailsCount+" new message"+(Global.mailsCount == 1?"":"s");
+					item.toolTip = i18n.get("GMailCounter") + " - " + Global.mailsCount + " " + (Global.mailsCount == 1 ? i18n.get("newMessage") : i18n.get("newMessages"));
 					item.badge = Global.mailsCount;
 				} else {
-					item.toolTip = "GMail Counter - No new messages";
+					item.toolTip = i18n.get("GMailCounter") + " - " + i18n.get("noNewMessages");
 					item.badge = 0;
 				}
 			}

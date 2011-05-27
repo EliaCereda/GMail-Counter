@@ -23,7 +23,7 @@ GMail = {
 	mails: null,			//This will be the container for mails' array
 	mailsCount: null,
 	
-	debug: false,			//If this is true "logThis" will output debug informations to console
+	debug: true,			//If this is true "logThis" will output debug informations to console
 	
 	GMailBaseURL: function(feed, query, anchor) {
 		if (feed === "gmail") {
@@ -124,7 +124,7 @@ GMail = {
 			}
 								//COLOR IS SET RIGHT HERE
 			this.mails[i].color = this.string2Color(this.mails[i].author); 
-			if(this.mails[i].title == "") this.mails[i].title = "[no subject]"
+			if(this.mails[i].title == "") this.mails[i].title = i18n.get("noSubject");
 			
 		}
 		
@@ -136,8 +136,8 @@ GMail = {
 			GMail.logThis(0, "parseFeed", "There aren't unread mails");
 			
 			this.mails[0] = {
-				title : "No unread mail",
-				author : "GMail Counter",
+				title : i18n.get("NoNewMessages"),
+				author : i18n.get("GMailCounter"),
 				link : this.GMailBaseURL(false, false, "#inbox"),
 				id : "000-000",
 				
@@ -164,8 +164,8 @@ GMail = {
 		if(this.getStatus() == "notLogged") {
 			GMail.logThis(0, "getMailsArray", "I've returned an array", "notLogged");
 			return [{
-				title : "Click here to login",
-				author : "GMail Counter",
+				title : i18n.get("ClickToLogin"),
+				author : i18n.get("GMailCounter"),
 				link : this.GMailBaseURL(false),
 				id : "000-000",
 				
@@ -180,8 +180,8 @@ GMail = {
 			GMailCounter.event("errorOccurred");
 			
 			return [{
-				title : "An error occurred, click here to re-login...",
-				author : "GMail Counter",
+				title : i18n.get("ErrorOccurred"),
+				author : i18n.get("GMailCounter"),
 				link : "https://mail.google.com/mail/?logout",
 				id : "000-000",
 				
