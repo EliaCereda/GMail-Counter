@@ -208,7 +208,7 @@ GMail = {
 	},
 	
 	checkNewMails: function() {
-		var firstMail = GMail.mails[0];
+		var firstMail = GMail.getMailsArray()[0];
 		var firstId = firstMail.id + firstMail.title + firstMail.author + firstMail.current + firstMail.total;
 		
 		var latestFirstId = GMailCounter.settings.get("Hidden_latestFirstId");
