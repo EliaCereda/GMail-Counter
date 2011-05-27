@@ -23,7 +23,7 @@ GMail = {
 	mails: null,			//This will be the container for mails' array
 	mailsCount: null,
 	
-	debug: true,			//If this is true "logThis" will output debug informations to console
+	debug: false,			//If this is true "logThis" will output debug informations to console
 	
 	GMailBaseURL: function(feed, query, anchor) {
 		if (feed === "gmail") {
@@ -68,7 +68,7 @@ GMail = {
 							(typeof callback == "function")?callback("checkLogin", true):"";
 						} else {
 							GMail.setStatus("notLogged");
-							GMail.logThis("WaRnInG", "checkLogin", "You're NOT logged-in!", 0);
+							GMail.logThis(1, "checkLogin", "You're NOT logged-in!", 0);
 							(typeof callback == "function")?callback("checkLogin", false):"";
 						}
 					} catch (e) {}
@@ -93,7 +93,7 @@ GMail = {
 					} else {
 						GMail.atomFeed = null;
 						GMail.setStatus("error", "Error while downloading feed");
-						GMail.logThis(1, "updateFeed", "I can't download new feed");
+						GMail.logThis(2, "updateFeed", "I can't download new feed");
 						(typeof callback == "function")?callback("updateFeed", "error"):"";
 					}
 				}
@@ -135,7 +135,7 @@ GMail = {
 			
 			GMail.logThis(0, "parseFeed", "There aren't unread mails");
 			
-			this.mails[0] = {
+			this.mails = [{
 				title : i18n.get("NoNewMessages"),
 				author : i18n.get("GMailCounter"),
 				link : this.GMailBaseURL(false, false, "#inbox"),
@@ -145,7 +145,7 @@ GMail = {
 				
 				current : "-",
 				total : "0"
-			};
+			}];
 			
 			(typeof callback == "function")?callback("parseFeed", "noMails"):"";
 			
@@ -173,7 +173,7 @@ GMail = {
 				
 				current : "-",
 				total : "0"
-			}]
+			}];
 		} else if(this.getStatus() == "error" || this.getStatus() == "notInited" || this.mails == null) {
 			GMail.logThis(0, "getMailsArray", "I've returned an array", "error");
 			
@@ -189,7 +189,7 @@ GMail = {
 				
 				current : "-",
 				total : "0"
-			}]
+			}];
 		} else {
 			GMail.logThis(0, "getMailsArray", "I've returned an array", this.mails);
 			return this.mails;
@@ -197,10 +197,10 @@ GMail = {
 	},
 	
 	getMailsCount: function() {
-		count = this.mailsCount
+		count = this.mailsCount;
 		
 		if(this.getStatus() == "notLogged" || this.getStatus() == "error" || this.getStatus() == "notInited" || this.mails == null) {
-			count = 0
+			count = 0;
 		}
 		
 		GMail.logThis(0, "getMailsCount", "There is/are "+count+" unread mail(s)");
@@ -213,18 +213,18 @@ GMail = {
 		
 		var latestFirstId = GMailCounter.settings.get("Hidden_latestFirstId");
 		
-		GMailCounter.settings.set("Hidden_latestFirstId", firstId)
+		GMailCounter.settings.set("Hidden_latestFirstId", firstId);
 		
 		if (firstId !== latestFirstId) {
 			if (firstMail.id === "000-000") {
-				this.logThis(false, "checkNewMails", "Status messages only");
+				this.logThis(0, "checkNewMails", "Status messages only");
 				return -1;
 			} else {
-				this.logThis(false, "checkNewMails", "There are new mails");
+				this.logThis(0, "checkNewMails", "There are new mails");
 				return 1;
 			}
 		} else {
-			this.logThis(false, "checkNewMails", "No new mails");
+			this.logThis(0, "checkNewMails", "No new mails");
 			return 0;
 		}
 	},
@@ -233,7 +233,7 @@ GMail = {
 		this.status = newStatus;
 		this.error = (this.status == "error") ? newError : 0;
 		
-		this.logThis(this.error, "setStatus", "New status is \""+this.status+"\"", this.error);
+		this.logThis((this.status == "error")?2:0, "setStatus", "New status is \""+this.status+"\"", this.error);
 		
 	},
 	
@@ -245,15 +245,20 @@ GMail = {
 		return this.error;
 	},
 	
-	logThis: function(isError, sender, message, data) {
+	logThis: function(errorLevel, sender, message, data) {
 		if(this.debug) {
-			console.group(sender+"() says: ")
-			if(isError === "WaRnInG") {
-				console.warn(message);
-			} else if (isError) {
-				console.error(message);
-			} else {
-				console.log(message);
+			console.group(sender+"() says: ");
+			switch (errorLevel) {
+				case 2:
+					console.error(message);
+				break;
+				
+				case 1:
+					console.warn(message);
+				break;
+				
+				default:
+					console.log(message);
 			}
 			
 			if(data) {
