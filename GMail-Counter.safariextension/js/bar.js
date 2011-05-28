@@ -27,7 +27,7 @@ ExtensionBar = {
 	mouseOver: false, //True if the mouse is over the bar
 	
 	init: function() {
-		this.onresize();
+		//this.onresize();
 		
 		this.requestActivation();
 	},
@@ -63,12 +63,12 @@ ExtensionBar = {
 	
 	onmouseover: function()  {
 		this.mouseOver = true;
-		this.onresize();
+		//this.onresize();
 	},
 	
 	onmouseout: function() {
 		this.mouseOver = false;
-		this.onresize();
+		//this.onresize();
 	},
 	
 	requestActivation: function () {
@@ -114,7 +114,7 @@ ExtensionBar = {
 				
 				ExtensionBar.toggleBar();
 				
-				ExtensionBar.onresize();
+				//ExtensionBar.onresize();
 			}
 		}
 	},
@@ -222,7 +222,7 @@ ExtensionBar = {
 	}
 };
 
-window.onresize = ExtensionBar.onresize;
+//window.onresize = ExtensionBar.onresize;
 
 function $ (id, ns) {
 	var ns = (typeof(ns) != "undefined")?ns : document;

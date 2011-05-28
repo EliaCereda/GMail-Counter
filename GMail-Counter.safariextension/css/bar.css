@@ -30,6 +30,9 @@ body
 .mail
 {
 	position: absolute;
+	left: 150px;
+	right: 150px;
+	text-align: center;
 	-webkit-transition: -webkit-transform 0.5s ease-out, opacity 0.2s ease-out, color 0.2s ease-out;
 	-webkit-transition-delay: 0s, 0.2s, 0.2s;
 	z-index: 1002;
