@@ -32,43 +32,21 @@ ExtensionBar = {
 		this.requestActivation();
 	},
 	
-	onresize: function() {
-		var ww = window.innerWidth;
-		
-		var m1 = $("mail_1");
-		var m2 = $("mail_2");
-		
+	onresize: function() {		
 		var nb = $$("number")[0];
-		var wnb = +(document.defaultView.getComputedStyle(nb, "").width.split("px")[0]);
+		var wnb = document.defaultView.getComputedStyle(nb, "").width.split("px")[0];
 		
 		var prev = $("previous");
-		
-		if(this.mouseOver) {
-			maxWidth = (+(ww)-(30+20+20+20+20+18+20)-(20+14+wnb+14+30)).toString() + "px";
-		} else {
-			maxWidth = (ww-40).toString() + "px";
-		}
-		
-		m1.style.maxWidth = maxWidth;
-		m2.style.maxWidth = maxWidth;
-		
-		var w1 = document.defaultView.getComputedStyle(m1, "").width.split("px")[0];
-		var w2 = document.defaultView.getComputedStyle(m2, "").width.split("px")[0];
-		
-		m1.style.left = ((ww/2)-(w1/2)).toString()+"px";
-		m2.style.left = ((ww/2)-(w2/2)).toString()+"px";
 		
 		prev.style.right = (24 + parseFloat(wnb) + 10).toString()+ "px";
 	},
 	
 	onmouseover: function()  {
 		this.mouseOver = true;
-		//this.onresize();
 	},
 	
 	onmouseout: function() {
 		this.mouseOver = false;
-		//this.onresize();
 	},
 	
 	requestActivation: function () {
@@ -114,7 +92,7 @@ ExtensionBar = {
 				
 				ExtensionBar.toggleBar();
 				
-				//ExtensionBar.onresize();
+				ExtensionBar.onresize();
 			}
 		}
 	},
@@ -222,7 +200,7 @@ ExtensionBar = {
 	}
 };
 
-//window.onresize = ExtensionBar.onresize;
+window.onresize = ExtensionBar.onresize;
 
 function $ (id, ns) {
 	var ns = (typeof(ns) != "undefined")?ns : document;
