@@ -46,5 +46,47 @@ this.i18n = {
         "en": "An error occurred, click here to re-login...",
         "de": "Es ist ein Fehler aufgetreten, zum erneuten Einloggen hier klicken...",
 		"it": "Errore sconosciuto, clicca qui per ri-accedere..."
-    }
+    },
+
+	"Update": {
+        "en": "Update",
+        "de": "",
+		"it": "Aggiorna"
+    },
+
+	"Updating": {
+		"en": "Updating...",
+		"de": "",
+		"it": "Aggiornamento in corso..."
+	},
+	
+	"close": {
+		"en": "Close Gmail Head Viewer...",
+		"de": "",
+		"it": "Chiudi Gmail Head Viewer..."
+	},
+	
+	"compose": {
+		"en": "Compose a new message...",
+		"de": "",
+		"it": "Scrivi una nuova mail..."
+	},
+	
+	"previous": {
+		"en": "Previous",
+		"de": "",
+		"it": "Indietro"
+	},
+	
+	"next": {
+		"en": "Next",
+		"de": "",
+		"it": "Avanti"
+	},
+	
+	"of": {
+		"en": "of",
+		"de": "",
+		"it": "di"
+	}
 };

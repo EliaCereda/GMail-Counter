@@ -27,7 +27,13 @@ ExtensionBar = {
 	mouseOver: false, //True if the mouse is over the bar
 	
 	init: function() {
-		//this.onresize();
+		this.onresize();
+		
+		$("close").title = i18n.get("close");
+		$("compose").title = i18n.get("compose");
+		$("previous").title = i18n.get("previous");
+		$("next").title = i18n.get("next");
+		$("numberOf").innerHTML = i18n.get("of");
 		
 		this.requestActivation();
 	},
@@ -184,10 +190,10 @@ ExtensionBar = {
 	setUpdateState: function(state) {
 		if(state) {
 			$("reload").className = "reloadSpinning";
-			$("reload").title = "Updating...";
+			$("reload").title = i18n.get("Updating");
 		} else {
 			$("reload").className = "";
-			$("reload").title = "Update";
+			$("reload").title = i18n.get("Update");
 		}
 	},
 
