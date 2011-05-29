@@ -38,13 +38,9 @@ ExtensionBar = {
 		this.requestActivation();
 	},
 	
-	onresize: function() {		
-		var nb = $$("number")[0];
-		var wnb = document.defaultView.getComputedStyle(nb, "").width.split("px")[0];
-		
-		var prev = $("previous");
-		
-		prev.style.right = (24 + parseFloat(wnb) + 10).toString()+ "px";
+	onresize: function() {
+		var numberWidth = document.defaultView.getComputedStyle($$("number")[0], "").width.split("px")[0];
+		$("previous").style.right = (24 + parseFloat(numberWidth) + 10).toString()+ "px";
 	},
 	
 	onmouseover: function()  {
