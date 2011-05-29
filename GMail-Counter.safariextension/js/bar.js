@@ -24,8 +24,6 @@ ExtensionBar = {
 	
 	inactive: 1, //The inactive mail div, aka the div with high class (1 or 2)
 	
-	mouseOver: false, //True if the mouse is over the bar
-	
 	init: function() {
 		this.onresize();
 		
@@ -41,14 +39,6 @@ ExtensionBar = {
 	onresize: function() {
 		var numberWidth = document.defaultView.getComputedStyle($$("number")[0], "").width.split("px")[0];
 		$("previous").style.right = (24 + parseFloat(numberWidth) + 10).toString()+ "px";
-	},
-	
-	onmouseover: function()  {
-		this.mouseOver = true;
-	},
-	
-	onmouseout: function() {
-		this.mouseOver = false;
 	},
 	
 	requestActivation: function () {
