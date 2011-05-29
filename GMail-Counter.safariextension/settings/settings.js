@@ -7,7 +7,7 @@ window.addEvent("domready", function () {
 		
 		var play = new Element("span");
 		play.id="GCPlayButton";
-		play.innerHTML="&#9654;";	//▶
+		play.innerHTML="▶";
 	
 		function audioToggle () {
 			if(play.innerHTML == "▶") {
@@ -17,12 +17,12 @@ window.addEvent("domready", function () {
 				audioObj.play();
 				
 				
-				play.innerHTML="&#9724;";
+				play.innerHTML="◼";
 			} else {
 				window.audioObj.pause();
 				window.audioObj.destroy();
 				
-				play.innerHTML = "&#9654;";
+				play.innerHTML = "▶";
 			}
 		}
 	
