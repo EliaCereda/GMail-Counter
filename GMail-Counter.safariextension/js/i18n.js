@@ -88,5 +88,11 @@ this.i18n = {
 		"en": "of",
 		"de": "",
 		"it": "di"
+	},
+
+	"Settings": {
+		"en": "GMail Counter Settings...",
+		"de": "",
+		"it": "Preferenze di GMail Counter..."
 	}
 };

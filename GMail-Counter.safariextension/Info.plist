@@ -29,6 +29,17 @@
 				<string>GMail Head Viewer</string>
 			</dict>
 		</array>
+		<key>Context Menu Items</key>
+		<array>
+			<dict>
+				<key>Command</key>
+				<string>preferences</string>
+				<key>Identifier</key>
+				<string>preferences</string>
+				<key>Title</key>
+				<string>GMail Counter Settings...</string>
+			</dict>
+		</array>
 		<key>Global Page</key>
 		<string>global.html</string>
 		<key>Toolbar Items</key>

@@ -53,11 +53,17 @@ Global = {
 	validate: function(e) {
 		if (e.command === "button") {
 			Global.processUpdate();
+		} else if (e.command == "preferences") {
+			e.target.title = i18n.get("Settings");
 		}
 	},
 	
 	command: function(e) {
-		Global.openLink(GMail.GMailBaseURL(false, false, "#inbox"));
+		if (e.command === "button") {
+			Global.openLink(GMail.GMailBaseURL(false, false, "#inbox"));
+		} else if (e.command == "preferences") {
+			Global.openLink(safari.extension.baseURI+"settings/index.html", "newTab");
+		}
 	},
 	
 	change: function (e) {
@@ -142,10 +148,10 @@ Global = {
 		}
 	},
 
-	openLink: function(link) {
+	openLink: function(link, forceMode) {
 		var _tab;
 		
-		switch ( GMailCounter.settings.get("Behavior_openLinksIn") ) {
+		switch ( forceMode || GMailCounter.settings.get("Behavior_openLinksIn") ) {
 			case "newTab":
 				_tab = safari.application.activeBrowserWindow.openTab();
 			break;
