@@ -87,5 +87,49 @@ window.addEvent("domready", function () {
 				}
 			}, false);
 		});
+		
+		settings.manifest.Sounds_enable.addEvent("action", function (value) {
+			if(!value) {
+				settings.manifest.Sounds_volume.element.disabled = true;
+				settings.manifest.Sounds_volume.bundle.setStyle("color", "#7F7F7F");
+
+				settings.manifest.Sounds_description.bundle.setStyle("color", "#7F7F7F");
+
+				settings.manifest.Sounds_name.element.setStyle("color", "#7F7F7F");
+				settings.manifest.Sounds_name.bundle.setStyle("color", "#8F8F8F");
+
+				settings.manifest.Sounds_choose.element.disabled = true;
+				
+				document.id("GCPlayButton").removeEvents("click");
+				document.id("GCPlayButton").setStyle("cursor", "auto");
+			} else {
+				settings.manifest.Sounds_volume.element.disabled = false;
+				settings.manifest.Sounds_volume.bundle.setStyle("color", "#222");
+			
+				settings.manifest.Sounds_description.bundle.setStyle("color", "#555");
+			
+				settings.manifest.Sounds_name.element.setStyle("color", "#222");
+				settings.manifest.Sounds_name.bundle.setStyle("color", "#222");
+			
+				settings.manifest.Sounds_choose.element.disabled = false;
+				
+				document.id("GCPlayButton").addEvent("click", audioToggle);
+				document.id("GCPlayButton").setStyle("cursor", "pointer");
+			}
+			
+		});
+		settings.manifest.Sounds_enable.fireEvent("action");
+		
+		settings.manifest.GoogleApps_enable.addEvent("action", function (value) {
+			if(!value) {
+				settings.manifest.GoogleApps_domain.element.disabled = true;
+				settings.manifest.GoogleApps_domain.bundle.setStyle("color", "#7F7F7F");
+			} else {
+				settings.manifest.GoogleApps_domain.element.disabled = false;
+				settings.manifest.GoogleApps_domain.bundle.setStyle("color", "#222");
+			}
+			
+		});
+		settings.manifest.GoogleApps_enable.fireEvent("action");
 	});
 });
