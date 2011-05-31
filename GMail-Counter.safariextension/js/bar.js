@@ -25,7 +25,7 @@ ExtensionBar = {
 	inactive: 1, //The inactive mail div, aka the div with high class (1 or 2)
 	
 	init: function() {
-		this.onresize();
+		//this.onresize();
 		
 		$("close").title = i18n.get("close");
 		$("compose").title = i18n.get("compose");
@@ -84,7 +84,7 @@ ExtensionBar = {
 				
 				ExtensionBar.toggleBar();
 				
-				ExtensionBar.onresize();
+				//ExtensionBar.onresize();
 			}
 		}
 	},
@@ -192,7 +192,7 @@ ExtensionBar = {
 	}
 };
 
-window.onresize = ExtensionBar.onresize;
+//window.onresize = ExtensionBar.onresize;
 
 function $ (id, ns) {
 	var ns = (typeof(ns) != "undefined")?ns : document;
