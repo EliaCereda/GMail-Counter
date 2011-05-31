@@ -70,7 +70,7 @@ Global = {
 		switch ( e.key ) {
 			case "settings":
 				if (e.newValue) {
-				Global.openLink(safari.extension.baseURI + "settings/index.html")
+				Global.openLink(safari.extension.baseURI + "settings/index.html", "newTab");
 				e.target[e.key] = false;
 			}
 			break;
