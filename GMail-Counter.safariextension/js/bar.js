@@ -25,8 +25,6 @@ ExtensionBar = {
 	inactive: 1, //The inactive mail div, aka the div with high class (1 or 2)
 	
 	init: function() {
-		//this.onresize();
-		
 		$("close").title = i18n.get("close");
 		$("compose").title = i18n.get("compose");
 		$("previous").title = i18n.get("previous");
@@ -34,11 +32,6 @@ ExtensionBar = {
 		$("numberOf").innerHTML = i18n.get("of");
 		
 		this.requestActivation();
-	},
-	
-	onresize: function() {
-		var numberWidth = document.defaultView.getComputedStyle($$("number")[0], "").width.split("px")[0];
-		$("previous").style.right = (24 + parseFloat(numberWidth) + 10).toString()+ "px";
 	},
 	
 	requestActivation: function () {
@@ -83,8 +76,6 @@ ExtensionBar = {
 				$("total").innerHTML = mailObject.total;
 				
 				ExtensionBar.toggleBar();
-				
-				//ExtensionBar.onresize();
 			}
 		}
 	},
@@ -191,8 +182,6 @@ ExtensionBar = {
 		}
 	}
 };
-
-//window.onresize = ExtensionBar.onresize;
 
 function $ (id, ns) {
 	var ns = (typeof(ns) != "undefined")?ns : document;
