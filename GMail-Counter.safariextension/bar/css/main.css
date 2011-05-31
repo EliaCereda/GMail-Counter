@@ -72,7 +72,8 @@ body.active .controls img:hover {
 }
 
 #message.switching {
-    top: -30px;
+    top: -40px;
+	-webkit-transition-timing-function: ease-in;
 }
 
 body.active #message-container {
@@ -84,7 +85,7 @@ body.active #message-container {
     display: inline-block;
     position: relative;
     cursor: pointer;
-    -webkit-transition: top 0.3s ease;
+    -webkit-transition: top 0.5s ease;
 }
 
 body.active #message:hover {
