@@ -145,13 +145,13 @@ this.i18n = {
 
 	"OK": {
         "en": "OK",
-        "de": "",	//TODO
+        "de": "OK",
 		"it": "OK"
     },
 
 	"Cancel": {
         "en": "Cancel",
-        "de": "",	//TODO
+        "de": "Abbrechen",
 		"it": "Annulla"
     },
 
