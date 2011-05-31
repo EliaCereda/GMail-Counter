@@ -9,7 +9,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>GMail Counter</string>
 	<key>CFBundleIdentifier</key>
-	<string>it.eliacereda.gmailcounter.newbar</string>
+	<string>it.eliacereda.gmailcounter</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
