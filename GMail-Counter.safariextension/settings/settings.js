@@ -71,7 +71,7 @@ window.addEvent("domready", function () {
 				switch (e.data.message) {
 		        	case "success":
 						document.id("GCCancelButton").destroy();
-						Sounds_choose.element.value = "Close";
+						Sounds_choose.element.value = i18n.get("Close");
 						store.set("Sounds_name", e.data.data.name);
 						settings.manifest.Sounds_name.element.value = e.data.data.name;
 						

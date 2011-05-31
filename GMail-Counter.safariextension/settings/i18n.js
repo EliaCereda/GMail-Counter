@@ -155,6 +155,12 @@ this.i18n = {
 		"it": "Annulla"
     },
 
+	"Close": {
+        "en": "Close",
+        "de": "Schließen",
+		"it": "Chiudi"
+    },
+
 	"Sounds_name-text": {
         "en": "loading...",
         "de": "laden...",
