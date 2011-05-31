@@ -71,6 +71,10 @@ body.active .controls img:hover {
     line-height: 30px;
 }
 
+#message.switching {
+    top: -30px;
+}
+
 body.active #message-container {
     color: #C5C5C5;
     text-shadow: black 0 1px 0;
@@ -78,7 +82,9 @@ body.active #message-container {
 
 #message {
     display: inline-block;
+    position: relative;
     cursor: pointer;
+    -webkit-transition: top 0.3s ease;
 }
 
 body.active #message:hover {
