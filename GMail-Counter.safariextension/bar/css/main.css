@@ -1,0 +1,61 @@
+body, .controls img {
+    -webkit-transition: all 0.3s ease;
+}
+
+body {
+    background: inherit;
+}
+
+body.active {
+    background-color: #3D3D3D;
+}
+
+.controls {
+    position: absolute;
+    margin: 6px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.controls img {
+    margin-right: 5px;
+    opacity: 0;
+    cursor: pointer;
+}
+
+body.active .controls img {
+    opacity: 0.7;
+}
+
+body.active .controls img:hover {
+    opacity: 1;
+}
+
+#controls1 {
+    top: 0;
+    left: 0;
+}
+
+#controls2 {
+    top: 0;
+    right: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

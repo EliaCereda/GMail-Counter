@@ -9,7 +9,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>GMail Counter</string>
 	<key>CFBundleIdentifier</key>
-	<string>it.eliacereda.gmailcounter</string>
+	<string>it.eliacereda.gmailcounter.newbar</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
@@ -22,7 +22,7 @@
 		<array>
 			<dict>
 				<key>Filename</key>
-				<string>bar.html</string>
+				<string>bar/index.html</string>
 				<key>Identifier</key>
 				<string>bar</string>
 				<key>Label</key>
