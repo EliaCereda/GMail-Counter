@@ -143,6 +143,18 @@ this.i18n = {
 		"it": "Seleziona un suono..."
     },
 
+	"OK": {
+        "en": "OK",
+        "de": "",	//TODO
+		"it": "OK"
+    },
+
+	"Cancel": {
+        "en": "Cancel",
+        "de": "",	//TODO
+		"it": "Annulla"
+    },
+
 	"Sounds_name-text": {
         "en": "loading...",
         "de": "laden...",
@@ -195,5 +207,5 @@ this.i18n = {
 	        "en": "close Head Viewer on every window, until you reopen it",
 	        "de": "den Head Viewer in jedem Fenster schließen, bis Sie ihn wieder öffnen.",
 			"it": "chiudere Head Viewer in ogni finestra, finché non lo riaprirai"
-	    }
+	}
 };
