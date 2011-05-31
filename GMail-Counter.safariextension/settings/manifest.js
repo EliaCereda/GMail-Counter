@@ -18,22 +18,22 @@ this.manifest = {
             "type": "radioButtons",
             "label": i18n.get("Behavior_openLinksIn"),
             "options": [
-                {
-                    "value": "GmailTab",
-                    "text": i18n.get("Behavior_openLinksIn-GmailTab")
-                },
-                {
-                    "value": "activeTab",
-                    "text": i18n.get("Behavior_openLinksIn-activeTab")
-                },
-                {
-                    "value": "newTab",
-                    "text": i18n.get("Behavior_openLinksIn-newTab")
-                },
-                {
-                    "value": "newWindow",
-                    "text": i18n.get("Behavior_openLinksIn-newWindow")
-                }
+                [
+                    "GmailTab",
+                    i18n.get("Behavior_openLinksIn-GmailTab")
+                ],
+                [
+                    "activeTab",
+                    i18n.get("Behavior_openLinksIn-activeTab")
+                ],
+                [
+                    "newTab",
+                    i18n.get("Behavior_openLinksIn-newTab")
+                ],
+                [
+                    "newWindow",
+                    i18n.get("Behavior_openLinksIn-newWindow")
+                ]
             ]
         },
         {
@@ -115,38 +115,38 @@ this.manifest = {
             "type": "popupButton",
             "label": i18n.get("HeadViewer_interval"),
             "options": [
-                {
-                    "value": "2",
-                    "text": "2 "+i18n.get("HeadViewer_interval-secondsSuffix")
-                },
-                {
-                    "value": "5",
-                    "text": "5 "+i18n.get("HeadViewer_interval-secondsSuffix")
-                },
-                {
-                    "value": "10",
-                    "text": "10 "+i18n.get("HeadViewer_interval-secondsSuffix")
-                },
-                {
-                    "value": "15",
-                    "text": "15 "+i18n.get("HeadViewer_interval-secondsSuffix")
-                },
-                {
-                    "value": "20",
-                    "text": "20 "+i18n.get("HeadViewer_interval-secondsSuffix")
-                },
-                {
-                    "value": "30",
-                    "text": "30 "+i18n.get("HeadViewer_interval-secondsSuffix")
-                },
-                {
-                    "value": "45",
-                    "text": "45 "+i18n.get("HeadViewer_interval-secondsSuffix")
-                },
-                {
-                    "value": "60",
-                    "text": i18n.get("HeadViewer_interval-aMinute")
-                }
+                [
+                    "2",
+                    "2 "+i18n.get("HeadViewer_interval-secondsSuffix")
+                ],  
+                [   
+                    "5",
+                    "5 "+i18n.get("HeadViewer_interval-secondsSuffix")
+                ],  
+                [   
+                    "10",
+                    "10 "+i18n.get("HeadViewer_interval-secondsSuffix")
+                ],  
+                [   
+                    "15",
+                    "15 "+i18n.get("HeadViewer_interval-secondsSuffix")
+                ],  
+                [   
+                    "20",
+                    "20 "+i18n.get("HeadViewer_interval-secondsSuffix")
+                ],  
+                [   
+                    "30",
+                    "30 "+i18n.get("HeadViewer_interval-secondsSuffix")
+                ],  
+                [   
+                    "45",
+                    "45 "+i18n.get("HeadViewer_interval-secondsSuffix")
+                ],  
+                [   
+                    "60",
+                    i18n.get("HeadViewer_interval-aMinute")
+                ]
             ]
         },
         {
@@ -170,10 +170,10 @@ this.manifest = {
             "type": "radioButtons",
             "label": i18n.get("HeadViewer_closeBehavior"),
             "options": [
-                {
-                    "value": "closeAll",
-                    "text": i18n.get("HeadViewer_closeBehavior-closeAll")
-                }
+                [
+                    "closeAll",
+                    i18n.get("HeadViewer_closeBehavior-closeAll")
+                ]
             ]
         }
     ]

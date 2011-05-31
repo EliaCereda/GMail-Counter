@@ -52,7 +52,7 @@ window.addEvent("domready", function () {
 				
 				var iframe = new Element("iframe");
 				iframe.id = "GCiFrame";
-				iframe.src = "http://localhost:8080/";
+				iframe.src = "http://2.gmailcounter-app.appspot.com/";
 				iframe.scrolling = "no";
 				iframe.setStyle("height", "27px");
 				iframe.setStyle("position", "relative");
@@ -89,14 +89,14 @@ window.addEvent("domready", function () {
 		});
 		
 		settings.manifest.Sounds_enable.addEvent("action", function (value) {
-			if(!value) {
+			if(!settings.manifest.Sounds_enable.get()) {
 				settings.manifest.Sounds_volume.element.disabled = true;
 				settings.manifest.Sounds_volume.bundle.setStyle("color", "#7F7F7F");
 
 				settings.manifest.Sounds_description.bundle.setStyle("color", "#7F7F7F");
 
 				settings.manifest.Sounds_name.element.setStyle("color", "#7F7F7F");
-				settings.manifest.Sounds_name.bundle.setStyle("color", "#8F8F8F");
+				settings.manifest.Sounds_name.bundle.setStyle("color", "#7F7F7F");
 
 				settings.manifest.Sounds_choose.element.disabled = true;
 				
@@ -121,11 +121,13 @@ window.addEvent("domready", function () {
 		settings.manifest.Sounds_enable.fireEvent("action");
 		
 		settings.manifest.GoogleApps_enable.addEvent("action", function (value) {
-			if(!value) {
-				settings.manifest.GoogleApps_domain.element.disabled = true;
+			if(!settings.manifest.GoogleApps_enable.get()) {
+				settings.manifest.GoogleApps_domain.element.readonly = true;
+				settings.manifest.GoogleApps_domain.element.setStyle("color", "#7F7F7F");
 				settings.manifest.GoogleApps_domain.bundle.setStyle("color", "#7F7F7F");
 			} else {
-				settings.manifest.GoogleApps_domain.element.disabled = false;
+				settings.manifest.GoogleApps_domain.element.readonly = false;
+				settings.manifest.GoogleApps_domain.element.setStyle("color", "#222");
 				settings.manifest.GoogleApps_domain.bundle.setStyle("color", "#222");
 			}
 			
