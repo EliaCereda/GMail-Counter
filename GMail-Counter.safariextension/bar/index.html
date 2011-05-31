@@ -14,13 +14,22 @@
     </head>
     <body>
         <div id="controls1" class="controls">
-            <img src="img/compose.png" alt="Compose">
-            <img src="img/reload.png" alt="Reload">
+            <img id="compose" src="img/compose.png" alt="Compose">
+            <img id="reload" src="img/reload.png" alt="Reload">
         </div>
         <div id="controls2" class="controls">
-            <img src="img/compose.png" alt="Compose">
-            <img src="img/reload.png" alt="Reload">
+            <span id="counter"><span id="current">1</span> / <span id="total">2</span></span>
+            <img id="previous" src="img/previous.png" alt="Previous">
+            <img id="next" src="img/next.png" alt="Next">
+            <img id="settings" src="img/settings.png" alt="Settings">
+            <img id="close" src="img/close.png" alt="Close">
         </div>
-        
+        <div id="message-container">
+            <div id="message">
+                <span class="quotes">“</span>
+                <span id="message-text">No unread mail</span>
+                <span class="quotes">”</span>
+            </div>
+        </div>
     </body>
 </html>
