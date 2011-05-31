@@ -35,12 +35,12 @@ window.addEvent("domready", function () {
 		Sounds_choose.addEvent("action", function(){
 			
 			if (Sounds_choose.element.value == Sounds_choose.params.text) {
-				Sounds_choose.element.value = "OK";
+				Sounds_choose.element.value = i18n.get("OK");
 				
 				var cancel = new Element("input");
 				cancel.id = "GCCancelButton"
 				cancel.type = "button";
-				cancel.value = "Cancel";
+				cancel.value = i18n.get("Cancel");
 				cancel.addEvent("click", function() {
 					Sounds_choose.element.value = Sounds_choose.params.text;
 
