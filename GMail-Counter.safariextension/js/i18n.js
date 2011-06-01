@@ -20,13 +20,13 @@ this.i18n = {
 
 	"noNewMessages": {
         "en": "no new messages",
-        "de": "keine neue Nachrichten",
+        "de": "Keine neuen Nachrichten",
 		"it": "nessuna mail non letta"
     },
 
 	"NoNewMessages": {
         "en": "No new messages",
-        "de": "Keine neue Nachrichten",
+        "de": "Keine neuen Nachrichten",
 		"it": "Nessuna mail non letta"
     },
 
@@ -38,7 +38,7 @@ this.i18n = {
 
 	"ClickToLogin": {
         "en": "Click here to login",
-        "de": "Klicken zum Einloggen",
+        "de": "Zum Einloggen hier klicken",
 		"it": "Clicca qui per accedere"
     },
 
@@ -50,49 +50,49 @@ this.i18n = {
 
 	"Update": {
         "en": "Update",
-        "de": "",
+        "de": "Aktualisieren",
 		"it": "Aggiorna"
     },
 
 	"Updating": {
 		"en": "Updating...",
-		"de": "",
+		"de": "Aktualisieren...",
 		"it": "Aggiornamento in corso..."
 	},
 	
 	"close": {
 		"en": "Close Gmail Head Viewer...",
-		"de": "",
+		"de": "Head Viewer schließen...",
 		"it": "Chiudi Gmail Head Viewer..."
 	},
 	
 	"compose": {
 		"en": "Compose a new message...",
-		"de": "",
+		"de": "E-Mail schreiben...",
 		"it": "Scrivi una nuova mail..."
 	},
 	
 	"previous": {
 		"en": "Previous",
-		"de": "",
+		"de": "Zurück",
 		"it": "Indietro"
 	},
 	
 	"next": {
 		"en": "Next",
-		"de": "",
+		"de": "Vor",
 		"it": "Avanti"
 	},
 	
 	"of": {
 		"en": "of",
-		"de": "",
+		"de": "von",
 		"it": "di"
 	},
 
 	"Settings": {
 		"en": "GMail Counter Settings...",
-		"de": "",
+		"de": "GMail Counter Optionen...",
 		"it": "Preferenze di GMail Counter..."
 	}
 };
