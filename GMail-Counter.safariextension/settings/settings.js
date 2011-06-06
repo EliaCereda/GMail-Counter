@@ -52,7 +52,7 @@ window.addEvent("domready", function () {
 				
 				var iframe = new Element("iframe");
 				iframe.id = "GCiFrame";
-				iframe.src = "http://2.gmailcounter-app.appspot.com/";
+				iframe.src = "http://3.gmailcounter-app.appspot.com/";
 				iframe.scrolling = "no";
 				iframe.setStyle("height", "27px");
 				iframe.setStyle("position", "relative");

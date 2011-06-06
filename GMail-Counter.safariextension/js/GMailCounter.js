@@ -17,9 +17,9 @@ Copyright (c) 2010-2011 Elia Cereda.
 (function() {
 	this.GMailCounter = {
 		info: {
-			humanVersion: "0.9 | beta 1",
-			version: "9.b.1",
-			releaseType: "beta"
+			humanVersion: "0.9",
+			version: "9",
+			releaseType: "stable"
 		},
 	
 		tracker: {}, //This will contain the ExtTracker object
