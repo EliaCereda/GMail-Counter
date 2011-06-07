@@ -132,10 +132,10 @@ Global = {
 					item.toolTip = i18n.get("GMailCounter") + " - " + Global.mailsCount + " " + (Global.mailsCount == 1 ? i18n.get("newMessage") : i18n.get("newMessages"));
 					item.badge = Global.mailsCount;
 				} else if(GMail.getStatus() == "notLogged") {
-					item.toolTip = "GMail Counter - Not logged in";
+					item.toolTip = i18n.get("GMailCounter") + " - " + i18n.get("NotLoggedIn");
 					item.badge = 0;
 				} else {
-					item.toolTip = i18n.get("GMailCounter") + " - " + i18n.get("noNewMessages");
+					item.toolTip = i18n.get("GMailCounter") + " - " + i18n.get("NoNewMessages");
 					item.badge = 0;
 				}
 			}

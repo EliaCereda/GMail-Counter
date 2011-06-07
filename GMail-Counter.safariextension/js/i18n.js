@@ -18,16 +18,16 @@ this.i18n = {
 		"it": "mail non lette"
     },
 
-	"noNewMessages": {
-        "en": "no new messages",
-        "de": "Keine neuen Nachrichten",
-		"it": "nessuna mail non letta"
-    },
-
 	"NoNewMessages": {
         "en": "No new messages",
         "de": "Keine neuen Nachrichten",
 		"it": "Nessuna mail non letta"
+    },
+
+	"NotLoggedIn": {
+        "en": "Not logged in",
+        "de": "Nicht angemeldet",
+		"it": "Non hai effettuato l'accesso"
     },
 
 	"noSubject": {
