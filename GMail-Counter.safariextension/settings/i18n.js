@@ -45,7 +45,7 @@ this.i18n = {
 
     "Behavior_label": {
         "en": "Gmail label",
-        "de": "Google Mail Label",
+        "de": "Google Mail-Label",
 		"it": "Etichetta di Gmail"
     },
 
@@ -63,7 +63,7 @@ this.i18n = {
 
 	"Behavior_openLinksIn-GmailTab": {
         "en": "any tab already opened on a Gmail page",
-        "de": "einem Tab, der schon Google Mail geöffnet hat",
+        "de": "einem Tab, in dem Google Mail schon geöffnet ist",
 		"it": "in qualunque tab già aperto su Gmail"
     },
 
@@ -109,19 +109,19 @@ this.i18n = {
 
 	"sounds": {
         "en": "Sounds",
-        "de": "Sounds",
+        "de": "Töne",
 		"it": "Suoni"
     },
 
 	"Sounds_name": {
         "en": "Current sound",
-        "de": "Aktueller Sound",
+        "de": "Aktueller Ton",
 		"it": "Suono selezionato"
     },
 
 	"Sounds_name-text": {
         "en": "loading...",
-        "de": "laden...",
+        "de": "Laden...",
 		"it": "caricamento..."
     },
 
@@ -139,7 +139,7 @@ this.i18n = {
 
 	"Sounds_choose": {
         "en": "Choose another sound...",
-        "de": "Anderen Sound auswählen...",
+        "de": "Anderen Ton auswählen...",
 		"it": "Seleziona un suono..."
     },
 
@@ -163,7 +163,7 @@ this.i18n = {
 
 	"Sounds_name-text": {
         "en": "loading...",
-        "de": "laden...",
+        "de": "Laden...",
 		"it": "caricamento..."
     },
 
@@ -199,7 +199,7 @@ this.i18n = {
 
 	"HeadViewer_autoHide": {
         "en": "Close Head Viewer when there is nothing to show",
-        "de": "Head Viewer schließen, wenn nichts zum Anzeigen vorhanden ist.",
+        "de": "Head Viewer schließen, wenn es keine neuen E-Mails gibt",
 		"it": "Nascondi Head Viewer quando non ci sono mail non lette"
     },
 
@@ -211,7 +211,7 @@ this.i18n = {
 
 	"HeadViewer_closeBehavior-closeAll": {
 	        "en": "close Head Viewer on every window, until you reopen it",
-	        "de": "den Head Viewer in jedem Fenster schließen, bis Sie ihn wieder öffnen.",
+	        "de": "Head Viewer in jedem Fenster schließen, bis Sie ihn wieder öffnen",
 			"it": "chiudere Head Viewer in ogni finestra, finché non lo riaprirai"
 	}
 };

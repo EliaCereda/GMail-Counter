@@ -26,17 +26,19 @@ body
 	font-family: 'Lucida Grande', 'Lucida Sans Unicode';
 	color: black;
 	overflow: hidden;
-}
-
-.mail
-{
 	position: absolute;
 	left: 125px;
 	right: 120px;
 	text-align: center;
+	z-index: 1002;
+}
+
+.mail
+{
+	
+	display: inline-block;
 	-webkit-transition: -webkit-transform 0.5s ease-out, opacity 0.2s ease-out, color 0.2s ease-out;
 	-webkit-transition-delay: 0s, 0.2s, 0.2s;
-	z-index: 1002;
 	overflow: hidden;
 }
 

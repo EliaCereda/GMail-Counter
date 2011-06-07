@@ -32,6 +32,26 @@ ExtensionBar = {
 		$("numberOf").innerHTML = i18n.get("of");
 		
 		this.requestActivation();
+		
+		
+		// position fix
+		var mail1 = $("mail_1");
+        var mail2 = $("mail_2");
+        
+        mail1.addEventListener("webkitTransitionEnd", function () {
+		    if (mail1.className === "mail high") {
+                mail1.style.display = "none";
+                mail2.style.display = "inline-block";
+		        setTimeout(function() {mail2.className="mail low";}, 0);
+		    }
+		}, false);
+		mail2.addEventListener("webkitTransitionEnd", function () {
+		    if (mail2.className === "mail high") {
+                mail2.style.display = "none";
+                mail1.style.display = "inline-block";
+                setTimeout(function() {mail1.className="mail low";}, 0);
+		    }
+		}, false);
 	},
 	
 	requestActivation: function () {
@@ -84,17 +104,11 @@ ExtensionBar = {
 		switch ( this.inactive ) {
 			case 1:
 				$("mail_2").className="mail high";
-				
-				$("mail_1").className="mail low";
-				
 				this.inactive=2;
 				break;
 			
 			case 2:
-				$("mail_2").className="mail low";
-				
 				$("mail_1").className="mail high";
-				
 				this.inactive=1;
 				break;
 			
