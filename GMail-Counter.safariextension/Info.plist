@@ -4,6 +4,8 @@
 <dict>
 	<key>Author</key>
 	<string>Elia Cereda</string>
+	<key>Builder Version</key>
+	<string>7534.20.8</string>
 	<key>CFBundleDisplayName</key>
 	<string>GMail Counter</string>
 	<key>CFBundleIdentifier</key>
@@ -11,9 +13,9 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.8.2</string>
+	<string>0.9</string>
 	<key>CFBundleVersion</key>
-	<string>8.2</string>
+	<string>9</string>
 	<key>Chrome</key>
 	<dict>
 		<key>Bars</key>
@@ -25,6 +27,17 @@
 				<string>bar</string>
 				<key>Label</key>
 				<string>GMail Head Viewer</string>
+			</dict>
+		</array>
+		<key>Context Menu Items</key>
+		<array>
+			<dict>
+				<key>Command</key>
+				<string>preferences</string>
+				<key>Identifier</key>
+				<string>preferences</string>
+				<key>Title</key>
+				<string>GMail Counter Settings...</string>
 			</dict>
 		</array>
 		<key>Global Page</key>
@@ -63,7 +76,6 @@
 			<key>Allowed Domains</key>
 			<array>
 				<string>mail.google.com</string>
-				<string>elix14.altervista.org</string>
 				<string>gmailcounter-app.appspot.com</string>
 			</array>
 			<key>Include Secure Pages</key>

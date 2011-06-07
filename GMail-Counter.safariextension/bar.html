@@ -1,4 +1,4 @@
-﻿<!--
+<!--
 --------------------------------
 	bar.html
 	Author: Elia Cereda
@@ -19,14 +19,16 @@ Copyright (c) 2010-2011 Elia Cereda.
 <html>
 	<head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-		<script src="js/include/audioData.js"></script>
+		<script src="js/i18n.js"></script>
+		<script src="lib/i18n.js"></script>
+		
 		<script src="js/bar.js"></script>
 		
 		<link rel="stylesheet" rev="stylesheet" href="css/bar.css" type="text/css" />
 	</head>
-	<body onload="ExtensionBar.init()" onmouseover="ExtensionBar.onmouseover()" onmouseout="ExtensionBar.onmouseout()">
+	<body onload="ExtensionBar.init()">
 		<div id="container">
-			<div id="mail_1" class="mail high" onclick="ExtensionBar.openMail()">
+			<div id="mail_1" class="mail high" onclick="ExtensionBar.openMail()" style="display:none;">
 					<span class="mailId" style="display: none;">-</span>
 				
 					<span class="quotes">&#x201c;</span>
@@ -52,18 +54,19 @@ Copyright (c) 2010-2011 Elia Cereda.
 		</div>
 		
 		<div id="overlay">
-			<div id="close" title="Close GMail Head Viewers..." onclick="ExtensionBar.requestClose()">&nbsp;</div>
-			<div id="compose" title="Compose a new message..." onclick="ExtensionBar.compose()">&nbsp;</div>
+			<div id="close" onclick="ExtensionBar.requestClose()">&nbsp;</div>
+			<div id="compose" onclick="ExtensionBar.compose()">&nbsp;</div>
 			<div id="reload" class="reloadSpinning" title="Loading..." onclick="ExtensionBar.requestUpdate()">&nbsp;</div>
 			<div id="controllers">
 				<div id="previous" onclick="ExtensionBar.previous()" title="Previous">&nbsp;</div>
 				<div class="number">
 					<span id="current">-</span>
-					of
+					<span id="numberOf">of</span>
 					<span id="total">0</span>
 				</div>
 				<div id="next" onclick="ExtensionBar.next()" title="Next">&nbsp;</div>
 			</div>
 		</div>
+		
 	</body>
 </html>

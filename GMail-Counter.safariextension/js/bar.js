@@ -1,4 +1,4 @@
-﻿/*
+/*
 --------------------------------
 	bar.js
 	Author: Elia Cereda
@@ -18,58 +18,40 @@ Copyright (c) 2010-2011 Elia Cereda.
 var GMail; //This will contain the GMail Object
 var GMailCounter; //This will contain the GMailCounter Object
 var Global; //This will contain the Global Object
-var Storage = safari.extension.settings || {};
 
 ExtensionBar = {
 	alreadyActivated: false,	//Setted to true on first update
 	
 	inactive: 1, //The inactive mail div, aka the div with high class (1 or 2)
 	
-	mouseOver: false, //True if the mouse is over the bar
-	
 	init: function() {
-		this.onresize();
+		$("close").title = i18n.get("close");
+		$("compose").title = i18n.get("compose");
+		$("previous").title = i18n.get("previous");
+		$("next").title = i18n.get("next");
+		$("numberOf").innerHTML = i18n.get("of");
 		
 		this.requestActivation();
-	},
-	
-	onresize: function() {
-		var ww = window.innerWidth;
 		
-		var m1 = $("mail_1");
-		var m2 = $("mail_2");
 		
-		var nb = $$("number")[0];
-		var wnb = +(document.defaultView.getComputedStyle(nb, "").width.split("px")[0]);
-		
-		var prev = $("previous");
-		
-		if(this.mouseOver) {
-			maxWidth = (+(ww)-(30+20+20+20+20+18+20)-(20+14+wnb+14+30)).toString() + "px";
-		} else {
-			maxWidth = (ww-40).toString() + "px";
-		}
-		
-		m1.style.maxWidth = maxWidth;
-		m2.style.maxWidth = maxWidth;
-		
-		var w1 = document.defaultView.getComputedStyle(m1, "").width.split("px")[0];
-		var w2 = document.defaultView.getComputedStyle(m2, "").width.split("px")[0];
-		
-		m1.style.left = ((ww/2)-(w1/2)).toString()+"px";
-		m2.style.left = ((ww/2)-(w2/2)).toString()+"px";
-		
-		prev.style.right = (24 + parseFloat(wnb) + 10).toString()+ "px";
-	},
-	
-	onmouseover: function()  {
-		this.mouseOver = true;
-		this.onresize();
-	},
-	
-	onmouseout: function() {
-		this.mouseOver = false;
-		this.onresize();
+		// position fix
+		var mail1 = $("mail_1");
+        var mail2 = $("mail_2");
+        
+        mail1.addEventListener("webkitTransitionEnd", function () {
+		    if (mail1.className === "mail high") {
+                mail1.style.display = "none";
+                mail2.style.display = "inline-block";
+		        setTimeout(function() {mail2.className="mail low";}, 0);
+		    }
+		}, false);
+		mail2.addEventListener("webkitTransitionEnd", function () {
+		    if (mail2.className === "mail high") {
+                mail2.style.display = "none";
+                mail1.style.display = "inline-block";
+                setTimeout(function() {mail1.className="mail low";}, 0);
+		    }
+		}, false);
 	},
 	
 	requestActivation: function () {
@@ -80,15 +62,15 @@ ExtensionBar = {
 	},
 	
 	activate: function() {
-		if(!this.alreadyActivated) {
-			GMail = safari.extension.globalPage.contentWindow.GMail || {};
-			GMailCounter = safari.extension.globalPage.contentWindow.GMailCounter || {};
-			Global  = safari.extension.globalPage.contentWindow.Global || {};
-			
-			ExtensionBar.alreadyActivated = true;
-			ExtensionBar.update();
-			ExtensionBar.setUpdateState(Global.updateState);
-		}
+		if(this.alreadyActivated)
+			return;
+		GMail = safari.extension.globalPage.contentWindow.GMail || {};
+		GMailCounter = safari.extension.globalPage.contentWindow.GMailCounter || {};
+		Global  = safari.extension.globalPage.contentWindow.Global || {};
+		
+		ExtensionBar.alreadyActivated = true;
+		ExtensionBar.update();
+		ExtensionBar.setUpdateState(Global.updateState);
 	},
 	
 	update: function() {
@@ -114,8 +96,6 @@ ExtensionBar = {
 				$("total").innerHTML = mailObject.total;
 				
 				ExtensionBar.toggleBar();
-				
-				ExtensionBar.onresize();
 			}
 		}
 	},
@@ -124,17 +104,11 @@ ExtensionBar = {
 		switch ( this.inactive ) {
 			case 1:
 				$("mail_2").className="mail high";
-				
-				$("mail_1").className="mail low";
-				
 				this.inactive=2;
 				break;
 			
 			case 2:
-				$("mail_2").className="mail low";
-				
 				$("mail_1").className="mail high";
-				
 				this.inactive=1;
 				break;
 			
@@ -167,12 +141,12 @@ ExtensionBar = {
 	},
 	
 	next: function() {
-		var a = Global.BarNext || function() {};
+		var a = Global.BarNext || function(){};
 		a();
 	},
 	
 	previous: function() {
-		var a = Global.BarPrevious || function() {};
+		var a = Global.BarPrevious || function(){};
 		a();
 	},
 	
@@ -181,13 +155,13 @@ ExtensionBar = {
 	},
 	
 	openLink: function(link) {
-		var a = Global.openLink || function() {};
+		var a = Global.openLink || function(){};
 		
 		a(link);
 	},
 	
 	requestUpdate: function() {
-		var a = Global.processUpdate || function() {};
+		var a = Global.processUpdate || function(){};
 		a(window.event.altKey);
 		
 		if(window.event.altKey) {
@@ -199,7 +173,7 @@ ExtensionBar = {
 		if(window.event.altKey && window.event.shiftKey) {
 			alert("Anonymous UserID:\n\t"+GMailCounter.getUserID());
 		} else {
-			var a = Global.processBarClose || function() {};
+			var a = Global.processBarClose || function(){};
 			a(safari.self);
 		}
 	},
@@ -207,26 +181,27 @@ ExtensionBar = {
 	setUpdateState: function(state) {
 		if(state) {
 			$("reload").className = "reloadSpinning";
-			$("reload").title = "Updating...";
+			$("reload").title = i18n.get("Updating");
 		} else {
 			$("reload").className = "";
-			$("reload").title = "Update";
+			$("reload").title = i18n.get("Update");
 		}
 	},
 
 	sendNotification: function() {
-		var a = new Audio(audioData[Storage.audioSrc]);
-		a.volume = Storage.audioVolume;
-		a.play();
+		if (GMailCounter.settings.get("Sounds_enable")){
+			var a = new Audio(GMailCounter.settings.get("Hidden_audioData"));
+			a.volume = GMailCounter.settings.get("Sounds_volume");
+			a.play();
+		}
 	}
 };
-
-window.onresize = ExtensionBar.onresize;
 
 function $ (id, ns) {
 	var ns = (typeof(ns) != "undefined")?ns : document;
 	return ns.getElementById(id);
 }
+
 function $$ (className, ns) {
 	var ns = (typeof(ns) != "undefined")?ns : document;
 	return ns.getElementsByClassName(className);

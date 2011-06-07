@@ -1,4 +1,4 @@
-﻿/*
+/*
 --------------------------------
 	GMail.js
 	Author: Elia Cereda
@@ -14,7 +14,6 @@
 This file is part of Safari's Extension "GMail Counter" and is licensed under the MIT license.
 Copyright (c) 2010-2011 Elia Cereda.
 */
-var Storage = safari.extension.settings;
 
 GMail = {
 	status: "notInited",	//This can be "notInited", "loading", "notLogged", "logged", "error", "updated", "parsing", "noMails", "newMails"
@@ -31,12 +30,16 @@ GMail = {
 			return 'http://purl.org/atom/ns#'; //This is for using with XMLDocument.evaluate, it's the NameSpaceResolver
 		}
 		
-		var base = "https://mail.google.com";
-		var domain = Storage.appsDomain;
-		var label = Storage.label;
+		var url = "https://mail.google.com";
+		var label = GMailCounter.settings.get("Behavior_label");
 		
-		var url=base;
-		url += (domain) ? ("/a/"+ domain + ((domain[domain.length - 1] != "/") ? "/" : "")) : "/mail/";
+		if (GMailCounter.settings.get("GoogleApps_enable")) {
+			var domain = GMailCounter.settings.get("GoogleApps_domain");
+			url += "/a/"+ domain + ((domain[domain.length - 1] != "/") ? "/" : "");
+		} else {
+			url +="/mail/";
+		}
+		
 		url += (feed) ? "feed/atom/" + ((label)? label : "") : "";
 		
 		url += (query) ? "?"+query : "";
@@ -65,7 +68,7 @@ GMail = {
 							(typeof callback == "function")?callback("checkLogin", true):"";
 						} else {
 							GMail.setStatus("notLogged");
-							GMail.logThis("WaRnInG", "checkLogin", "You're NOT logged-in!", 0);
+							GMail.logThis(1, "checkLogin", "You're NOT logged-in!", 0);
 							(typeof callback == "function")?callback("checkLogin", false):"";
 						}
 					} catch (e) {}
@@ -90,7 +93,7 @@ GMail = {
 					} else {
 						GMail.atomFeed = null;
 						GMail.setStatus("error", "Error while downloading feed");
-						GMail.logThis(1, "updateFeed", "I can't download new feed");
+						GMail.logThis(2, "updateFeed", "I can't download new feed");
 						(typeof callback == "function")?callback("updateFeed", "error"):"";
 					}
 				}
@@ -103,8 +106,6 @@ GMail = {
 	
 	parseFeed: function(callback) {
 		this.setStatus("parsing");
-		
-		Storage.previousMailsArray = this.mails;
 		
 		this.mails = [];
 		var length = this.XMLEvaluate(this.atomFeed, '/gmail:feed/gmail:entry').snapshotLength;
@@ -123,7 +124,7 @@ GMail = {
 			}
 								//COLOR IS SET RIGHT HERE
 			this.mails[i].color = this.string2Color(this.mails[i].author); 
-			if(this.mails[i].title == "") this.mails[i].title = "[no subject]"
+			if(this.mails[i].title == "") this.mails[i].title = i18n.get("noSubject");
 			
 		}
 		
@@ -134,9 +135,9 @@ GMail = {
 			
 			GMail.logThis(0, "parseFeed", "There aren't unread mails");
 			
-			this.mails[0] = {
-				title : "No unread mail",
-				author : "GMail Counter",
+			this.mails = [{
+				title : i18n.get("NoNewMessages"),
+				author : i18n.get("GMailCounter"),
 				link : this.GMailBaseURL(false, false, "#inbox"),
 				id : "000-000",
 				
@@ -144,7 +145,7 @@ GMail = {
 				
 				current : "-",
 				total : "0"
-			};
+			}];
 			
 			(typeof callback == "function")?callback("parseFeed", "noMails"):"";
 			
@@ -163,8 +164,8 @@ GMail = {
 		if(this.getStatus() == "notLogged") {
 			GMail.logThis(0, "getMailsArray", "I've returned an array", "notLogged");
 			return [{
-				title : "Click here to login",
-				author : "GMail Counter",
+				title : i18n.get("ClickToLogin"),
+				author : i18n.get("GMailCounter"),
 				link : this.GMailBaseURL(false),
 				id : "000-000",
 				
@@ -172,23 +173,23 @@ GMail = {
 				
 				current : "-",
 				total : "0"
-			}]
+			}];
 		} else if(this.getStatus() == "error" || this.getStatus() == "notInited" || this.mails == null) {
 			GMail.logThis(0, "getMailsArray", "I've returned an array", "error");
 			
 			GMailCounter.event("errorOccurred");
 			
 			return [{
-				title : "An error occurred, click here to contact me...",
-				author : "GMail Counter",
-				link : "mailto:cereda.extensions@yahoo.it?subject=GMail%20Counter%20-%20Error",
+				title : i18n.get("ErrorOccurred"),
+				author : i18n.get("GMailCounter"),
+				link : "https://mail.google.com/mail/?logout",
 				id : "000-000",
 				
 				color: ["", "#000"],
 				
 				current : "-",
 				total : "0"
-			}]
+			}];
 		} else {
 			GMail.logThis(0, "getMailsArray", "I've returned an array", this.mails);
 			return this.mails;
@@ -196,56 +197,43 @@ GMail = {
 	},
 	
 	getMailsCount: function() {
-		count = this.mailsCount
+		count = this.mailsCount;
 		
 		if(this.getStatus() == "notLogged" || this.getStatus() == "error" || this.getStatus() == "notInited" || this.mails == null) {
-			count = 0
+			count = 0;
 		}
 		
 		GMail.logThis(0, "getMailsCount", "There is/are "+count+" unread mail(s)");
 		return (count != null)?count:0;
 	},
 	
-	checkNewMails: function(excludeStatusMessages) {
-		var a = GMail.mails || [];
-		var b = Storage.previousMailsArray || [];
+	checkNewMails: function() {
+		var firstMail = GMail.getMailsArray()[0];
+		var firstId = firstMail.id + firstMail.title + firstMail.author + firstMail.current + firstMail.total;
 		
-		if (b == []) {
-			return false;
-		}
+		var latestFirstId = GMailCounter.settings.get("Hidden_latestFirstId");
 		
-		if (b.length !== a.length) {
-			return false;
-		}
+		GMailCounter.settings.set("Hidden_latestFirstId", firstId);
 		
-		for(i in a) {
-			flag=true;
-			for(j in b) {
-				if(a[i].id == b[j].id && a[i].id != "000-000"){
-					flag=false;
-				}
+		if (firstId !== latestFirstId) {
+			if (firstMail.id === "000-000") {
+				this.logThis(0, "checkNewMails", "Status messages only");
+				return -1;
+			} else {
+				this.logThis(0, "checkNewMails", "There are new mails");
+				return 1;
 			}
-			if(flag) {
-				
-				if(excludeStatusMessages && a[i].id == "000-000") {
-					this.logThis(false, "checkNewMails", "There are only status messages");
-					return false;
-				}
-				this.logThis(false, "checkNewMails", "There are new mails");
-				return true;
-			}
+		} else {
+			this.logThis(0, "checkNewMails", "No new mails");
+			return 0;
 		}
-		this.logThis(false, "checkNewMails", "There aren't any new mails");
-		return false;
 	},
 	
 	setStatus: function(newStatus, newError) {
 		this.status = newStatus;
 		this.error = (this.status == "error") ? newError : 0;
 		
-		this.logThis(this.error, "setStatus", "New status is \""+this.status+"\"", this.error);
-		
-		//TODO: implement a callback system when status change
+		this.logThis((this.status == "error")?2:0, "setStatus", "New status is \""+this.status+"\"", this.error);
 		
 	},
 	
@@ -257,15 +245,20 @@ GMail = {
 		return this.error;
 	},
 	
-	logThis: function(isError, sender, message, data) {
+	logThis: function(errorLevel, sender, message, data) {
 		if(this.debug) {
-			console.group(sender+"() says: ")
-			if(isError === "WaRnInG") {
-				console.warn(message);
-			} else if (isError) {
-				console.error(message);
-			} else {
-				console.log(message);
+			console.group(sender+"() says: ");
+			switch (errorLevel) {
+				case 2:
+					console.error(message);
+				break;
+				
+				case 1:
+					console.warn(message);
+				break;
+				
+				default:
+					console.log(message);
 			}
 			
 			if(data) {

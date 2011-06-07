@@ -1,4 +1,4 @@
-﻿/*
+/*
 --------------------------------
 	global.js
 	Author: Elia Cereda
@@ -14,20 +14,16 @@
 This file is part of Safari's Extension "GMail Counter" and is licensed under the MIT license.
 Copyright (c) 2010-2011 Elia Cereda.
 */
-var Storage = safari.extension.settings || {};
 
 Global = {
 	
 	mailsCount: 0, //Number of unreaded mails
 	mailsArray: [], //Array of latest 20 unreaded mails
-	previousMailsArray: [], //Array before last update
 	
 	currentIndex: 0, //The current mail index in the mailsArray
 	updateState: false, //True if it's updating else false
 	
-	latestFirstId: null,
-	
-	barChangeActiveTimeout: "", //The container for the Timeout reference
+	barChangeActiveTimeout: null, //The container for the Timeout reference
 	
 	init: function () {		
 		safari.extension.bars.forEach(function(item) {
@@ -42,35 +38,41 @@ Global = {
 	
 	processUpdate: function(forceUpdate) {
 		if (Global.updateState == false || forceUpdate){
-			Global.updateState = true;
-			Global.BarSetUpdateState();
+			Global.setUpdateState(true);
+			
 			GMail.checkLogin(Global.callback);
 		}
+	},
+	
+	processBarClose: function(caller) {
+		safari.extension.bars.forEach(function(bar) {
+				bar.hide();
+		});
 	},
 	
 	validate: function(e) {
 		if (e.command === "button") {
 			Global.processUpdate();
+		} else if (e.command == "preferences") {
+			e.target.title = i18n.get("Settings");
 		}
 	},
 	
 	command: function(e) {
-		Global.openLink(GMail.GMailBaseURL(false, false, "#inbox"));
+		if (e.command === "button") {
+			Global.openLink(GMail.GMailBaseURL(false, false, "#inbox"));
+		} else if (e.command == "preferences") {
+			Global.openLink(safari.extension.baseURI+"settings/index.html", "newTab");
+		}
 	},
 	
 	change: function (e) {
 		switch ( e.key ) {
-			case "hideWhenNoMails":
-				if(!e.newValue) {
-					Global.BarToggle("show", true);
-				} else {
-					Global.processUpdate(true);
-				}
-			break;
-			
-			case "label":
-			case "appsDomain":
-				Global.processUpdate(true);
+			case "settings":
+				if (e.newValue) {
+				Global.openLink(safari.extension.baseURI + "settings/index.html", "newTab");
+				e.target[e.key] = false;
+			}
 			break;
 		}
 	},
@@ -81,8 +83,8 @@ Global = {
 				if (message === true) {
 					GMail.updateFeed(Global.callback);
 				} else {
-					Global.updateState = false;
-					Global.BarSetUpdateState();
+				
+					Global.setUpdateState(false);
 					
 					Global.loadData();
 				}
@@ -92,16 +94,16 @@ Global = {
 				if (message != "error" && message !== null) {
 					GMail.parseFeed(Global.callback);
 				} else {
-					Global.updateState = false;
-					Global.BarSetUpdateState();
+				
+					Global.setUpdateState(false);
 					
 					Global.loadData();
 				}
 			break;
 			
 			case "parseFeed":
-				Global.updateState = false;
-				Global.BarSetUpdateState();
+			
+				Global.setUpdateState(false);
 				
 				switch ( message ) {
 					case "noMails":
@@ -121,42 +123,38 @@ Global = {
 	
 	loadData: function () {
 		Global.mailsCount = GMail.getMailsCount();
-		Global.previousMailsArray = Global.mailsArray;
+		
 		Global.mailsArray = GMail.getMailsArray();
 		
 		safari.extension.toolbarItems.forEach(function(item) {
 			if(item.command === "button") {
 				if(Global.mailsCount != 0) {
-					item.toolTip = "GMail Counter - "+Global.mailsCount+" new message"+(Global.mailsCount == 1?"":"s");
+					item.toolTip = i18n.get("GMailCounter") + " - " + Global.mailsCount + " " + (Global.mailsCount == 1 ? i18n.get("newMessage") : i18n.get("newMessages"));
 					item.badge = Global.mailsCount;
 				} else if(GMail.getStatus() == "notLogged") {
 					item.toolTip = "GMail Counter - Not logged in";
 					item.badge = 0;
 				} else {
-					item.toolTip = "GMail Counter - No new messages";
+					item.toolTip = i18n.get("GMailCounter") + " - " + i18n.get("noNewMessages");
 					item.badge = 0;
 				}
 			}
 		});
 		
-		Global.sendNotification()
-		
-		var firstId = Global.mailsArray[0].id+Global.mailsArray[0].title+Global.mailsArray[0].author+Global.mailsCount;
-		
-		if (firstId != Global.latestFirstId) {
-			
-			Global.latestFirstId = firstId;
-			Global.currentIndex = 0;
-			
-			Global.BarUpdate(true);
+		switch ( GMail.checkNewMails() ) {
+			case 1:
+				Global.sendNotification()
+			case -1:
+				Global.currentIndex = 0;
+				Global.BarUpdate(true);
+			break;
 		}
 	},
 
-	openLink: function(link) {
-		
+	openLink: function(link, forceMode) {
 		var _tab;
 		
-		switch ( Storage.openIn ) {
+		switch ( forceMode || GMailCounter.settings.get("Behavior_openLinksIn") ) {
 			case "newTab":
 				_tab = safari.application.activeBrowserWindow.openTab();
 			break;
@@ -165,7 +163,12 @@ Global = {
 				_tab = safari.application.openBrowserWindow().activeTab;
 			break;
 			
-			case "GMailTab":
+			case "activeTab":
+				_tab = safari.application.activeBrowserWindow.activeTab;
+			break;
+			
+			case "GmailTab":
+			default:
 				var _window;
 				
 				safari.application.browserWindows.forEach(function(a) {
@@ -183,19 +186,23 @@ Global = {
 				_window.activate();
 				_tab.activate();
 			break;
-			
-			case "activeTab":
-				_tab = safari.application.activeBrowserWindow.activeTab;
-			break;
 		}
 		_tab.url=link;
+	},
+	
+	setUpdateState: function(state) {
+		safari.extension.bars.forEach(function(bar) {
+				var s = bar.contentWindow.ExtensionBar.setUpdateState || function(){};
+				s(state);
+				Global.updateState = state;
+		});
 	},
 	
 	BarToggle: function(action, forceToggle) {
 		switch ( action ) {
 			case "show":
-				if (Storage.hiddenByMe || forceToggle) {
-					Storage.hiddenByMe = false;
+				if (GMailCounter.settings.get("Hidden_BarHiddenByMe") || forceToggle) {
+					GMailCounter.settings.set("Hidden_BarHiddenByMe", false)
 					
 					safari.extension.bars.forEach(function(bar) {
 						bar.show();
@@ -204,8 +211,8 @@ Global = {
 			break;
 			
 			case "hide":
-				if(Storage.hideWhenNoMails || forceToggle) {
-					Storage.hiddenByMe = true;
+				if(GMailCounter.settings.get("HeadViewer_autoHide") || forceToggle) {
+					GMailCounter.settings.set("Hidden_BarHiddenByMe", true)
 					
 					safari.extension.bars.forEach(function(bar) {
 						bar.hide();
@@ -218,11 +225,11 @@ Global = {
 	BarUpdate: function(forceUpdate) {
 		if(Global.mailsArray.length > 1 || forceUpdate) {
 			safari.extension.bars.forEach(function(bar) {
-				u = bar.contentWindow.ExtensionBar.update || function () {};
+				u = bar.contentWindow.ExtensionBar.update || function(){};
 				u();
 				
 				clearTimeout(Global.barChangeActiveTimeout);
-				Global.barChangeActiveTimeout = setTimeout(Global.BarNext, Storage.barTimeout*1000);
+				Global.barChangeActiveTimeout = setTimeout(Global.BarNext, GMailCounter.settings.get("HeadViewer_interval")*1000);
 			});
 		}
 	},
@@ -244,31 +251,10 @@ Global = {
 		}
 		Global.BarUpdate();
 	},
-
-	BarSetUpdateState: function() {
-		safari.extension.bars.forEach(function(bar) {
-				var s = bar.contentWindow.ExtensionBar.setUpdateState || function () {};
-				s(Global.updateState);
-		});
-	},
 	
-	processBarClose: function(caller) {
-		switch ( Storage.closeBehavior ) {
-			default:
-				Storage.hiddenByMe = false;
-				safari.extension.bars.forEach(function(bar) {
-						bar.hide();
-				});
-		}
-	},
-	
-	sendNotification: function(forceNotification) {
-		if(GMail.checkNewMails(true) || forceNotification) {
-			if(Storage.audioState) {
-				var sN = safari.extension.bars[0].contentWindow.ExtensionBar.sendNotification || function () {};
-				sN();
-			}
-		}
+	sendNotification: function() {
+		var sN = safari.extension.bars[0].contentWindow.ExtensionBar.sendNotification || function(){};
+		sN();
 	}
 }
 
