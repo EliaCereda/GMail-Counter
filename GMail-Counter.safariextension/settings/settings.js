@@ -3,6 +3,47 @@ window.addEvent("domready", function () {
 	new FancySettings.initWithManifest(function (settings) {
 		store = new Store("settings");
 		
+		//if(store.get("Hidden_newInstall")) {
+			console.log(store.get("Hidden_newInstall"));
+			
+			store.set("Hidden_newInstall", false);
+			
+			var alertDiv = new Element("div");
+			alertDiv.className = "tab-content show";
+			alertDiv.id = "GCAlertDiv";
+			
+			var title = new Element("h2");
+			title.innerHTML = i18n.get("Welcome");;
+			title.inject(alertDiv);
+			
+			var body = new Element("div");
+			body.id = "GCBody";
+			body.innerHTML = i18n.get("welcomeMessage");
+			body.inject(alertDiv);
+			
+			var image = new Element("img");
+			image.src = i18n.get("context.png");
+			image.inject(alertDiv);
+			
+			var arrow = new Element("img");
+			arrow.id = "GCArrow";
+			arrow.src = "arrow.png";
+			
+			arrow.inject(alertDiv);
+			
+			
+			var close = new Element("input");
+			close.id = "GCClose";
+			close.type = "button";
+			close.value = i18n.get("Close");
+			close.addEvent("click", function () {
+				alertDiv.className = "tab-content";
+			})
+			close.inject(alertDiv);
+			
+			alertDiv.inject(document.body);
+		//}
+		
 		settings.manifest.Sounds_name.element.readOnly = true;
 		
 		var play = new Element("span");
@@ -54,7 +95,7 @@ window.addEvent("domready", function () {
 				iframe.id = "GCiFrame";
 				iframe.src = "http://3.gmailcounter-app.appspot.com/";
 				iframe.scrolling = "no";
-				iframe.setStyle("height", "27px");
+				iframe.setStyle("height", "29px");
 				iframe.setStyle("position", "relative");
 				iframe.setStyle("top", "6px");
 				
@@ -87,51 +128,5 @@ window.addEvent("domready", function () {
 				}
 			}, false);
 		});
-		
-		settings.manifest.Sounds_enable.addEvent("action", function (value) {
-			if(!settings.manifest.Sounds_enable.get()) {
-				settings.manifest.Sounds_volume.element.disabled = true;
-				settings.manifest.Sounds_volume.bundle.setStyle("color", "#7F7F7F");
-
-				settings.manifest.Sounds_description.bundle.setStyle("color", "#7F7F7F");
-
-				settings.manifest.Sounds_name.element.setStyle("color", "#7F7F7F");
-				settings.manifest.Sounds_name.bundle.setStyle("color", "#7F7F7F");
-
-				settings.manifest.Sounds_choose.element.disabled = true;
-				
-				document.id("GCPlayButton").removeEvents("click");
-				document.id("GCPlayButton").setStyle("cursor", "auto");
-			} else {
-				settings.manifest.Sounds_volume.element.disabled = false;
-				settings.manifest.Sounds_volume.bundle.setStyle("color", "#222");
-			
-				settings.manifest.Sounds_description.bundle.setStyle("color", "#555");
-			
-				settings.manifest.Sounds_name.element.setStyle("color", "#222");
-				settings.manifest.Sounds_name.bundle.setStyle("color", "#222");
-			
-				settings.manifest.Sounds_choose.element.disabled = false;
-				
-				document.id("GCPlayButton").addEvent("click", audioToggle);
-				document.id("GCPlayButton").setStyle("cursor", "pointer");
-			}
-			
-		});
-		settings.manifest.Sounds_enable.fireEvent("action");
-		
-		settings.manifest.GoogleApps_enable.addEvent("action", function (value) {
-			if(!settings.manifest.GoogleApps_enable.get()) {
-				settings.manifest.GoogleApps_domain.element.readonly = true;
-				settings.manifest.GoogleApps_domain.element.setStyle("color", "#7F7F7F");
-				settings.manifest.GoogleApps_domain.bundle.setStyle("color", "#7F7F7F");
-			} else {
-				settings.manifest.GoogleApps_domain.element.readonly = false;
-				settings.manifest.GoogleApps_domain.element.setStyle("color", "#222");
-				settings.manifest.GoogleApps_domain.bundle.setStyle("color", "#222");
-			}
-			
-		});
-		settings.manifest.GoogleApps_enable.fireEvent("action");
 	});
 });

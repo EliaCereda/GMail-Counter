@@ -210,8 +210,28 @@ this.i18n = {
     },
 
 	"HeadViewer_closeBehavior-closeAll": {
-	        "en": "close Head Viewer on every window, until you reopen it",
-	        "de": "Head Viewer in jedem Fenster schließen, bis Sie ihn wieder öffnen",
-			"it": "chiudere Head Viewer in ogni finestra, finché non lo riaprirai"
+	   	"en": "close Head Viewer on every window, until you reopen it",
+	   	"de": "Head Viewer in jedem Fenster schließen, bis Sie ihn wieder öffnen",
+	   	"it": "chiudere Head Viewer in ogni finestra, finché non lo riaprirai"
+	},
+	
+	"context.png": {
+		"en": "context.en.png",
+		"de": "context.de.png",
+		"it": "context.it.png"
+	},
+	
+	"Welcome": {
+		"en": "Welcome",
+		"de": "Willkommen",
+		"it": "Benvenuto"
+	},
+	
+	"welcomeMessage": {
+		"en": "<br />\
+			  This is the new Settings window of GMail Counter. You can access it later from \"<i>GMail Counter Settings...</i>\" in the context menu.<br /><br />",
+		"de": "",
+		"it": "<br />\
+			  Questa &egrave; la nuova finestra delle Preferenze di GMail Counter. Vi puoi accedere premendo \"<i>Preferenze di GMail Counter...</i>\" nel menu a tendina.<br /><br />"
 	}
 };

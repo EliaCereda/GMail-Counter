@@ -19,3 +19,48 @@
 	
 	cursor: pointer;
 }
+
+@-webkit-keyframes arrowAnimate {
+	0% {
+		-webkit-transform: translate(0px, 0px);
+	}
+	50% {
+		-webkit-transform: translate(8px, 0px);
+	}
+	100% {
+		-webkit-transform: translate(0px, 0px);
+	}
+}
+
+#GCAlertDiv {
+	background: #fff;
+	border: #C2C2C2 solid 1px;
+	right: 0;
+	height: 270px;
+	-webkit-box-shadow: 5px 5px 10px #888;
+	margin: auto;
+}
+
+#GCBody {
+		border-top: 1px solid #EEE;
+		margin-top: 10px;
+		padding-left: 2px;
+		padding-top: 5px;
+}
+
+#GCArrow {
+	position: relative;
+	right: 60px;
+	bottom: 8px;
+	
+	-webkit-animation-name: arrowAnimate;
+	-webkit-animation-duration: 1.2s;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-timing-function: ease-in-out;
+}
+
+#GCClose {
+	position: absolute;
+	right: 20px;
+	bottom: 20px;
+}

@@ -46,7 +46,8 @@ Copyright (c) 2010-2011 Elia Cereda.
 					"HeadViewer_closeBehavior": "closeAll",
 			"Hidden_BarHiddenByMe": false,
 			"Hidden_latestFirstId": "",
-			"Hidden_audioData": audioData["Bell"]
+			"Hidden_audioData": audioData["Bell"],
+			"Hidden_newInstall": true
 		},
 
 		event: function(e, data) {
@@ -62,5 +63,10 @@ Copyright (c) 2010-2011 Elia Cereda.
 	(function () {
 		GMailCounter.tracker = new ExtTracker(GMailCounter.trackerId, GMailCounter.info.version, true);
 		GMailCounter.settings = new Store("settings", GMailCounter.defaultStore);
+		if(GMailCounter.settings.get("Hidden_newInstall")) {
+			window.addEventListener("load", function(){
+				Global.openLink(safari.extension.baseURI + "settings/index.html", "newTab");
+			}, false);
+		}
 	})();
 })();
