@@ -38,7 +38,7 @@ Copyright (c) 2010-2011 Elia Cereda.
 			//Notifications tab
 				//Sounds group
 					"Sounds_enable": true,
-					"Sounds_volume": 0.5,
+					"Sounds_volume": 1,
 					"Sounds_name": "Bell",
 				//Head Viewer group
 					"HeadViewer_interval": "15",
