@@ -116,7 +116,7 @@ window.addEvent("domready", function () {
 						store.set("Sounds_name", e.data.data.name);
 						settings.manifest.Sounds_name.element.value = e.data.data.name;
 						
-						store.set("Hidden_audioData", "data:"+e.data.data.mimetype+";base64,"+e.data.data.audio);
+						store.set("Hidden_audioDataURI", "data:"+e.data.data.mimetype+";base64,"+e.data.data.audio);
 					break;
 					case "error":
 						Sounds_choose.element.value = Sounds_choose.params.text;
