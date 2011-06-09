@@ -216,7 +216,7 @@ this.i18n = {
 	},
 	
 	"context.png": {
-		"en": "context.en.png",
+		"en": "http://3.gmailcounter-app.appspot.com/images/context.en.png",
 		"de": "context.de.png",
 		"it": "context.it.png"
 	},

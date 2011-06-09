@@ -35,6 +35,10 @@ handlers:
 - url: /favicon\.ico
   static_files: static/images/favicon.ico
   upload: static/images/favicon\.ico
+  
+- url: /images
+  static_dir: static/images
+  expiration: "1d"
 
 #########
 #Generic#

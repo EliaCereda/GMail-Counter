@@ -22,12 +22,12 @@ window.addEvent("domready", function () {
 			body.inject(alertDiv);
 			
 			var image = new Element("img");
-			image.src = i18n.get("context.png");
+			image.src = "http://3.gmailcounter-app.appspot.com/images/"+i18n.get("context.png");
 			image.inject(alertDiv);
 			
 			var arrow = new Element("img");
 			arrow.id = "GCArrow";
-			arrow.src = "arrow.png";
+			arrow.src = "http://3.gmailcounter-app.appspot.com/images/arrow.png";
 			
 			arrow.inject(alertDiv);
 			
