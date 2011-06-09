@@ -216,7 +216,7 @@ this.i18n = {
 	},
 	
 	"context.png": {
-		"en": "http://3.gmailcounter-app.appspot.com/images/context.en.png",
+		"en": "context.en.png",
 		"de": "context.de.png",
 		"it": "context.it.png"
 	},
@@ -230,7 +230,8 @@ this.i18n = {
 	"welcomeMessage": {
 		"en": "<br />\
 			  This is the new Settings window of GMail Counter. You can access it later from \"<i>GMail Counter Settings...</i>\" in the context menu.<br /><br />",
-		"de": "",
+		"de": "<br />\
+			  Das ist das neue Einstellungsfenster von GMail Counter. Sie können es später über den Menüpunkt \"<i>GMail Counter Optionen...</i>\" im Kontextmenü erreichen.<br /><br />",
 		"it": "<br />\
 			  Questa &egrave; la nuova finestra delle Preferenze di GMail Counter. Vi puoi accedere premendo \"<i>Preferenze di GMail Counter...</i>\" nel menu a tendina.<br /><br />"
 	}

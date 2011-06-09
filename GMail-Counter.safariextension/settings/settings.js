@@ -3,7 +3,7 @@ window.addEvent("domready", function () {
 	new FancySettings.initWithManifest(function (settings) {
 		store = new Store("settings");
 		
-		//if(store.get("Hidden_newInstall")) {
+		if(store.get("Hidden_newInstall")) {
 			console.log(store.get("Hidden_newInstall"));
 			
 			store.set("Hidden_newInstall", false);
@@ -42,7 +42,7 @@ window.addEvent("domready", function () {
 			close.inject(alertDiv);
 			
 			alertDiv.inject(document.body);
-		//}
+		}
 		
 		settings.manifest.Sounds_name.element.readOnly = true;
 		
