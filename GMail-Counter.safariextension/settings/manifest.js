@@ -36,6 +36,13 @@ this.manifest = {
                 ]
             ]
         },
+		{
+            "tab": i18n.get("general"),
+            "group": i18n.get("behavior"),
+            "name": "Behavior_openSettingsContext",
+            "type": "checkbox",
+            "label": i18n.get("Behavior_openSettingsContext")
+        },
         {
             "tab": i18n.get("general"),
             "group": i18n.get("GoogleApps"),

@@ -4,8 +4,6 @@ window.addEvent("domready", function () {
 		store = new Store("settings");
 		
 		if(store.get("Hidden_newInstall")) {
-			console.log(store.get("Hidden_newInstall"));
-			
 			store.set("Hidden_newInstall", false);
 			
 			var alertDiv = new Element("div");
@@ -22,12 +20,12 @@ window.addEvent("domready", function () {
 			body.inject(alertDiv);
 			
 			var image = new Element("img");
-			image.src = "http://3.gmailcounter-app.appspot.com/images/"+i18n.get("context.png");
+			image.src = "http://4.gmailcounter-app.appspot.com/images/"+i18n.get("context.png");
 			image.inject(alertDiv);
 			
 			var arrow = new Element("img");
 			arrow.id = "GCArrow";
-			arrow.src = "http://3.gmailcounter-app.appspot.com/images/arrow.png";
+			arrow.src = "http://4.gmailcounter-app.appspot.com/images/arrow.png";
 			
 			arrow.inject(alertDiv);
 			
@@ -93,7 +91,7 @@ window.addEvent("domready", function () {
 				
 				var iframe = new Element("iframe");
 				iframe.id = "GCiFrame";
-				iframe.src = "http://3.gmailcounter-app.appspot.com/";
+				iframe.src = "http://4.gmailcounter-app.appspot.com/";
 				iframe.scrolling = "no";
 				iframe.setStyle("height", "29px");
 				iframe.setStyle("position", "relative");
@@ -123,8 +121,7 @@ window.addEvent("domready", function () {
 						document.id("GCCancelButton").destroy();
 						document.id("GCiFrame").destroy();
 						
-						alert(e.data.data.details)
-						console.log(e);
+						alert(e.data.data.details);
 				}
 			}, false);
 		});

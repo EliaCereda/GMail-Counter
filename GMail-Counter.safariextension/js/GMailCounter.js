@@ -32,6 +32,7 @@ Copyright (c) 2010-2011 Elia Cereda.
 				//Behavior group
 					"Behavior_label": "Inbox",
 					"Behavior_openLinksIn": "GmailTab",
+					"Behavior_openSettingsContext": true,
 				//Google Apps group
 					"GoogleApps_enable": false,
 					"GoogleApps_domain": "",

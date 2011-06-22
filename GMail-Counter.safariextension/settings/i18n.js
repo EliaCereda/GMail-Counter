@@ -84,6 +84,11 @@ this.i18n = {
         "de": "einem neuen Fenster",
 		"it": "in una nuova finestra"
     },
+	"Behavior_openSettingsContext": {
+        "en": "Show \"GMail Counter Settings...\" in the context menu",
+        "de": "\"GMail Counter Optionen...\" im Kontextmenü anzeigen",
+		"it": "Mostra \"Preferenze di GMail Counter...\" nel menu a tendina"
+    },
 
  	"GoogleApps": {
         "en": "Google Apps",

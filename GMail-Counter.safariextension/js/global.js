@@ -55,6 +55,7 @@ Global = {
 			Global.processUpdate();
 		} else if (e.command == "preferences") {
 			e.target.title = i18n.get("Settings");
+			e.target.disabled = !GMailCounter.settings.get("Behavior_openSettingsContext");
 		}
 	},
 	
