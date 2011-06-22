@@ -50,7 +50,7 @@ window.addEvent("domready", function () {
 	
 		function audioToggle () {
 			if(play.innerHTML == "▶") {
-				window.audioObj = new Audio(store.get("Hidden_audioData"));
+				window.audioObj = new Audio(store.get("Hidden_audioDataURI"));
 				audioObj.addEventListener("ended", audioToggle, false);
 				
 				audioObj.play();
