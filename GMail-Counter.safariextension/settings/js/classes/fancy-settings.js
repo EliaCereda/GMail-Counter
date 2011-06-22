@@ -35,7 +35,11 @@
                 tab.content = this.tab.create();
                 tab.content.tab.set("text", params.tab);
                 this.search.bind(tab.content.tab);
-                
+
+                if (params.tab == location.hash.substring(1)) {
+                    tab.content.activate();
+                }
+
                 tab.content = tab.content.content;
                 (new Element("h2", {
                     "text": params.tab
@@ -144,7 +148,7 @@
             });
             document.body.removeClass("measuring");
         }
-        
+
         if (callback !== undefined) {
             callback(settings);
         }

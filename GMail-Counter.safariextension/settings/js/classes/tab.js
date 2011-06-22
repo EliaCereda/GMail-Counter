@@ -20,6 +20,12 @@
             if (this.creator.activeBundle && this.creator.activeBundle !== this) {
                 this.creator.activeBundle.deactivate();
             }
+
+            var tab = this.tab.get("text");
+            if (tab) {
+                location.hash = "#" + tab;
+            }
+
             this.tab.addClass("active");
             this.content.addClass("show");
             this.creator.activeBundle = this;
