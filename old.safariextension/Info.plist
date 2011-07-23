@@ -7,15 +7,15 @@
 	<key>Builder Version</key>
 	<string>6534.50</string>
 	<key>CFBundleDisplayName</key>
-	<string>GMail Counter</string>
+	<string>GMail Counter-old</string>
 	<key>CFBundleIdentifier</key>
-	<string>it.eliacereda.gmailcounter.alpha</string>
+	<string>it.eliacereda.gmailcounter</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0 | alpha 1</string>
+	<string>0.9.2</string>
 	<key>CFBundleVersion</key>
-	<string>10.0-1</string>
+	<string>9.2.1</string>
 	<key>Chrome</key>
 	<dict>
 		<key>Bars</key>
@@ -41,7 +41,7 @@
 			</dict>
 		</array>
 		<key>Global Page</key>
-		<string>global/global.html</string>
+		<string>global.html</string>
 		<key>Toolbar Items</key>
 		<array>
 			<dict>
