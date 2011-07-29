@@ -5,13 +5,17 @@
 		options: {
 			baseURL: "https://mail.google.com/mail/",
 			label: "inbox",
-			onAvailableDataUpdate: function (){}
+			
+			onAvailableDataUpdate: null
 		},
 		
+		updateState: 'notStarted',
 		loginState: 'unknown',
 		
 		initialize: function (options) {
 			this.setOptions(options);
+			
+			this.update();
 		},
 		
 		generateURL: function (feed, query, anchor) {
@@ -20,32 +24,34 @@
 
 			url += (query) ? "?"+query : "";
 
-			url += (anchor) ? anchor : "";
+			url += (anchor) ? "#"+anchor : "";
 			
 			return url;
 		},
 		
+		update: function () {
+			this.updateState = 'loginState'
+			this.checkLoginState();
+		}.
+		
 		checkLoginState: function static() {
-			static.request = new Request({
-				url: this.generateURL(false, "view=nonExistingView"),
-				method: "get",
-				onSuccess: function() {
-					this.loginState = 'logout';
-					this.fireEvent('availableDataUpdate', ['loginState']);
-				}.bind(this),
-				onFailure: function(xhr) {
-					if (xhr.status == '404' || xhr.status == '503') {
-						this.loginState = 'login';
-					} else {
-						this.loginState = 'unknown';
-					}
-					this.fireEvent('availableDataUpdate', ['loginState']);
-				}.bind(this),
-				onComplete: function(){
-					console.log(this);
-					console.log(self);
-				}.bind(this)
-			});
+			if (!static.request) { //Referring to the function to achieve static behavior (and avoid concurrent requests)
+				static.request = new Request({
+					url: this.generateURL(false, "view=nonExistingView"),
+					method: "get"
+				});
+				
+				static.request.addEvent("complete", function(request) {
+						if (request.status == '404' || request.status == '503') {
+							this.loginState = 'login';
+						} else if (request.status == '200') {
+							this.loginState = 'logout';
+						} else {
+							this.loginState = 'unknown';
+						}
+						this.fireEvent('availableDataUpdate', ['loginState']);
+				}.bind(this, static.request))
+			}
 			static.request.send();
 		}
 	});
