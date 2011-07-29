@@ -5,7 +5,7 @@
 	<key>Author</key>
 	<string>Elia Cereda</string>
 	<key>Builder Version</key>
-	<string>6534.42</string>
+	<string>6534.50</string>
 	<key>CFBundleDisplayName</key>
 	<string>GMail Counter</string>
 	<key>CFBundleIdentifier</key>
@@ -13,9 +13,9 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.9.2</string>
+	<string>0.9.3</string>
 	<key>CFBundleVersion</key>
-	<string>9.2.1</string>
+	<string>9.3</string>
 	<key>Chrome</key>
 	<dict>
 		<key>Bars</key>
