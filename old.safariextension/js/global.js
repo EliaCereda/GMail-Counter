@@ -84,10 +84,9 @@ Global = {
 				if (message === true) {
 					GMail.updateFeed(Global.callback);
 				} else {
-				
-					Global.setUpdateState(false);
-					
 					Global.loadData();
+					
+					Global.setUpdateState(false);
 				}
 			break;
 			
@@ -95,17 +94,14 @@ Global = {
 				if (message != "error" && message !== null) {
 					GMail.parseFeed(Global.callback);
 				} else {
-				
-					Global.setUpdateState(false);
-					
 					Global.loadData();
+					
+					Global.setUpdateState(false);
 				}
 			break;
 			
 			case "parseFeed":
 			
-				Global.setUpdateState(false);
-				
 				switch ( message ) {
 					case "noMails":
 						Global.BarToggle("hide");
@@ -117,6 +113,8 @@ Global = {
 						Global.loadData();
 					break;
 				}
+				
+				Global.setUpdateState(false);
 			break;
 				
 		}
