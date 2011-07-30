@@ -5,12 +5,15 @@
 		options: {
 			baseURL: "https://mail.google.com/mail/",
 			label: "inbox",
+			userAccount: null,
 			
 			onAvailableDataUpdate: null
 		},
 		
-		updateState: 'notStarted',
+		updateState: 'notInited', //checkLoginState, downloadFeed,, updateCompleted, updateFailed
 		loginState: 'unknown',
+		
+		rawFeed: null,
 		
 		initialize: function (options) {
 			this.setOptions(options);
@@ -20,22 +23,34 @@
 		
 		generateURL: function (feed, query, anchor) {
 			var url = this.options.baseURL;
-			url += (feed) ? "feed/atom/" + ((this.options.label)? this.options.label : "") : "";
+			
+			url += (this.options.userAccount)? "u/"+this.options.userAccount+"/" : "";
+			
+			url += (feed) ? "feed/atom/" + this.options.label || "" : "";
 
-			url += (query) ? "?"+query : "";
+			url += (query) ? "?" + query : "";
 
-			url += (anchor) ? "#"+anchor : "";
+			url += (anchor) ? "#" + anchor : "";
 			
 			return url;
 		},
 		
 		update: function () {
-			this.updateState = 'loginState'
-			this.checkLoginState();
-		}.
+			this.updateState = 'checkLoginState';
+			this.checkLoginState(function () {
+				if (this.loginState == 'login') {
+					this.updateState = 'downloadFeed';
+					this.downloadFeed(function () {
+						if (this.rawFeed != null) {
+							this.updateState = 'parseFeed';
+						}
+					});
+				}
+			}.bind(this));
+		},
 		
-		checkLoginState: function static() {
-			if (!static.request) { //Referring to the function to achieve static behavior (and avoid concurrent requests)
+		checkLoginState: function static(onComplete) {
+			if (!static.request) { //Referring to the function to avoid concurrent requests
 				static.request = new Request({
 					url: this.generateURL(false, "view=nonExistingView"),
 					method: "get"
@@ -49,10 +64,41 @@
 						} else {
 							this.loginState = 'unknown';
 						}
+
 						this.fireEvent('availableDataUpdate', ['loginState']);
+						
+						if (typeOf(onComplete) == 'function') {
+							onComplete();
+						}
 				}.bind(this, static.request))
 			}
 			static.request.send();
-		}
+		},
+		
+		downloadFeed: function static(onComplete) {
+			if (!static.request) { //Referring to the function to avoid concurrent requests
+				static.request = new Request({
+					url: this.generateURL(true),
+					method: "get",
+					
+					onRequest: function () {
+						this.rawFeed = null;
+					}.bind(this),
+					onSuccess: function (responseText, responseXML){
+						this.rawFeed = responseXML;
+					}.bind(this),
+					onComplete: function () {
+						this.fireEvent('availableDataUpdate', ['rawFeed']);
+						
+						if (typeOf(onComplete) == 'function') {
+							onComplete();
+						}
+					}.bind(this)
+				});
+			}
+			static.request.send();
+		},
+		
+		parseFeed: function(onComplete)
 	});
 }());
