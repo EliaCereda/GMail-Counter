@@ -53,7 +53,12 @@
 			if (!static.request) { //Referring to the function to avoid concurrent requests
 				static.request = new Request({
 					url: this.generateURL(false, "view=nonExistingView"),
-					method: "get"
+					method: "get",
+					timeout: 10,
+					
+					onTimeout: function() {
+						this.updateState = 'updateFailed';
+					}
 				});
 				
 				static.request.addEvent("complete", function(request) {
@@ -99,6 +104,8 @@
 			static.request.send();
 		},
 		
-		parseFeed: function(onComplete)
+		parseFeed: function(onComplete) {
+			
+		}
 	});
 }());
