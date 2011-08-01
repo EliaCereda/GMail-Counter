@@ -16,6 +16,8 @@
 		loginState: 'unknown', //login, logout
 		
 		rawFeed: null,
+		mailsArray: [],
+		mailsCount: null,
 		
 		initialize: function (options) {
 			this.setOptions(options);
@@ -112,7 +114,26 @@
 			}
 		},
 		
-		parseFeed: function () {console.log("Parse")},
+		parseFeed: function () {
+			if(this.loginState == 'login' && this.rawFeed) {
+				this.mailsArray = [];
+				this.mailsCount = a.rawFeed.getElementsByTagName("fullcount")[0].textContent;
+				
+				var entries = this.rawFeed.getElementsByTagName("entry")
+				for (key in entries) {
+					if(typeOf(+(key)) == 'number') {
+						var entry = entries[key];
+						
+						this.mailsArray[this.mailsArray.length] = {
+							subject: entry.getElementsByTagName("title")[0].textContent,
+							sender: entry.getElementsByTagName("author")[0].getElementsByTagName("name")[0].textContent,
+							link: entry.getElementsByTagName("link")[0].getAttribute("href"),
+							id: entry.getElementsByTagName("id")[0].textContent,
+						};
+					}
+				}
+			}
+		},
 		
 		updateComplete: function () {},
 		updateFailed: function () {}
